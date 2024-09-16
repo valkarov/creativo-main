@@ -1,0 +1,52 @@
+<div id="talleres" class="service-style-four pb-70">
+    <div class="container">
+        <div class="section-title">
+            <span class="space">---</span>
+            <h2>Gestiona los pagos ingresados aquí</h2>
+            <p>Puedes aceptar o rechazar un pago hecho por un cliente. Antes de rechazarlo, por favor ponte en contacto para verificar que no sea un error.</p>
+        </div>
+        <div class="row">
+            <ng-template ngFor let-taller [ngForOf]="pagosPorTaller" ; let-i="index">
+            <h3>{{nombresDeTalleres[i]}}</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>IdClient</th>
+                            <th>LastDigits</th>
+                            <th>Owner</th>
+                            <th>Price</th>
+                            <th>State</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-template ngFor let-pago [ngForOf]="taller" ; let-i="index">
+                            <tr>
+                                <td>{{ pago.Id }}</td>
+                                <td>{{ pago.IdClient }}</td>
+                                <td>{{ pago.LastDigits }}</td>
+                                <td>{{ pago.Owner }}</td>
+                                <td>₡{{ pago.Price }}</td>
+                                <td>{{ pago.State }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-around">
+                                        <button class="btn btn-success btn-sm" (click)="aceptarPago(pago)">Accept</button>
+                                        <button class="btn btn-danger btn-sm" (click)="rechazarPago(pago)">Reject</button>
+                                        <button class="btn btn-info btn-sm" (click)="contactarCliente(pago)">Contact</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                </table>
+            </div>
+            </ng-template>
+
+
+
+            
+        </div>
+    </div>
+</div>
