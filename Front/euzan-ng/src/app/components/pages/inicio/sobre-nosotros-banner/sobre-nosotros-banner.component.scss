@@ -121,45 +121,42 @@
         }
     }
 }
-.banner-bg-two {
-    background-image: url(../../../../../assets/img/sass-landing/home-bg.png);
-}
-.banner-style-two {
-    position: relative;
 
-    .banner-image-two {
-        img {
-            position: absolute;
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    .banner-image-two{
+        img{
+            max-width: 100%;
         }
-        :nth-child(1) {
-            right: 0;
-            z-index: 1;
-            bottom: 80px;
-            max-width: 710px;
-            animation: translateY 10s infinite linear;
-        }
-        :nth-child(2) {
-            z-index: 2;
-            right: 35px;
-            bottom: 17px;
-            max-width: 200px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px 0 #0000003b;
-            animation: translateX 10s infinite linear;
-        }
-        :nth-child(3) {
-            right: 35px;
-            bottom: 415px;
-            max-width: 200px;
+
+        :nth-child(2){
+           position: absolute;
+           right: 10%;
+           max-width: 70px;
+           top:30%;           
         }
     }
 }
+
+.banner-bg-two {
+    background-image: url(../../../../../assets/img/sass-landing/home-bg.png);
+}
+
+
 .banner-bg-three {
     background-image: url(../../../../../assets/img/sass-landing/banner-three.png);
 }
 
 @media only screen and (max-width: 767px) {
-
+    .about-content {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        gap:50px;
+        justify-content: center;
+        align-items: center;
+    }
     .main-banner {
         height: 100%;
         background:#069ee8;
@@ -169,7 +166,7 @@
         }
         .banner-text {
             text-align: center;
-            padding: 120px 0 45px;
+            
 
             h1 {
                 font-size: 25px;
@@ -201,10 +198,8 @@
             }
         }
     }
+
     .banner-style-two {
-        .banner-text {
-            padding: 120px 0 200px;
-        }
         .banner-image-two {
             :nth-child(1) {
                 max-width: 300px;
@@ -229,9 +224,16 @@
 
 }
 
-@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+
+}
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .about-content {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 
     .main-banner {
         height: 100%;
@@ -334,7 +336,6 @@
         height: 100%;
 
         .banner-text {
-            padding: 150px 0 140px;
             max-width: 550px;
 
             h1 {

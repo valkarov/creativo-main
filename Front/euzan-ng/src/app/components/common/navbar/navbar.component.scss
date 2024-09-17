@@ -3,7 +3,7 @@
 	left: 0;
 	z-index: 2;
 	width: 100%;
-	position: fixed !important;
+	position: sticky !important;
 	background: #069ee8 !important;
     padding: {
         top: 30px;
@@ -14,7 +14,7 @@
         left: 0;
         width: 100%;
         z-index: 999;
-        position: fixed;
+        position: fixed !important;
         background-color: #069ee8 !important;
         box-shadow:0 0 10px rgba(0, 0, 0, 0.36);
         padding: {
