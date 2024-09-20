@@ -335,6 +335,7 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Link" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MapPlace" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Workshop_Client">
           <Key>

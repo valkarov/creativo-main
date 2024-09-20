@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\metal\\OneDrive\\Documentos\\github\\creativo-main\\API\\creativo-API\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|C:\\Users\\metal\\OneDrive\\Documentos\\github\\creativo-main\\API\\creativo-API\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
+      "RelativeMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|solutionrelative:models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|c:\\users\\metal\\onedrive\\documentos\\github\\creativo-main\\api\\creativo-api\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|solutionrelative:web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|c:\\users\\metal\\onedrive\\documentos\\github\\creativo-main\\api\\creativo-api\\models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|",
-      "RelativeMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|solutionrelative:models\\model1.edmx||{C99AEA30-8E36-4515-B76F-496F5A48A6AA}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|c:\\users\\metal\\onedrive\\documentos\\github\\creativo-main\\api\\creativo-api\\controllers\\adminscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|C:\\Users\\metal\\OneDrive\\Documentos\\github\\creativo-main\\API\\creativo-API\\controllers\\adminscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{029BBAFE-D58E-4129-A6AA-2F61F6C13CB6}|creativo-API.csproj|solutionrelative:controllers\\adminscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,7 +30,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Model1.edmx [Diagram1]",
               "DocumentMoniker": "C:\\Users\\metal\\OneDrive\\Documentos\\github\\creativo-main\\API\\creativo-API\\Models\\Model1.edmx",
               "RelativeDocumentMoniker": "Models\\Model1.edmx",
@@ -42,13 +42,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Web.config",
               "DocumentMoniker": "C:\\Users\\metal\\OneDrive\\Documentos\\github\\creativo-main\\API\\creativo-API\\Web.config",
               "RelativeDocumentMoniker": "Web.config",
               "ToolTip": "C:\\Users\\metal\\OneDrive\\Documentos\\github\\creativo-main\\API\\creativo-API\\Web.config",
               "RelativeToolTip": "Web.config",
-              "ViewState": "AgIAADAAAAAAAAAAAAApwD0AAADfAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
               "WhenOpened": "2024-09-17T14:39:44.895Z",
               "EditorCaption": ""

@@ -21,5 +21,6 @@ namespace creativo_API.Models
         public string Description { get; set; }
         public string Link { get; set; }
         public string Type { get; set; }
+        public string MapPlace { get; set; }
     }
 }
