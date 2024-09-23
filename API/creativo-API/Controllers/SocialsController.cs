@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using creativo_API.Models;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
@@ -47,34 +45,34 @@ namespace creativo_API.Controllers
         }
         static void correo()
         {
-                // Configuración del servidor SMTP de Gmail
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
-                {
-                    Port = 587, // Puerto SMTP de Gmail
-                    Credentials = new NetworkCredential("clubcreativo95@gmail.com", "rhslulyagacuxvbe"),
-                    EnableSsl = true, // Habilitar SSL
-                };
+            // Configuración del servidor SMTP de Gmail
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587, // Puerto SMTP de Gmail
+                Credentials = new NetworkCredential("clubcreativo95@gmail.com", "rhslulyagacuxvbe"),
+                EnableSsl = true, // Habilitar SSL
+            };
 
-                // Configuración del mensaje de correo
-                MailMessage mail = new MailMessage
-                {
-                    From = new MailAddress("clubcreativo95@gmail.com"),
-                    Subject = "Asunto del correo",
-                    Body = "Cuerpo del mensaje del correo",
-                    IsBodyHtml = true, // Si el cuerpo del correo es HTML
-                };
-                mail.To.Add("andyfrasiel@gmail.com");
+            // Configuración del mensaje de correo
+            MailMessage mail = new MailMessage
+            {
+                From = new MailAddress("clubcreativo95@gmail.com"),
+                Subject = "Asunto del correo",
+                Body = "Cuerpo del mensaje del correo",
+                IsBodyHtml = true, // Si el cuerpo del correo es HTML
+            };
+            mail.To.Add("andyfrasiel@gmail.com");
 
-                // Enviar el correo
-                smtpClient.Send(mail);
-                Console.WriteLine("Correo enviado exitosamente.");
-            
-            
+            // Enviar el correo
+            smtpClient.Send(mail);
+            Console.WriteLine("Correo enviado exitosamente.");
+
+
         }
 
 
-// GET: api/Socials/5
-[ResponseType(typeof(Social))]
+        // GET: api/Socials/5
+        [ResponseType(typeof(Social))]
         public IHttpActionResult GetSocial(string id)
         {
             Social social = db.Socials.Find(id);

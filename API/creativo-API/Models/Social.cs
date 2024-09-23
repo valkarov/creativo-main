@@ -14,8 +14,18 @@ namespace creativo_API.Models
     
     public partial class Social
     {
-        public string Username { get; set; }
-        public string Type { get; set; }
-        public string Link { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Social()
+        {
+            this.EntrepeneurshipSocials = new HashSet<EntrepeneurshipSocial>();
+        }
+    
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public int SocialTypeId { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EntrepeneurshipSocial> EntrepeneurshipSocials { get; set; }
+        public virtual SocialType SocialType { get; set; }
     }
 }

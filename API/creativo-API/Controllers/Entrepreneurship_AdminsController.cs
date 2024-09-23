@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using creativo_API.Models;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using System.Web.UI.WebControls;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
@@ -111,7 +107,7 @@ namespace creativo_API.Controllers
                 return BadRequest("El usuario está vacio");
             }
 
-            if (db.Clients.Count(e => e.Username == entrepreneurship_Admins.IdClient) == 0 )
+            if (db.Clients.Count(e => e.Username == entrepreneurship_Admins.IdClient) == 0)
             {
                 return BadRequest("Usuario no exite");
             }
@@ -121,7 +117,7 @@ namespace creativo_API.Controllers
                 return BadRequest("Emprendimiento no exite");
             }
 
-            if (db.Entrepreneurship_Admins.Count(e => e.IdEntrepreneurship == entrepreneurship_Admins.IdEntrepreneurship && e.IdClient == entrepreneurship_Admins.IdClient) >0 )
+            if (db.Entrepreneurship_Admins.Count(e => e.IdEntrepreneurship == entrepreneurship_Admins.IdEntrepreneurship && e.IdClient == entrepreneurship_Admins.IdClient) > 0)
             {
                 return BadRequest("el usuario ya es administrador");
             }

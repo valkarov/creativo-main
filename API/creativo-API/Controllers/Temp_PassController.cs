@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using creativo_API.Models;
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
@@ -81,12 +78,13 @@ namespace creativo_API.Controllers
         [ResponseType(typeof(Temp_Pass))]
         public IHttpActionResult PostTemp_Pass(Temp_Pass temp_Pass)
         {
-            
+
             string email = GetUserEmail(temp_Pass.Username);
-            if (email==null)
+            if (email == null)
             {
                 return BadRequest("No se ha encontrado un usuario que quieres recuperar");
-            } else
+            }
+            else
             {
                 temp_Pass.State = "Espera";
                 temp_Pass.Email = email;
@@ -232,7 +230,7 @@ namespace creativo_API.Controllers
             {
                 From = new MailAddress("clubcreativo95@gmail.com"),
                 Subject = "Código de Seguridad para cambio de contraseña",
-                Body = "Parece que has olvidado tu contraseña, tu pin para reestablecerla es: " + spin +". Por favor ignora este mensaje si no solicitaste este cambio.",
+                Body = "Parece que has olvidado tu contraseña, tu pin para reestablecerla es: " + spin + ". Por favor ignora este mensaje si no solicitaste este cambio.",
                 IsBodyHtml = true // Si el cuerpo del correo es HTML
             };
 

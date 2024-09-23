@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using creativo_API.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
@@ -44,7 +40,7 @@ namespace creativo_API.Controllers
         [ResponseType(typeof(Client))]
         public IHttpActionResult GetClientById(int id)
         {
-            
+
             if (!IdExists(id))
             {
                 return BadRequest("No Encontrado");
@@ -62,7 +58,7 @@ namespace creativo_API.Controllers
             if (!UserExists(user))
             {
                 return BadRequest("No Encontrado");
-            } 
+            }
 
 
             return Ok();
@@ -89,7 +85,7 @@ namespace creativo_API.Controllers
         [ResponseType(typeof(Client))]
         public IHttpActionResult GetClientByEmail(string email)
         {
-            
+
             if (!EmailExistsPointless(email))
             {
                 return BadRequest("No Encontrado");
@@ -250,7 +246,7 @@ namespace creativo_API.Controllers
             return Regex.IsMatch(correo, patron);
         }
 
-        
+
         private bool EmailExists(string email)
         {
             return

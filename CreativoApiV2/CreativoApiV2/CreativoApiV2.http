@@ -1,0 +1,6 @@
+@CreativoApiV2_HostAddress = http://localhost:5202
+
+GET {{CreativoApiV2_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

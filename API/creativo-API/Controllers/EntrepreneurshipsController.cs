@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using creativo_API.Models;
+using System;
 using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
@@ -135,7 +132,7 @@ namespace creativo_API.Controllers
                 correo("" +
                     "Tu emprendimiento " + entrepreneurship.Name +
                     " ha sido Rechazada." +
-                    " Nuestros ejecutivos han dicho: '" + entrepreneurship.Reason +"'. " +
+                    " Nuestros ejecutivos han dicho: '" + entrepreneurship.Reason + "'. " +
                     "¡No te desanimes!, puedes volver a enviar la solicitud y volveremos a darle un vistazo."
                     , entrepreneurship.Email);
             }
@@ -178,7 +175,7 @@ namespace creativo_API.Controllers
 
         static void correo(string mensaje, string correo)
         {
-            
+
             // Configuración del servidor SMTP de Gmail
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
             {

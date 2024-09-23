@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="creativoDBModel.Province" Width="1.5" PointX="11.375" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="creativoDBModel.Question" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="creativoDBModel.Role" Width="1.5" PointX="5" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="creativoDBModel.Workshop" Width="1.5" PointX="0.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="creativoDBModel.Workshop" Width="1.875" PointX="0.5" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="creativoDBModel.Workshop_Client" Width="1.5" PointX="0.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="creativoDBModel.Workshop_Photos" Width="1.5" PointX="2.75" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="creativoDBModel.FK__Workshop___IdWor__0E6E26BF" ManuallyRouted="false" />
