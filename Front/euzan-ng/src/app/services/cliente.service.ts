@@ -1,27 +1,33 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { ClienteInterface } from '../interfaces/cliente';
-import { ConexionService } from './conexion.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { UsersInterface } from "../interfaces/cliente";
+import { ConexionService } from "./conexion.service";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root",
 })
-export class ClienteService extends ConexionService<ClienteInterface> {
-  getResourceURL(): string {
-    return '/Clients';
-  }
-  getHomePage(): string {
-    return 'cliente-perfil';
-  }
-  getNombre(): string {
-    return 'Cliente';
-  }
+export class UsersService extends ConexionService<UsersInterface> {
+    getResourceURL(): string {
+        return "/Users";
+    }
+    getHomePage(): string {
+        return "cliente-perfil";
+    }
+    getNombre(): string {
+        return "Cliente";
+    }
+    login(username, password) {
+        return this.httpClient.post("https://localhost:44301/api/Users/Login", {
+            Username: username,
+            Password: password,
+        });
+    }
 
-  constructor(
-    protected override httpClient: HttpClient,
-    protected override route: Router
-  ) {
-    super(httpClient, route);
-  }
+    constructor(
+        protected override httpClient: HttpClient,
+        protected override route: Router
+    ) {
+        super(httpClient, route);
+    }
 }

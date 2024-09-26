@@ -9,10 +9,11 @@ export interface RepartidorInterface {
     Canton: string;
     District: string;
     Phone: string;
-    Email:string;
+    Email: string;
+    Role: string;
 }
 
-export class Repartidor implements RepartidorInterface{
+export class Repartidor implements RepartidorInterface {
     IdDeliveryPerson!: number;
     Username!: string;
     Password!: string;
@@ -23,5 +24,6 @@ export class Repartidor implements RepartidorInterface{
     Canton!: string;
     District!: string;
     Phone!: string;
-    Email!:string;
+    Email!: string;
+    Role: string;
 }

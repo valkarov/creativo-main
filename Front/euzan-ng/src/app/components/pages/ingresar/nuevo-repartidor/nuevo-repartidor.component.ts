@@ -63,8 +63,7 @@ export class NuevoRepartidorComponent {
     mensajeId: string = "";
     mensajeUser: string = "";
     mensajeEmail: string = "";
-  temp:TempPass = new TempPass();
-
+    temp: TempPass = new TempPass();
 
     guardar() {
         if (this.editMode) {
@@ -222,107 +221,122 @@ export class NuevoRepartidorComponent {
     }
 
     async recuperar() {
-
-      this.temp.Username = this.objeto.Username;
-      this.tempService.add(this.temp).subscribe({
-          next: (data) => {
-              this.temp = data;
-              this.continuarRecuperacion();
-          },
-          error: (err) => {
-              console.log(err);
-              Swal.fire({
-                  icon: 'error',
-                  title: 'Error',
-                  html: `
+        this.temp.Username = this.objeto.Username;
+        this.tempService.add(this.temp).subscribe({
+            next: (data) => {
+                this.temp = data;
+                this.continuarRecuperacion();
+            },
+            error: (err) => {
+                console.log(err);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    html: `
                       ${err.error.Message}
                       <br>
                       <button id="cancel-request" class="swal2-cancel swal2-styled" style="display: inline-block; margin-top: 10px;">
                           ¿Cancelar la solicitud?
                       </button>
                   `,
-              });
-  
-              // Añadir el evento al botón después de que el Swal se haya mostrado
-              setTimeout(() => {
-                  const cancelButton = document.getElementById('cancel-request');
-                  if (cancelButton) {
-                      cancelButton.addEventListener('click', () => {
-                          this.eliminarTemp(this.temp.Username);
-                          Swal.close();
-                      });
-                  }
-              }, 0);
-          }
-      });
-  }
-  
-  async continuarRecuperacion() {
-      // Pedir el PIN
-      const hiddenEmail = this.getObfuscatedEmail(this.temp.Email);
-      const { value: pin } = await Swal.fire({
-          title: 'Ingrese su PIN',
-          input: 'number',
-          inputPlaceholder: 'PIN',
-          showCancelButton: true,
-          confirmButtonText: 'Siguiente',
-          cancelButtonText: 'Cancelar',
-          html: `<p>Hemos enviado el PIN al correo: ${hiddenEmail}</p>`,
-          inputValidator: (value) => {
-              return new Promise((resolve) => {
-                  if (!value) {
-                      resolve('¡Necesitas ingresar un PIN!');
-                  } else if (parseInt(value) !== this.temp.Pin) {
-                      resolve('PIN incorrecto.');
-                  } else {
-                      console.log("PIN correcto.");
-                      resolve();
-                  }
-              });
-          }
-      });
-  
-      // Continuar si el PIN es válido
-      if (pin) {
-          // Pedir nueva contraseña
-          const { value: newPassword } = await Swal.fire({
-              title: 'Ingrese su nueva contraseña',
-              input: 'password',
-              inputPlaceholder: 'Nueva contraseña',
-              showCancelButton: true,
-              confirmButtonText: 'Guardar',
-              cancelButtonText: 'Cancelar',
-              inputValidator: (value) => {
-                  if (!value) {
-                      return '¡Necesitas ingresar una nueva contraseña!';
-                  } else {
-                      this.temp.NewPass = value;
-                      this.temp.State = "Autorizado";
-                      console.log('Nueva contraseña guardada:', value);
-                      this.tempService.update(this.temp.Username, this.temp).subscribe({
-                          next: (data) => (this.service.successMessage("Contraseña Cambiada con éxito", "/ingresar")),
-                          error: (data) => (this.service.errorMessage("Algo ha salido mal, intenta de nuevo en unos minutos"))
-                      });
-                  }
-              }
-          });
-      }
-  }
-  
-  
-    eliminarTemp(username){
-      this.tempService.delete(username).subscribe({
-        next: (data) => {this.tempService.successMessage("Solicitud cancelada", "/mi-perfil/cliente")}, 
-        error: (err) => {this.tempService.errorMessage(err.error.Message)} 
-      })
+                });
+
+                // Añadir el evento al botón después de que el Swal se haya mostrado
+                setTimeout(() => {
+                    const cancelButton =
+                        document.getElementById("cancel-request");
+                    if (cancelButton) {
+                        cancelButton.addEventListener("click", () => {
+                            this.eliminarTemp(this.temp.Username);
+                            Swal.close();
+                        });
+                    }
+                }, 0);
+            },
+        });
     }
-  
-  
+
+    async continuarRecuperacion() {
+        // Pedir el PIN
+        const hiddenEmail = this.getObfuscatedEmail(this.temp.Email);
+        const { value: pin } = await Swal.fire({
+            title: "Ingrese su PIN",
+            input: "number",
+            inputPlaceholder: "PIN",
+            showCancelButton: true,
+            confirmButtonText: "Siguiente",
+            cancelButtonText: "Cancelar",
+            html: `<p>Hemos enviado el PIN al correo: ${hiddenEmail}</p>`,
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (!value) {
+                        resolve("¡Necesitas ingresar un PIN!");
+                    } else if (parseInt(value) !== this.temp.Pin) {
+                        resolve("PIN incorrecto.");
+                    } else {
+                        console.log("PIN correcto.");
+                        resolve();
+                    }
+                });
+            },
+        });
+
+        // Continuar si el PIN es válido
+        if (pin) {
+            // Pedir nueva contraseña
+            const { value: newPassword } = await Swal.fire({
+                title: "Ingrese su nueva contraseña",
+                input: "password",
+                inputPlaceholder: "Nueva contraseña",
+                showCancelButton: true,
+                confirmButtonText: "Guardar",
+                cancelButtonText: "Cancelar",
+                inputValidator: (value) => {
+                    if (!value) {
+                        return "¡Necesitas ingresar una nueva contraseña!";
+                    } else {
+                        this.temp.NewPass = value;
+                        this.temp.State = "Autorizado";
+                        console.log("Nueva contraseña guardada:", value);
+                        this.tempService
+                            .update(this.temp.Username, this.temp)
+                            .subscribe({
+                                next: (data) =>
+                                    this.service.successMessage(
+                                        "Contraseña Cambiada con éxito",
+                                        "/ingresar"
+                                    ),
+                                error: (data) =>
+                                    this.service.errorMessage(
+                                        "Algo ha salido mal, intenta de nuevo en unos minutos"
+                                    ),
+                            });
+                    }
+                },
+            });
+        }
+    }
+
+    eliminarTemp(username) {
+        this.tempService.delete(username).subscribe({
+            next: (data) => {
+                this.tempService.successMessage(
+                    "Solicitud cancelada",
+                    "/mi-perfil/cliente"
+                );
+            },
+            error: (err) => {
+                this.tempService.errorMessage(err.error.Message);
+            },
+        });
+    }
+
     getObfuscatedEmail(email) {
-      const atIndex = email.indexOf('@');
-      const localPart = email.substring(0, atIndex);
-      const domain = email.substring(atIndex);
-      const obfuscatedLocalPart = localPart.substring(0, 2) + '*'.repeat(localPart.length - 2);
-      return obfuscatedLocalPart + domain;
-  }  
+        const atIndex = email.indexOf("@");
+        const localPart = email.substring(0, atIndex);
+        const domain = email.substring(atIndex);
+        const obfuscatedLocalPart =
+            localPart.substring(0, 2) + "*".repeat(localPart.length - 2);
+        return obfuscatedLocalPart + domain;
+    }
 }

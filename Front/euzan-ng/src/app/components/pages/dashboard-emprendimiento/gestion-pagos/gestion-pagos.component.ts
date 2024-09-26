@@ -1,136 +1,152 @@
-import { Component } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { Cliente } from 'src/app/interfaces/cliente';
-import { Taller, TallerPago, TallerPagoInterface } from 'src/app/interfaces/talleres';
-import { ClienteService } from 'src/app/services/cliente.service';
-import { TalleresPagoService, TalleresService } from 'src/app/services/talleres.service';
-import Swal from 'sweetalert2';
+import { Component } from "@angular/core";
+import { CookieService } from "ngx-cookie-service";
+import { Cliente } from "src/app/interfaces/cliente";
+import {
+    Taller,
+    TallerPago,
+    TallerPagoInterface,
+} from "src/app/interfaces/talleres";
+import { UsersService } from "src/app/services/cliente.service";
+import {
+    TalleresPagoService,
+    TalleresService,
+} from "src/app/services/talleres.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-gestion-pagos',
-  templateUrl: './gestion-pagos.component.html',
-  styleUrl: './gestion-pagos.component.scss'
+    selector: "app-gestion-pagos",
+    templateUrl: "./gestion-pagos.component.html",
+    styleUrl: "./gestion-pagos.component.scss",
 })
 export class GestionPagosComponent {
-  pagos: TallerPago[] = [];
-  pagosPorTaller: TallerPago[][] = [];
-  nombresDeTalleres: string[] = [];
-  objeto: TallerPago;
+    pagos: TallerPago[] = [];
+    pagosPorTaller: TallerPago[][] = [];
+    nombresDeTalleres: string[] = [];
+    objeto: TallerPago;
 
+    constructor(
+        private service: TalleresPagoService,
+        private tallerService: TalleresService,
+        private clientService: UsersService,
+        private cookieService: CookieService
+    ) {
+        this.service
+            .getSelectedList(
+                "byEntre" + "/" + this.cookieService.get("cookieEMPRENDIMIENTO")
+            )
+            .subscribe({
+                next: (data) => {
+                    console.log(data);
+                    this.pagos = data.filter(
+                        (pago: TallerPagoInterface) =>
+                            pago.State === "Pendiente"
+                    );
+                    this.agruparPagosPorTaller();
+                },
+            });
+    }
+    agruparPagosPorTaller() {
+        // Primero, obtenemos los IDs únicos de los talleres
+        const idsUnicos = Array.from(
+            new Set(this.pagos.map((pago) => pago.IdWorkshop))
+        );
 
-  constructor(
-    private service:TalleresPagoService, 
-    private tallerService:TalleresService, 
-    private clientService:ClienteService, 
-    private cookieService: CookieService
-  ){
+        // Crear un array de promesas para obtener los nombres de los talleres
+        const promesasNombres = idsUnicos.map((idWorkshop) =>
+            this.tallerService.get(idWorkshop).toPromise()
+        );
 
-    this.service.getSelectedList("byEntre" + "/" + this.cookieService.get("cookieEMPRENDIMIENTO")).subscribe({
-      next:(data) =>{
-        console.log(data);
-        this.pagos = data.filter((pago: TallerPagoInterface) => pago.State === "Pendiente");
-        this.agruparPagosPorTaller();
-      }
-    })
-    
-  }
-  agruparPagosPorTaller() {
-    // Primero, obtenemos los IDs únicos de los talleres
-    const idsUnicos = Array.from(new Set(this.pagos.map(pago => pago.IdWorkshop)));
+        // Esperar a que todas las promesas se resuelvan
+        Promise.all(promesasNombres)
+            .then((talleres) => {
+                // Mapear los nombres de los talleres
+                this.nombresDeTalleres = talleres.map((taller) => taller.Name);
 
-    // Crear un array de promesas para obtener los nombres de los talleres
-    const promesasNombres = idsUnicos.map(idWorkshop =>
-      this.tallerService.get(idWorkshop).toPromise()
-    );
+                // Agrupar los pagos por cada ID de taller
+                this.pagosPorTaller = idsUnicos.map((idWorkshop) =>
+                    this.pagos.filter((pago) => pago.IdWorkshop === idWorkshop)
+                );
 
-    // Esperar a que todas las promesas se resuelvan
-    Promise.all(promesasNombres).then(talleres => {
-      // Mapear los nombres de los talleres
-      this.nombresDeTalleres = talleres.map(taller => taller.Name);
+                console.log(this.pagosPorTaller);
+                console.log(this.nombresDeTalleres);
+            })
+            .catch((error) => {
+                console.error(
+                    "Error al obtener los nombres de los talleres",
+                    error
+                );
+            });
+    }
 
-      // Agrupar los pagos por cada ID de taller
-      this.pagosPorTaller = idsUnicos.map(idWorkshop => 
-        this.pagos.filter(pago => pago.IdWorkshop === idWorkshop)
-      );
+    redirigir(url: string) {
+        window.location.href = url;
+    }
 
-      console.log(this.pagosPorTaller);
-      console.log(this.nombresDeTalleres);
-    }).catch(error => {
-      console.error('Error al obtener los nombres de los talleres', error);
-    });
-  }
-
-  redirigir(url:string) {
-    window.location.href = url;
-  }
-
-
-  aceptarPago(obj:TallerPago){
-    Swal.fire({
-      title: "¿Ya verificaste este pago?",
-      text: "¡No lo vas a poder revertir!",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Aceptar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.objeto = obj;
-        this.objeto.State = "Aceptado";
-        this.gestionarSolicitud();
-      }
-    });
-  }
-
-  rechazarPago(obj:TallerPago){
-    Swal.fire({
-      title: "¿Estás seguro de rechazar este pago?",
-      text: "¡Asegurate de ponerte en contacto con el cliente primero!",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Rechazar pago"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.objeto = obj;
-        this.objeto.State = "Rechazado";
-        this.gestionarSolicitud();
-      }
-    });
-  }
-
-  gestionarSolicitud(){
-    console.log(this.objeto)
-    console.log("-----")
-    this.service.update(this.objeto.Id, this.objeto).subscribe({
-      next:(data) => {
-        console.log(data)
+    aceptarPago(obj: TallerPago) {
         Swal.fire({
-          title: this.objeto.State + "!",
-          text: "Pago Gestionada exitosamente",
-          icon: "success",
-          didClose: () => {
-            window.location.reload();
-          }
+            title: "¿Ya verificaste este pago?",
+            text: "¡No lo vas a poder revertir!",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Aceptar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.objeto = obj;
+                this.objeto.State = "Aceptado";
+                this.gestionarSolicitud();
+            }
         });
-      }, 
-      error:(err) => {
-        console.log(err)
-      }
-    })
-  }
+    }
 
-
-  contactarCliente(pago: TallerPago) {
-    this.clientService.get("User", pago.IdClient).subscribe({
-      next: (data) => {
-        const cliente: Cliente = data;
-        console.log(cliente);
-
-        // Mostrar SweetAlert con enlaces
+    rechazarPago(obj: TallerPago) {
         Swal.fire({
-          title: 'Contactar Cliente',
-          html: `
+            title: "¿Estás seguro de rechazar este pago?",
+            text: "¡Asegurate de ponerte en contacto con el cliente primero!",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Rechazar pago",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.objeto = obj;
+                this.objeto.State = "Rechazado";
+                this.gestionarSolicitud();
+            }
+        });
+    }
+
+    gestionarSolicitud() {
+        console.log(this.objeto);
+        console.log("-----");
+        this.service.update(this.objeto.Id, this.objeto).subscribe({
+            next: (data) => {
+                console.log(data);
+                Swal.fire({
+                    title: this.objeto.State + "!",
+                    text: "Pago Gestionada exitosamente",
+                    icon: "success",
+                    didClose: () => {
+                        window.location.reload();
+                    },
+                });
+            },
+            error: (err) => {
+                console.log(err);
+            },
+        });
+    }
+
+    contactarCliente(pago: TallerPago) {
+        this.clientService.get("User", pago.IdClient).subscribe({
+            next: (data) => {
+                const cliente: Cliente = data;
+                console.log(cliente);
+
+                // Mostrar SweetAlert con enlaces
+                Swal.fire({
+                    title: "Contactar Cliente",
+                    html: `
             <div style="font-size: 16px; text-align: center;">
               <p><strong>Nombre:</strong> ${cliente.FirstName}</p>
               <p>
@@ -151,16 +167,16 @@ export class GestionPagosComponent {
               </p>
             </div>
           `,
-          icon: 'info',
-          confirmButtonText: 'Cerrar',
-          customClass: {
-            popup: 'swal-popup'
-          }
+                    icon: "info",
+                    confirmButtonText: "Cerrar",
+                    customClass: {
+                        popup: "swal-popup",
+                    },
+                });
+            },
+            error: (err) => {
+                console.error("Error al contactar al cliente", err);
+            },
         });
-      },
-      error: (err) => {
-        console.error('Error al contactar al cliente', err);
-      }
-    });
-  }
+    }
 }
