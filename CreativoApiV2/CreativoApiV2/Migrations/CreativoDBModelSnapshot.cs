@@ -169,9 +169,8 @@ namespace CreativoApiV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -190,6 +189,8 @@ namespace CreativoApiV2.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("Forums");
                 });
 
@@ -201,9 +202,8 @@ namespace CreativoApiV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -216,6 +216,8 @@ namespace CreativoApiV2.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("ForumId");
 
@@ -250,6 +252,9 @@ namespace CreativoApiV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DeliveryManId")
+                        .HasColumnType("int");
+
                     b.Property<int>("DistrictId")
                         .HasColumnType("int");
 
@@ -269,6 +274,8 @@ namespace CreativoApiV2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeliveryManId");
 
                     b.HasIndex("DistrictId");
 
@@ -448,6 +455,29 @@ namespace CreativoApiV2.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("CreativoApiV2.Model.UserRoles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRoles");
+                });
+
             modelBuilder.Entity("CreativoApiV2.Model.WorkShopClient", b =>
                 {
                     b.Property<int>("Id")
@@ -618,19 +648,44 @@ namespace CreativoApiV2.Migrations
                     b.Navigation("Social");
                 });
 
+            modelBuilder.Entity("CreativoApiV2.Model.Forum", b =>
+                {
+                    b.HasOne("CreativoApiV2.Model.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("CreativoApiV2.Model.ForumComment", b =>
                 {
+                    b.HasOne("CreativoApiV2.Model.User", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CreativoApiV2.Model.Forum", "Forum")
                         .WithMany("ForumComments")
                         .HasForeignKey("ForumId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Author");
+
                     b.Navigation("Forum");
                 });
 
             modelBuilder.Entity("CreativoApiV2.Model.Order", b =>
                 {
+                    b.HasOne("CreativoApiV2.Model.User", "DeliveryMan")
+                        .WithMany()
+                        .HasForeignKey("DeliveryManId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CreativoApiV2.Model.District", "District")
                         .WithMany("Orders")
                         .HasForeignKey("DistrictId")
@@ -642,6 +697,8 @@ namespace CreativoApiV2.Migrations
                         .HasForeignKey("EntrepeneurshipId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("DeliveryMan");
 
                     b.Navigation("District");
 
@@ -691,6 +748,25 @@ namespace CreativoApiV2.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("CreativoApiV2.Model.UserRoles", b =>
+                {
+                    b.HasOne("CreativoApiV2.Model.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CreativoApiV2.Model.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CreativoApiV2.Model.WorkShopClient", b =>
@@ -778,6 +854,11 @@ namespace CreativoApiV2.Migrations
             modelBuilder.Entity("CreativoApiV2.Model.SocialType", b =>
                 {
                     b.Navigation("socials");
+                });
+
+            modelBuilder.Entity("CreativoApiV2.Model.User", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("CreativoApiV2.Model.Workshop", b =>

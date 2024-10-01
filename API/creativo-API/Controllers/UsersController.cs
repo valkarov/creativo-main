@@ -1,4 +1,5 @@
 ﻿using creativo_API.Models;
+using creativo_API.Services;
 using Google.Apis.Calendar.v3.Data;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace creativo_API.Controllers
     public class UsersController : ApiController
     {
         private CreativoDBV2Entities db = new CreativoDBV2Entities();
-
+        private SessionService sessionService = SessionService.Instance;
         [HttpPost]
         [Route("api/Users/Login")]
         public IHttpActionResult UserLogin(UserLoginDto user)
@@ -25,7 +26,23 @@ namespace creativo_API.Controllers
             {
                 return BadRequest("Login Failed");
             }
+            string result = sessionService.AddSession(userLogin);
+            userLogin.Password = result;
             return Ok(userLogin);
+        }
+
+        [HttpPost]
+        [Route("api/Users/Login/Session")]
+        public IHttpActionResult User (UserSessionLoginDto login)
+        {
+            User user = sessionService.GetSession(login.session);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            user.Password = login.session;
+            return Ok(user);
         }
 
         [HttpPost]

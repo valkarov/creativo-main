@@ -18,6 +18,7 @@ namespace creativo_API.Models
         public Role()
         {
             this.Users = new HashSet<User>();
+            this.UserRoles = new HashSet<UserRole>();
         }
     
         public int Id { get; set; }
@@ -25,5 +26,7 @@ namespace creativo_API.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

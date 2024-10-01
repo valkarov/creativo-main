@@ -67,7 +67,7 @@
           <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ForumId" Type="int" Nullable="false" />
-          <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AuthorId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Forums">
           <Key>
@@ -78,7 +78,7 @@
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="AuthorId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Inventories">
           <Key>
@@ -107,6 +107,7 @@
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DistrictId" Type="int" Nullable="false" />
           <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+          <Property Name="DeliveryManId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Provinces">
           <Key>
@@ -154,6 +155,14 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -301,6 +310,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ForumComments_Users_AuthorId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ForumComments" Type="Self.ForumComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumComments">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Forums_Users_AuthorId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Forums" Type="Self.Forums" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Forums">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderProducts_Inventories_InventoryId">
           <End Role="Inventories" Type="Self.Inventories" Multiplicity="1" />
           <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
@@ -349,6 +386,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Users_DeliveryManId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="DeliveryManId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Socials_SocialTypes_SocialTypeId">
           <End Role="SocialTypes" Type="Self.SocialTypes" Multiplicity="1" />
           <End Role="Socials" Type="Self.Socials" Multiplicity="*" />
@@ -358,6 +409,34 @@
             </Principal>
             <Dependent Role="Socials">
               <PropertyRef Name="SocialTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users_UserId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -482,6 +561,7 @@
           <EntitySet Name="Socials" EntityType="Self.Socials" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SocialTypes" EntityType="Self.SocialTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkShopClients" EntityType="Self.WorkShopClients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkshopPhotos" EntityType="Self.WorkshopPhotos" Schema="dbo" store:Type="Tables" />
@@ -519,6 +599,14 @@
             <End Role="Forums" EntitySet="Forums" />
             <End Role="ForumComments" EntitySet="ForumComments" />
           </AssociationSet>
+          <AssociationSet Name="FK_ForumComments_Users_AuthorId" Association="Self.FK_ForumComments_Users_AuthorId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ForumComments" EntitySet="ForumComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Forums_Users_AuthorId" Association="Self.FK_Forums_Users_AuthorId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Forums" EntitySet="Forums" />
+          </AssociationSet>
           <AssociationSet Name="FK_OrderProducts_Inventories_InventoryId" Association="Self.FK_OrderProducts_Inventories_InventoryId">
             <End Role="Inventories" EntitySet="Inventories" />
             <End Role="OrderProducts" EntitySet="OrderProducts" />
@@ -535,9 +623,21 @@
             <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users_DeliveryManId" Association="Self.FK_Orders_Users_DeliveryManId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_Socials_SocialTypes_SocialTypeId" Association="Self.FK_Socials_SocialTypes_SocialTypeId">
             <End Role="SocialTypes" EntitySet="SocialTypes" />
             <End Role="Socials" EntitySet="Socials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles_RoleId" Association="Self.FK_UserRoles_Roles_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users_UserId" Association="Self.FK_UserRoles_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Districts_DistrictId" Association="Self.FK_Users_Districts_DistrictId">
             <End Role="Districts" EntitySet="Districts" />
@@ -637,8 +737,9 @@
           <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="ForumId" Type="Int32" Nullable="false" />
-          <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Forum" Relationship="Self.FK_ForumComments_Forums_ForumId" FromRole="ForumComments" ToRole="Forums" />
+          <Property Name="AuthorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" FromRole="ForumComment" ToRole="User" />
         </EntityType>
         <EntityType Name="Forum">
           <Key>
@@ -649,8 +750,9 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ForumComments" Relationship="Self.FK_ForumComments_Forums_ForumId" FromRole="Forums" ToRole="ForumComments" />
+          <Property Name="AuthorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_Forums_Users_AuthorId" FromRole="Forum" ToRole="User" />
         </EntityType>
         <EntityType Name="Inventory">
           <Key>
@@ -685,6 +787,8 @@
           <NavigationProperty Name="District" Relationship="Self.FK_Orders_Districts_DistrictId" FromRole="Orders" ToRole="Districts" />
           <NavigationProperty Name="Entrepeneurship" Relationship="Self.FK_Orders_Entrepeneurships_EntrepeneurshipId" FromRole="Orders" ToRole="Entrepeneurships" />
           <NavigationProperty Name="OrderProducts" Relationship="Self.FK_OrderProducts_Orders_OrderId" FromRole="Orders" ToRole="OrderProducts" />
+          <Property Name="DeliveryManId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_Orders_Users_DeliveryManId" FromRole="Order" ToRole="User" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -709,6 +813,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles_RoleId" FromRole="Roles" ToRole="Users" />
+          <NavigationProperty Name="UserRoles" Relationship="CreativoDBV2Model.FK_UserRoles_Roles_RoleId" FromRole="Role" ToRole="UserRole" />
         </EntityType>
         <EntityType Name="Social">
           <Key>
@@ -756,6 +861,10 @@
           <Property Name="Cedula" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="CreativoDBV2Model.FK_Orders_Users_DeliveryManId" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="UserRoles" Relationship="CreativoDBV2Model.FK_UserRoles_Users_UserId" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="ForumComments" Relationship="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" FromRole="User" ToRole="ForumComment" />
+          <NavigationProperty Name="Forums" Relationship="CreativoDBV2Model.FK_Forums_Users_AuthorId" FromRole="User" ToRole="Forum" />
         </EntityType>
         <EntityType Name="WorkShopClient">
           <Key>
@@ -1156,6 +1265,27 @@
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="C__EFMigrationsHistory" EntityType="CreativoDBV2Model.C__EFMigrationsHistory" />
+          <EntitySet Name="UserRoles" EntityType="CreativoDBV2Model.UserRole" />
+          <AssociationSet Name="FK_Orders_Users_DeliveryManId" Association="CreativoDBV2Model.FK_Orders_Users_DeliveryManId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users_UserId" Association="CreativoDBV2Model.FK_UserRoles_Users_UserId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumComments_Users_AuthorId" Association="CreativoDBV2Model.FK_ForumComments_Users_AuthorId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForumComment" EntitySet="ForumComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Forums_Users_AuthorId" Association="CreativoDBV2Model.FK_Forums_Users_AuthorId">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Forum" EntitySet="Forums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles_RoleId" Association="CreativoDBV2Model.FK_UserRoles_Roles_RoleId">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1175,6 +1305,86 @@
           <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_UserRoles_Users_UserId" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="Role" Relationship="CreativoDBV2Model.FK_UserRoles_Roles_RoleId" FromRole="UserRole" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Orders_Users_DeliveryManId">
+          <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="DeliveryManId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users_UserId">
+          <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumComments_Users_AuthorId">
+          <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.ForumComment" Role="ForumComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ForumComment">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Forums_Users_AuthorId">
+          <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.Forum" Role="Forum" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Forum">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles_RoleId">
+          <End Type="CreativoDBV2Model.Role" Role="Role" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.UserRole" Role="UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1236,23 +1446,23 @@
           <EntitySetMapping Name="ForumComments">
             <EntityTypeMapping TypeName="CreativoDBV2Model.ForumComment">
               <MappingFragment StoreEntitySet="ForumComments">
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ForumId" ColumnName="ForumId" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Forums">
             <EntityTypeMapping TypeName="CreativoDBV2Model.Forum">
               <MappingFragment StoreEntitySet="Forums">
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Author" ColumnName="Author" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1278,6 +1488,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="CreativoDBV2Model.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="DeliveryManId" ColumnName="DeliveryManId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -1424,6 +1635,15 @@
               <MappingFragment StoreEntitySet="__EFMigrationsHistory">
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="CreativoDBV2Model.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

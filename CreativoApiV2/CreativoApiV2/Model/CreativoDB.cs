@@ -338,7 +338,10 @@ namespace CreativoApiV2.Model
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public string Location { get; set; }
-        public string Author { get; set; }
+        
+        public int AuthorId { get; set; }
+        [ForeignKey("AuthorId")]
+        public virtual User Author { get; set; }
 
         public virtual ICollection<ForumComment> ForumComments { get; set; }
     }
@@ -354,7 +357,9 @@ namespace CreativoApiV2.Model
 
         [ForeignKey("ForumId")]
         public virtual Forum Forum { get; set; }
-        public string Author { get; set; }
+        public int AuthorId { get; set; }
+        [ForeignKey("AuthorId")]
+        public virtual User Author { get; set; }
     }
 
 
@@ -381,9 +386,14 @@ namespace CreativoApiV2.Model
         public string Email { get; set; }
         public int State;
         public int DistrictId { get; set; }
+        [ForeignKey("DistrictId")]
         public virtual District District { get; set; }
 
+        public int DeliveryManId { get; set; }
+        [ForeignKey("DeliveryManId")]
+        public virtual User DeliveryMan { get; set; }
         public int EntrepeneurshipId { get; set; }
+        
 
         [ForeignKey("EntrepeneurshipId")]
         public virtual Entrepeneurship Entrepeneurship { get; set; }
@@ -421,8 +431,22 @@ namespace CreativoApiV2.Model
 
         [ForeignKey("RoleId")]
         public virtual Role Role { get; set; }
+
+        public virtual List<UserRoles> Roles { get; set; }
+
     }
 
+    public class UserRoles
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
+        public int RoleId { get; set; }
+        public virtual Role Role { get; set; }
+    }
 
     public class Role
     {

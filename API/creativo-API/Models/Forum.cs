@@ -25,9 +25,10 @@ namespace creativo_API.Models
         public string Description { get; set; }
         public System.DateTime Date { get; set; }
         public string Location { get; set; }
-        public string Author { get; set; }
+        public int AuthorId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ForumComment> ForumComments { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -18,8 +18,9 @@ namespace creativo_API.Models
         public string Comment { get; set; }
         public System.DateTime Date { get; set; }
         public int ForumId { get; set; }
-        public string Author { get; set; }
+        public int AuthorId { get; set; }
     
         public virtual Forum Forum { get; set; }
+        public virtual User User { get; set; }
     }
 }

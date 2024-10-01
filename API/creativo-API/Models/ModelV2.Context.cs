@@ -49,6 +49,7 @@ namespace creativo_API.Models
         public virtual DbSet<Workshop> Workshops { get; set; }
         public virtual DbSet<WorkshopType> WorkshopTypes { get; set; }
         public virtual DbSet<C__EFMigrationsHistory> C__EFMigrationsHistory { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

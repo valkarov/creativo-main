@@ -7,6 +7,10 @@ namespace creativo_API.Models
 {
     public class UserDto
     {
+        public class UserSessionLoginDto
+        {
+            public string session { get; set; }
+        }
         public class UserLoginDto
         {
             public string Username { get; set; }

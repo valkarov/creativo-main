@@ -19,6 +19,10 @@ namespace creativo_API.Models
         {
             this.EntrepeneurshipAdmins = new HashSet<EntrepeneurshipAdmin>();
             this.WorkShopClients = new HashSet<WorkShopClient>();
+            this.Orders = new HashSet<Order>();
+            this.UserRoles = new HashSet<UserRole>();
+            this.ForumComments = new HashSet<ForumComment>();
+            this.Forums = new HashSet<Forum>();
         }
     
         public int Id { get; set; }
@@ -38,5 +42,13 @@ namespace creativo_API.Models
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkShopClient> WorkShopClients { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ForumComment> ForumComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Forum> Forums { get; set; }
     }
 }

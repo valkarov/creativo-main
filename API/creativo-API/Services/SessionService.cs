@@ -1,4 +1,5 @@
-﻿using System;
+﻿using creativo_API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,11 @@ namespace creativo_API.Services
     public class SessionService
     {
         private static SessionService instance;
-        private Dictionary<string, object> sessions;
+        private Dictionary<string, User> sessions;
 
         private SessionService()
         {
-            sessions = new Dictionary<string, object>();
+            sessions = new Dictionary<string, User>();
         }
 
         public static SessionService Instance
@@ -26,13 +27,18 @@ namespace creativo_API.Services
                 return instance;
             }
         }
-
-        public void AddSession(string sessionId, object sessionData)
+        private string generateSessionId ()
         {
+            return Guid.NewGuid().ToString();
+        }
+        public string AddSession(User sessionData)
+        {
+            string sessionId = generateSessionId();
             sessions.Add(sessionId, sessionData);
+            return sessionId;
         }
 
-        public object GetSession(string sessionId)
+        public User GetSession(string sessionId)
         {
             if (sessions.ContainsKey(sessionId))
             {

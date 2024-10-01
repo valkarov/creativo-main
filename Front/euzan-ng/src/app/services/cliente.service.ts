@@ -24,7 +24,14 @@ export class UsersService extends ConexionService<UsersInterface> {
             Password: password,
         });
     }
-
+    getSession(sessionId): Observable<any> {
+        return this.httpClient.post(
+            "https://localhost:44301/api/Users/Login/Session",
+            {
+                session: sessionId,
+            }
+        );
+    }
     constructor(
         protected override httpClient: HttpClient,
         protected override route: Router

@@ -7,9 +7,9 @@ import { CookieService } from "ngx-cookie-service";
 import { Role } from "src/app/interfaces/role";
 import { TempPass } from "src/app/interfaces/temp_pass";
 import { UsersService } from "src/app/services/cliente.service";
-import { RoleService } from "src/app/services/role.service";
 import { TempPassService } from "src/app/services/temp-pass.service";
 import Swal from "sweetalert2";
+import { SessionService } from "src/app/services/session.service";
 
 @Component({
     selector: "app-ingresar",
@@ -31,7 +31,8 @@ export class IngresarComponent {
     constructor(
         private service: UsersService,
         private cookieService: CookieService,
-        private tempService: TempPassService
+        private tempService: TempPassService,
+        private SessionService: SessionService
     ) {
         if (cookieService.get("cookieADMIN") != "") {
             this.redirigir("/dashboard-admin");
@@ -67,16 +68,7 @@ export class IngresarComponent {
             this.service.login(this.usuario, this.pass).subscribe({
                 next: (data) => {
                     this.error = false;
-                    // this.rol =new Role() {
-                    //     Username: data.UserName,
-                    //     Role: data.Role.Name,
-                    // };
-                    this.rol.Type = data.Role.Name;
-                    this.rol.Username = data.UserName;
-                    this.cookieService.set(
-                        "cookie" + data.Role.Name,
-                        data.UserName
-                    );
+                    this.SessionService.saveSession(data);
                     this.service.successMessage(
                         "¡Bienvenido a tu cuenta!",
                         "/ingresar"

@@ -56,23 +56,23 @@
     <EntitySetMapping Name="ForumComments">
       <EntityTypeMapping TypeName="CreativoDBV2Model.ForumComment">
         <MappingFragment StoreEntitySet="ForumComments">
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Comment" ColumnName="Comment" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ForumId" ColumnName="ForumId" />
-          <ScalarProperty Name="Author" ColumnName="Author" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Forums">
       <EntityTypeMapping TypeName="CreativoDBV2Model.Forum">
         <MappingFragment StoreEntitySet="Forums">
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Location" ColumnName="Location" />
-          <ScalarProperty Name="Author" ColumnName="Author" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -98,6 +98,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="CreativoDBV2Model.Order">
         <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="DeliveryManId" ColumnName="DeliveryManId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="address" ColumnName="address" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -244,6 +245,15 @@
         <MappingFragment StoreEntitySet="__EFMigrationsHistory">
           <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
           <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="CreativoDBV2Model.UserRole">
+        <MappingFragment StoreEntitySet="UserRoles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

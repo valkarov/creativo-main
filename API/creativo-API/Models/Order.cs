@@ -26,10 +26,12 @@ namespace creativo_API.Models
         public string Email { get; set; }
         public int DistrictId { get; set; }
         public int EntrepeneurshipId { get; set; }
+        public int DeliveryManId { get; set; }
     
         public virtual District District { get; set; }
         public virtual Entrepeneurship Entrepeneurship { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual User User { get; set; }
     }
 }

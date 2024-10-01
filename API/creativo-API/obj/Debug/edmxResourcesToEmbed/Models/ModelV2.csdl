@@ -69,8 +69,9 @@
     <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="ForumId" Type="Int32" Nullable="false" />
-    <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Forum" Relationship="Self.FK_ForumComments_Forums_ForumId" FromRole="ForumComments" ToRole="Forums" />
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" FromRole="ForumComment" ToRole="User" />
   </EntityType>
   <EntityType Name="Forum">
     <Key>
@@ -81,8 +82,9 @@
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
     <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Author" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="ForumComments" Relationship="Self.FK_ForumComments_Forums_ForumId" FromRole="Forums" ToRole="ForumComments" />
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_Forums_Users_AuthorId" FromRole="Forum" ToRole="User" />
   </EntityType>
   <EntityType Name="Inventory">
     <Key>
@@ -117,6 +119,8 @@
     <NavigationProperty Name="District" Relationship="Self.FK_Orders_Districts_DistrictId" FromRole="Orders" ToRole="Districts" />
     <NavigationProperty Name="Entrepeneurship" Relationship="Self.FK_Orders_Entrepeneurships_EntrepeneurshipId" FromRole="Orders" ToRole="Entrepeneurships" />
     <NavigationProperty Name="OrderProducts" Relationship="Self.FK_OrderProducts_Orders_OrderId" FromRole="Orders" ToRole="OrderProducts" />
+    <Property Name="DeliveryManId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_Orders_Users_DeliveryManId" FromRole="Order" ToRole="User" />
   </EntityType>
   <EntityType Name="Province">
     <Key>
@@ -141,6 +145,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles_RoleId" FromRole="Roles" ToRole="Users" />
+    <NavigationProperty Name="UserRoles" Relationship="CreativoDBV2Model.FK_UserRoles_Roles_RoleId" FromRole="Role" ToRole="UserRole" />
   </EntityType>
   <EntityType Name="Social">
     <Key>
@@ -188,6 +193,10 @@
     <Property Name="Cedula" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="CreativoDBV2Model.FK_Orders_Users_DeliveryManId" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="UserRoles" Relationship="CreativoDBV2Model.FK_UserRoles_Users_UserId" FromRole="User" ToRole="UserRole" />
+    <NavigationProperty Name="ForumComments" Relationship="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" FromRole="User" ToRole="ForumComment" />
+    <NavigationProperty Name="Forums" Relationship="CreativoDBV2Model.FK_Forums_Users_AuthorId" FromRole="User" ToRole="Forum" />
   </EntityType>
   <EntityType Name="WorkShopClient">
     <Key>
@@ -588,6 +597,27 @@
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
     <EntitySet Name="C__EFMigrationsHistory" EntityType="CreativoDBV2Model.C__EFMigrationsHistory" />
+    <EntitySet Name="UserRoles" EntityType="CreativoDBV2Model.UserRole" />
+    <AssociationSet Name="FK_Orders_Users_DeliveryManId" Association="CreativoDBV2Model.FK_Orders_Users_DeliveryManId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users_UserId" Association="CreativoDBV2Model.FK_UserRoles_Users_UserId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumComments_Users_AuthorId" Association="CreativoDBV2Model.FK_ForumComments_Users_AuthorId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="ForumComment" EntitySet="ForumComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Forums_Users_AuthorId" Association="CreativoDBV2Model.FK_Forums_Users_AuthorId">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Forum" EntitySet="Forums" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Roles_RoleId" Association="CreativoDBV2Model.FK_UserRoles_Roles_RoleId">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserRole" EntitySet="UserRoles" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -607,4 +637,84 @@
     <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
   </EntityType>
+  <EntityType Name="UserRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_UserRoles_Users_UserId" FromRole="UserRole" ToRole="User" />
+    <NavigationProperty Name="Role" Relationship="CreativoDBV2Model.FK_UserRoles_Roles_RoleId" FromRole="UserRole" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Orders_Users_DeliveryManId">
+    <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeliveryManId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users_UserId">
+    <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumComments_Users_AuthorId">
+    <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.ForumComment" Role="ForumComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ForumComment">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Forums_Users_AuthorId">
+    <End Type="CreativoDBV2Model.User" Role="User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.Forum" Role="Forum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Forum">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Roles_RoleId">
+    <End Type="CreativoDBV2Model.Role" Role="Role" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.UserRole" Role="UserRole" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRole">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

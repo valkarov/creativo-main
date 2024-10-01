@@ -62,7 +62,7 @@
     <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="ForumId" Type="int" Nullable="false" />
-    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AuthorId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Forums">
     <Key>
@@ -73,7 +73,7 @@
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AuthorId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Inventories">
     <Key>
@@ -102,6 +102,7 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DistrictId" Type="int" Nullable="false" />
     <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+    <Property Name="DeliveryManId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Provinces">
     <Key>
@@ -149,6 +150,14 @@
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -296,6 +305,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ForumComments_Users_AuthorId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ForumComments" Type="Self.ForumComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ForumComments">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Forums_Users_AuthorId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Forums" Type="Self.Forums" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Forums">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_OrderProducts_Inventories_InventoryId">
     <End Role="Inventories" Type="Self.Inventories" Multiplicity="1" />
     <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
@@ -344,6 +381,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Orders_Users_DeliveryManId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="DeliveryManId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Socials_SocialTypes_SocialTypeId">
     <End Role="SocialTypes" Type="Self.SocialTypes" Multiplicity="1" />
     <End Role="Socials" Type="Self.Socials" Multiplicity="*" />
@@ -353,6 +404,34 @@
       </Principal>
       <Dependent Role="Socials">
         <PropertyRef Name="SocialTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Roles_RoleId">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoles_Users_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserRoles">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -477,6 +556,7 @@
     <EntitySet Name="Socials" EntityType="Self.Socials" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SocialTypes" EntityType="Self.SocialTypes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkShopClients" EntityType="Self.WorkShopClients" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WorkshopPhotos" EntityType="Self.WorkshopPhotos" Schema="dbo" store:Type="Tables" />
@@ -514,6 +594,14 @@
       <End Role="Forums" EntitySet="Forums" />
       <End Role="ForumComments" EntitySet="ForumComments" />
     </AssociationSet>
+    <AssociationSet Name="FK_ForumComments_Users_AuthorId" Association="Self.FK_ForumComments_Users_AuthorId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ForumComments" EntitySet="ForumComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Forums_Users_AuthorId" Association="Self.FK_Forums_Users_AuthorId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Forums" EntitySet="Forums" />
+    </AssociationSet>
     <AssociationSet Name="FK_OrderProducts_Inventories_InventoryId" Association="Self.FK_OrderProducts_Inventories_InventoryId">
       <End Role="Inventories" EntitySet="Inventories" />
       <End Role="OrderProducts" EntitySet="OrderProducts" />
@@ -530,9 +618,21 @@
       <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
+    <AssociationSet Name="FK_Orders_Users_DeliveryManId" Association="Self.FK_Orders_Users_DeliveryManId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
     <AssociationSet Name="FK_Socials_SocialTypes_SocialTypeId" Association="Self.FK_Socials_SocialTypes_SocialTypeId">
       <End Role="SocialTypes" EntitySet="SocialTypes" />
       <End Role="Socials" EntitySet="Socials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Roles_RoleId" Association="Self.FK_UserRoles_Roles_RoleId">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoles_Users_UserId" Association="Self.FK_UserRoles_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UserRoles" EntitySet="UserRoles" />
     </AssociationSet>
     <AssociationSet Name="FK_Users_Districts_DistrictId" Association="Self.FK_Users_Districts_DistrictId">
       <End Role="Districts" EntitySet="Districts" />
