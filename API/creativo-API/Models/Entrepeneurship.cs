@@ -31,6 +31,7 @@ namespace creativo_API.Models
         public string Sinpe { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public int state { get; set; }
     
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

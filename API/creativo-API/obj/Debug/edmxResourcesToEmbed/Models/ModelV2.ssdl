@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CreativoDBV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cantons">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProvinceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Districts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CantonId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EntrepeneurshipAdmins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Entrepeneurships">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DistrictId" Type="int" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sinpe" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="state" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EntrepeneurshipSocials">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+    <Property Name="SocialId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ForumComments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="ForumId" Type="int" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Forums">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Inventories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderProducts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="InventoryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DistrictId" Type="int" Nullable="false" />
+    <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Provinces">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Questions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QuestionText" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Answer" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Socials">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SocialTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SocialTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+    <Property Name="DistrictId" Type="int" />
+    <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkShopClients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkshopId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkshopPhotos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WorkshopId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Workshops">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WorkshopTypeId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkshopTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Cantons_Provinces_ProvinceId">
+    <End Role="Provinces" Type="Self.Provinces" Multiplicity="1" />
+    <End Role="Cantons" Type="Self.Cantons" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provinces">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cantons">
+        <PropertyRef Name="ProvinceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Districts_Cantons_CantonId">
+    <End Role="Cantons" Type="Self.Cantons" Multiplicity="1" />
+    <End Role="Districts" Type="Self.Districts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cantons">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Districts">
+        <PropertyRef Name="CantonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EntrepeneurshipAdmins_Entrepeneurships_EntrepeneurshipId">
+    <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="1" />
+    <End Role="EntrepeneurshipAdmins" Type="Self.EntrepeneurshipAdmins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurships">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EntrepeneurshipAdmins">
+        <PropertyRef Name="EntrepeneurshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EntrepeneurshipAdmins_Users_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="EntrepeneurshipAdmins" Type="Self.EntrepeneurshipAdmins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EntrepeneurshipAdmins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Entrepeneurships_Districts_DistrictId">
+    <End Role="Districts" Type="Self.Districts" Multiplicity="1" />
+    <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurships">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId">
+    <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="1" />
+    <End Role="EntrepeneurshipSocials" Type="Self.EntrepeneurshipSocials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurships">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EntrepeneurshipSocials">
+        <PropertyRef Name="EntrepeneurshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EntrepeneurshipSocials_Socials_SocialId">
+    <End Role="Socials" Type="Self.Socials" Multiplicity="1" />
+    <End Role="EntrepeneurshipSocials" Type="Self.EntrepeneurshipSocials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Socials">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EntrepeneurshipSocials">
+        <PropertyRef Name="SocialId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ForumComments_Forums_ForumId">
+    <End Role="Forums" Type="Self.Forums" Multiplicity="1" />
+    <End Role="ForumComments" Type="Self.ForumComments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Forums">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ForumComments">
+        <PropertyRef Name="ForumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderProducts_Inventories_InventoryId">
+    <End Role="Inventories" Type="Self.Inventories" Multiplicity="1" />
+    <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inventories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderProducts">
+        <PropertyRef Name="InventoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderProducts_Orders_OrderId">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderProducts">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Districts_DistrictId">
+    <End Role="Districts" Type="Self.Districts" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Entrepeneurships_EntrepeneurshipId">
+    <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurships">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="EntrepeneurshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Socials_SocialTypes_SocialTypeId">
+    <End Role="SocialTypes" Type="Self.SocialTypes" Multiplicity="1" />
+    <End Role="Socials" Type="Self.Socials" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SocialTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Socials">
+        <PropertyRef Name="SocialTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Districts_DistrictId">
+    <End Role="Districts" Type="Self.Districts" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Districts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Roles_RoleId">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Users" Type="Self.Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkShopClients_Users_UserId">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="WorkShopClients" Type="Self.WorkShopClients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkShopClients">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkShopClients_Workshops_WorkshopId">
+    <End Role="Workshops" Type="Self.Workshops" Multiplicity="1" />
+    <End Role="WorkShopClients" Type="Self.WorkShopClients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workshops">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkShopClients">
+        <PropertyRef Name="WorkshopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkshopPhotos_Workshops_WorkshopId">
+    <End Role="Workshops" Type="Self.Workshops" Multiplicity="1" />
+    <End Role="WorkshopPhotos" Type="Self.WorkshopPhotos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Workshops">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkshopPhotos">
+        <PropertyRef Name="WorkshopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workshops_WorkshopTypes_WorkshopTypeId">
+    <End Role="WorkshopTypes" Type="Self.WorkshopTypes" Multiplicity="1" />
+    <End Role="Workshops" Type="Self.Workshops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkshopTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workshops">
+        <PropertyRef Name="WorkshopTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="CreativoDBV2ModelStoreContainer">
+    <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cantons" EntityType="Self.Cantons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Districts" EntityType="Self.Districts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EntrepeneurshipAdmins" EntityType="Self.EntrepeneurshipAdmins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Entrepeneurships" EntityType="Self.Entrepeneurships" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EntrepeneurshipSocials" EntityType="Self.EntrepeneurshipSocials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ForumComments" EntityType="Self.ForumComments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Forums" EntityType="Self.Forums" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Inventories" EntityType="Self.Inventories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Provinces" EntityType="Self.Provinces" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Socials" EntityType="Self.Socials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SocialTypes" EntityType="Self.SocialTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkShopClients" EntityType="Self.WorkShopClients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkshopPhotos" EntityType="Self.WorkshopPhotos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Workshops" EntityType="Self.Workshops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WorkshopTypes" EntityType="Self.WorkshopTypes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Cantons_Provinces_ProvinceId" Association="Self.FK_Cantons_Provinces_ProvinceId">
+      <End Role="Provinces" EntitySet="Provinces" />
+      <End Role="Cantons" EntitySet="Cantons" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Districts_Cantons_CantonId" Association="Self.FK_Districts_Cantons_CantonId">
+      <End Role="Cantons" EntitySet="Cantons" />
+      <End Role="Districts" EntitySet="Districts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EntrepeneurshipAdmins_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_EntrepeneurshipAdmins_Entrepeneurships_EntrepeneurshipId">
+      <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+      <End Role="EntrepeneurshipAdmins" EntitySet="EntrepeneurshipAdmins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EntrepeneurshipAdmins_Users_UserId" Association="Self.FK_EntrepeneurshipAdmins_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="EntrepeneurshipAdmins" EntitySet="EntrepeneurshipAdmins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Entrepeneurships_Districts_DistrictId" Association="Self.FK_Entrepeneurships_Districts_DistrictId">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId">
+      <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+      <End Role="EntrepeneurshipSocials" EntitySet="EntrepeneurshipSocials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EntrepeneurshipSocials_Socials_SocialId" Association="Self.FK_EntrepeneurshipSocials_Socials_SocialId">
+      <End Role="Socials" EntitySet="Socials" />
+      <End Role="EntrepeneurshipSocials" EntitySet="EntrepeneurshipSocials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ForumComments_Forums_ForumId" Association="Self.FK_ForumComments_Forums_ForumId">
+      <End Role="Forums" EntitySet="Forums" />
+      <End Role="ForumComments" EntitySet="ForumComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderProducts_Inventories_InventoryId" Association="Self.FK_OrderProducts_Inventories_InventoryId">
+      <End Role="Inventories" EntitySet="Inventories" />
+      <End Role="OrderProducts" EntitySet="OrderProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderProducts_Orders_OrderId" Association="Self.FK_OrderProducts_Orders_OrderId">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderProducts" EntitySet="OrderProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Districts_DistrictId" Association="Self.FK_Orders_Districts_DistrictId">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_Orders_Entrepeneurships_EntrepeneurshipId">
+      <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Socials_SocialTypes_SocialTypeId" Association="Self.FK_Socials_SocialTypes_SocialTypeId">
+      <End Role="SocialTypes" EntitySet="SocialTypes" />
+      <End Role="Socials" EntitySet="Socials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Districts_DistrictId" Association="Self.FK_Users_Districts_DistrictId">
+      <End Role="Districts" EntitySet="Districts" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Roles_RoleId" Association="Self.FK_Users_Roles_RoleId">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkShopClients_Users_UserId" Association="Self.FK_WorkShopClients_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="WorkShopClients" EntitySet="WorkShopClients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkShopClients_Workshops_WorkshopId" Association="Self.FK_WorkShopClients_Workshops_WorkshopId">
+      <End Role="Workshops" EntitySet="Workshops" />
+      <End Role="WorkShopClients" EntitySet="WorkShopClients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkshopPhotos_Workshops_WorkshopId" Association="Self.FK_WorkshopPhotos_Workshops_WorkshopId">
+      <End Role="Workshops" EntitySet="Workshops" />
+      <End Role="WorkshopPhotos" EntitySet="WorkshopPhotos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workshops_WorkshopTypes_WorkshopTypeId" Association="Self.FK_Workshops_WorkshopTypes_WorkshopTypeId">
+      <End Role="WorkshopTypes" EntitySet="WorkshopTypes" />
+      <End Role="Workshops" EntitySet="Workshops" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

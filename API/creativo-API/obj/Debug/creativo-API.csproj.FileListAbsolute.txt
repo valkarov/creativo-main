@@ -206,3 +206,14 @@ C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Deb
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Debug\creativo.DE9B5D8D.Up2Date
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Debug\creativo-API.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Debug\creativo-API.pdb
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Encodings.Web.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Json.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.ValueTuple.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.pdb
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Encodings.Web.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Json.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.ValueTuple.xml

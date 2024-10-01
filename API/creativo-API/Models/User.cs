@@ -28,6 +28,9 @@ namespace creativo_API.Models
         public string Password { get; set; }
         public int RoleId { get; set; }
         public Nullable<int> DistrictId { get; set; }
+        public string Cedula { get; set; }
+        public string Phone { get; set; }
+        public string UserName { get; set; }
     
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

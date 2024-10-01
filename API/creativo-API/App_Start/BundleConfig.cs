@@ -1,4 +1,5 @@
-﻿using System.Web.Optimization;
+﻿using Newtonsoft.Json;
+using System.Web.Optimization;
 
 namespace creativo_API
 {
@@ -7,6 +8,11 @@ namespace creativo_API
         // Para obtener más información sobre las uniones, visite https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 

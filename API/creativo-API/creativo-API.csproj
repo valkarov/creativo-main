@@ -63,6 +63,12 @@
     <Reference Include="Google.Apis.Core, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
       <HintPath>packages\Google.Apis.Core.1.68.0\lib\net462\Google.Apis.Core.dll</HintPath>
     </Reference>
+    <Reference Include="JWT, Version=10.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>packages\JWT.10.1.1\lib\net462\JWT.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\lib\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -97,8 +103,17 @@
       <HintPath>packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.7, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Json.6.0.7\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Cors, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Cors.5.3.0\lib\net45\System.Web.Cors.dll</HintPath>
@@ -195,103 +210,108 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\CantonsController.cs" />
-    <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\Delivery_PersonController.cs" />
     <Compile Include="Controllers\DistricsController.cs" />
-    <Compile Include="Controllers\EntrepreneurshipsController.cs" />
-    <Compile Include="Controllers\Entrepreneurship_AdminsController.cs" />
-    <Compile Include="Controllers\Entrepreneurship_TypeController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Controllers\SocialsController.cs" />
-    <Compile Include="Controllers\Social_TypeController.cs" />
-    <Compile Include="Controllers\Temp_PassController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Controllers\WorkshopRecordsController.cs" />
-    <Compile Include="Controllers\WorkshopsController.cs" />
-    <Compile Include="Controllers\Workshop_ClientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Admin.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Canton.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Client.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\C__EFMigrationsHistory.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Delivery_Person.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\UserDto.cs" />
+    <Compile Include="Models\District.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Distric.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Entrepeneurship.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entrepreneurship.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\EntrepeneurshipAdmin.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entrepreneurship_Admins.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\EntrepeneurshipSocial.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entrepreneurship_Type.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Forum.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Context.cs">
+    <Compile Include="Models\ForumComment.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Inventory.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelV2.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+      <DependentUpon>ModelV2.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.cs">
+    <Compile Include="Models\ModelV2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
+    <Compile Include="Models\ModelV2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>ModelV2.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderProduct.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Province.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Question.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Social.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Social_Type.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\SocialType.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Temp_Pass.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Workshop.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WorkshopRecord.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\WorkShopClient.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Workshop_Client.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\WorkshopPhoto.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Workshop_Photos.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\WorkshopType.cs">
+      <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -332,22 +352,15 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\ModelV2.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>ModelV2.edmx</DependentUpon>
+      <LastGenOutput>ModelV2.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\ModelV2.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+      <DependentUpon>ModelV2.edmx</DependentUpon>
+      <LastGenOutput>ModelV2.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -377,6 +390,13 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <EntityDeploy Include="Models\ModelV2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelV2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelV2.edmx.diagram">
+      <DependentUpon>ModelV2.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -411,6 +431,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Help\" />
+    <Folder Include="Views\Users\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

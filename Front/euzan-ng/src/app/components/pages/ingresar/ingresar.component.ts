@@ -67,11 +67,15 @@ export class IngresarComponent {
             this.service.login(this.usuario, this.pass).subscribe({
                 next: (data) => {
                     this.error = false;
-                    // this.rol = data;
-                    console.log(this.rol);
+                    // this.rol =new Role() {
+                    //     Username: data.UserName,
+                    //     Role: data.Role.Name,
+                    // };
+                    this.rol.Type = data.Role.Name;
+                    this.rol.Username = data.UserName;
                     this.cookieService.set(
-                        "cookie" + this.rol.Type,
-                        this.rol.Username
+                        "cookie" + data.Role.Name,
+                        data.UserName
                     );
                     this.service.successMessage(
                         "¡Bienvenido a tu cuenta!",

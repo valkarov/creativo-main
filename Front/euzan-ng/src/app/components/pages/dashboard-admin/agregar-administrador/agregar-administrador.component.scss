@@ -3,20 +3,19 @@
 }
 .main-banner {
     position: relative;
-    height: 2000px;
+    height: max-content;
+    min-height: 100%;
     background: {
         position: center center;
         size: cover;
-    };
-    
-
+    }
 
     .banner-btn {
         width: 100%;
         margin-top: 20px;
-        text-align:center;
+        text-align: center;
         a {
-            color: rgba(228,102,92,.85);
+            color: rgba(228, 102, 92, 0.85);
             font-weight: 600;
             padding: 10px 30px;
             border-radius: 80px;
@@ -26,20 +25,19 @@
             font: {
                 weight: 600;
                 family: var(--headingFontFamily);
-            };
+            }
             &:hover {
-                background: rgba(228,102,92,.85);
+                background: rgba(228, 102, 92, 0.85);
                 color: var(--whiteColor);
             }
         }
-        
     }
     .newsletter-form {
         position: relative;
         margin: 10px 0px;
         display: flex;
         flex-direction: row-reverse;
-    
+
         .form-control {
             box-shadow: unset !important;
             color: black;
@@ -52,9 +50,9 @@
         }
         ::placeholder {
             color: black;
-            opacity: .9;
+            opacity: 0.9;
         }
-        
+
         label {
             position: relative;
             right: 0;
@@ -73,20 +71,19 @@
             font-weight: 550;
             font-family: var(--headingFontFamily);
             transition: var(--transition);
-    
+
             z-index: 1;
-            cursor:default;
+            cursor: default;
         }
-        
     }
     .banner-btn {
         width: 100%;
         margin-top: 40px;
-        text-align:center;
+        text-align: center;
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
-    
+
         a {
             color: rgba(5, 36, 119, 0.85);
             font-weight: 600;
@@ -98,16 +95,15 @@
             font: {
                 weight: 600;
                 family: var(--headingFontFamily);
-            };
+            }
             &:hover {
                 background: rgba(5, 36, 119, 0.85);
                 color: var(--whiteColor);
             }
         }
-        
     }
     .banner-text {
-        max-width: 650px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -115,11 +111,10 @@
         padding-right: 50px;
         text-align: center;
 
-        select{
+        select {
             width: 50%;
             text-align: center;
         }
-
 
         h1 {
             font-size: 50px;
@@ -143,7 +138,7 @@
                 font: {
                     weight: 600;
                     family: var(--headingFontFamily);
-                };
+                }
                 &:hover {
                     background: #03abeb;
                     color: var(--whiteColor);
@@ -176,15 +171,15 @@
     .banner-img {
         position: relative;
         z-index: 0;
-        
+
         img {
-            animation:translateY 10s infinite linear;
+            animation: translateY 10s infinite linear;
         }
         &::before {
             left: 40px;
             top: -47px;
             z-index: -1;
-            content: '';
+            content: "";
             width: 135px;
             height: 120px;
             position: absolute;
@@ -193,14 +188,14 @@
                 image: url(../../../../../assets/img/shape/home-shape-three.png);
                 position: center center;
                 size: cover;
-            };
+            }
         }
         &::after {
-            content: '';
+            content: "";
             z-index: -1;
             width: 150px;
             right: -50px;
-            bottom:-50px;
+            bottom: -50px;
             height: 150px;
             position: absolute;
             border-radius: 30px;
@@ -239,14 +234,16 @@
 }
 .banner-bg-five {
     position: relative;
-    height: 130vh;
-
     z-index: 1;
 
     &::before {
-        content: '';
+        content: "";
         position: absolute;
-        background: linear-gradient(90deg, #03ABEB 20%, rgba(123, 196, 255, 0.85) 100%);
+        background: linear-gradient(
+            90deg,
+            #03abeb 20%,
+            rgba(123, 196, 255, 0.85) 100%
+        );
         height: 100%;
         width: 100%;
         z-index: -1;
@@ -273,12 +270,12 @@
 
                 &:hover {
                     background: var(--whiteColor);
-                    color:#e4665c;
+                    color: #e4665c;
                 }
             }
             .active {
                 background: var(--whiteColor);
-                color:#e4665c;
+                color: #e4665c;
             }
         }
     }
@@ -292,11 +289,11 @@
 }
 
 @media only screen and (max-width: 767px) {
-
     .main-banner {
-        height: 100%;
-        background:#069ee8;
-        
+        height: max-content;
+        min-height: 100%;
+        background: #069ee8;
+
         .banner-shape {
             display: none;
         }
@@ -344,18 +341,18 @@
             position: relative;
             z-index: 1;
         }
-     }
-
+    }
 }
 
-@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-
     .main-banner {
-        height: 100%;
-        background:#069ee8;
-        
+        height: max-content;
+        min-height: 100%;
+        background: #069ee8;
+
         .banner-shape {
             display: none;
         }
@@ -365,7 +362,7 @@
 
             h1 {
                 font-size: 30px;
-                margin-bottom:20px;
+                margin-bottom: 20px;
             }
             p {
                 margin: 0 auto 5px;
@@ -396,7 +393,7 @@
     .banner-style-three {
         .banner-img-three {
             right: 25px;
-            max-width:500px;
+            max-width: 500px;
             position: relative;
             margin: 0 auto;
         }
@@ -411,24 +408,25 @@
             }
         }
     }
-
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-
     .main-banner {
-        background: #03ABEB;
-        
+        background: #03abeb;
+        height: max-content;
+        min-height: 100%;
+
         .banner-img {
             img {
                 max-width: 100%;
             }
-            &::after, &::before {
+            &::after,
+            &::before {
                 display: none;
             }
         }
         .banner-text {
-            padding:0;
+            padding: 0;
 
             h1 {
                 font-size: 50px;
@@ -439,8 +437,6 @@
         }
     }
     .banner-style-three {
-        height: 100%;
-
         .banner-text {
             padding: 150px 0;
 
@@ -449,15 +445,15 @@
             }
         }
     }
-
 }
 
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+}
 
 @media only screen and (min-width: 1550px) {
-
     .main-banner {
-        height: 1000px;
+        height: max-content;
+        min-height: 100%;
 
         .banner-shape {
             :nth-child(1) {
@@ -482,7 +478,7 @@
             }
             :nth-child(2) {
                 bottom: 100px;
-                right:50px;
+                right: 50px;
             }
             :nth-child(3) {
                 bottom: 55%;
@@ -494,6 +490,4 @@
             max-width: 900px;
         }
     }
-
 }
-

@@ -12,7 +12,7 @@ namespace creativo_API.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProvincesController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Provinces
         public IQueryable<Province> GetProvinces()

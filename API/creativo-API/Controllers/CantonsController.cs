@@ -13,7 +13,7 @@ namespace creativo_API.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CantonsController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Cantons
         public IQueryable<Canton> GetCantons()
@@ -26,7 +26,7 @@ namespace creativo_API.Controllers
         [Route("api/Cantons/{province}")]
         public IQueryable<Canton> GetCantones(string province)
         {
-            return db.Cantons.Where(e => e.Province == province);
+            return db.Cantons.Where(e => e.Province.Name == province);
         }
 
         // GET: api/Cantons/5

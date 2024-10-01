@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, SimpleChanges } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Cliente } from "src/app/interfaces/cliente";
@@ -23,10 +23,9 @@ export class NuevoClienteComponent {
     mensajeId: string = "";
     mensajeUser: string = "";
     mensajeEmail: string = "";
-    editMode = false;
-
+    @Input() editMode = false;
+    @Input() Role: string = "";
     temp: TempPass = new TempPass();
-
     constructor(
         private service: UsersService,
         private provinciaService: ProvinciaService,
@@ -39,10 +38,13 @@ export class NuevoClienteComponent {
         private tempService: TempPassService
     ) {
         this.getProvincias();
-        if (this.rou.snapshot.params["tipo"] == "cliente") {
-            this.editMode = true;
-
-            const user = this.cookieService.get("cookieCLIENTE");
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.editMode) {
+            console.log(changes.Role.currentValue);
+            const user = this.cookieService.get(
+                `cookie${changes.Role.currentValue}`
+            );
             this.service.get("User", user).subscribe({
                 next: (data) => {
                     const temp: Cliente = data;
@@ -59,7 +61,6 @@ export class NuevoClienteComponent {
             });
         }
     }
-
     provincias: Province[] = [];
     cantones: Canton[] = [];
     distritos: Distrito[] = [];
@@ -121,7 +122,7 @@ export class NuevoClienteComponent {
     guardar() {
         if (this.editMode) {
             Swal.fire({
-                title: "¿Quieres actualizar tu perfil en Club Creativo como Cliente?",
+                title: "¿Quieres actualizar tu perfil en Club Creativo?",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
@@ -155,7 +156,7 @@ export class NuevoClienteComponent {
                 if (result.isConfirmed) {
                     if (this.confirm === this.objeto.Password) {
                         this.service
-                            .add({ ...this.objeto, Role: "Cliente" })
+                            .add({ ...this.objeto, Role: this.Role })
                             .subscribe({
                                 next: (data) => {
                                     this.service.successMessage(

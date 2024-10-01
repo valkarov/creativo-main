@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CreativoDBV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CreativoDBV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Cantons">
           <Key>
             <PropertyRef Name="Id" />
@@ -42,6 +49,7 @@
           <Property Name="Sinpe" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="state" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EntrepeneurshipSocials">
           <Key>
@@ -158,6 +166,9 @@
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="DistrictId" Type="int" />
+          <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkShopClients">
           <Key>
@@ -454,6 +465,7 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CreativoDBV2ModelStoreContainer">
+          <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cantons" EntityType="Self.Cantons" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Districts" EntityType="Self.Districts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntrepeneurshipAdmins" EntityType="Self.EntrepeneurshipAdmins" Schema="dbo" store:Type="Tables" />
@@ -552,8 +564,7 @@
             <End Role="Workshops" EntitySet="Workshops" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CreativoDBV2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -606,6 +617,7 @@
           <NavigationProperty Name="EntrepeneurshipAdmins" Relationship="Self.FK_EntrepeneurshipAdmins_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="EntrepeneurshipAdmins" />
           <NavigationProperty Name="EntrepeneurshipSocials" Relationship="Self.FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="EntrepeneurshipSocials" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="Orders" />
+          <Property Name="state" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EntrepeneurshipSocial">
           <Key>
@@ -741,6 +753,9 @@
           <NavigationProperty Name="EntrepeneurshipAdmins" Relationship="Self.FK_EntrepeneurshipAdmins_Users_UserId" FromRole="Users" ToRole="EntrepeneurshipAdmins" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles_RoleId" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="WorkShopClients" Relationship="Self.FK_WorkShopClients_Users_UserId" FromRole="Users" ToRole="WorkShopClients" />
+          <Property Name="Cedula" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="WorkShopClient">
           <Key>
@@ -1140,6 +1155,7 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="CreativoDBV2Model.C__EFMigrationsHistory" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1152,6 +1168,13 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1188,6 +1211,7 @@
           <EntitySetMapping Name="Entrepeneurships">
             <EntityTypeMapping TypeName="CreativoDBV2Model.Entrepeneurship">
               <MappingFragment StoreEntitySet="Entrepeneurships">
+                <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1319,6 +1343,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CreativoDBV2Model.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -1392,6 +1419,14 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CreativoDBV2Model.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CreativoDBV2Model.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="C__EFMigrationsHistory">
+            <EntityTypeMapping TypeName="CreativoDBV2Model.C__EFMigrationsHistory">
+              <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

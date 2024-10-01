@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { UsersInterface } from "../interfaces/cliente";
 import { ConexionService } from "./conexion.service";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -17,7 +18,7 @@ export class UsersService extends ConexionService<UsersInterface> {
     getNombre(): string {
         return "Cliente";
     }
-    login(username, password) {
+    login(username, password): Observable<any> {
         return this.httpClient.post("https://localhost:44301/api/Users/Login", {
             Username: username,
             Password: password,
