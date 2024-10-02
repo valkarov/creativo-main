@@ -322,7 +322,7 @@ export class NuevoRepartidorComponent {
             next: (data) => {
                 this.tempService.successMessage(
                     "Solicitud cancelada",
-                    "/mi-perfil/cliente"
+                    "/editar-perfil"
                 );
             },
             error: (err) => {

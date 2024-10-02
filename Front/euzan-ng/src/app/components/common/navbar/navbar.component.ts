@@ -49,7 +49,10 @@ export class NavbarComponent implements OnInit {
         this.sessionService.userChanges.subscribe({
             next: (data) => {
                 this.user = data;
-                console.log(this.user);
+                this.isAdmin = this.sessionService.isAdmin();
+                this.isCliente = this.sessionService.isCliente();
+                this.isEmprendedor = this.sessionService.isEmprendimiento();
+                this.isRepartidor = this.sessionService.isRepartidor();
             },
         });
         const currentPath = window.location.pathname;

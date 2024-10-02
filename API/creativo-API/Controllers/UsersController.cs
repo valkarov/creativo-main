@@ -22,7 +22,7 @@ namespace creativo_API.Controllers
         public IHttpActionResult UserLogin(UserLoginDto user)
         {
             User userLogin = db.Users.Where(u => u.UserName == user.Username && u.Password == user.Password).FirstOrDefault();
-            if(userLogin == null)
+            if (userLogin == null)
             {
                 return BadRequest("Login Failed");
             }
@@ -33,10 +33,10 @@ namespace creativo_API.Controllers
 
         [HttpPost]
         [Route("api/Users/Login/Session")]
-        public IHttpActionResult User (UserSessionLoginDto login)
+        public IHttpActionResult User(UserSessionLoginDto login)
         {
             User user = sessionService.GetSession(login.session);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -52,7 +52,7 @@ namespace creativo_API.Controllers
             {
                 return BadRequest("Invalid data.");
             }
-            Role clientRole = db.Roles.Where(r => r.Name == user.Role).FirstOrDefault();
+            Role role = db.Roles.Where(r => r.Name == user.Role).FirstOrDefault();
             User newUser = new User();
             newUser.FirstName = user.FirstName;
             newUser.LastName = user.LastName;
@@ -62,12 +62,14 @@ namespace creativo_API.Controllers
             newUser.Email = user.Email;
             newUser.Password = user.Password;
             newUser.District = db.Districts.Where(d => d.Name == user.District).FirstOrDefault();
-            if (clientRole == null)
+            if (role == null)
             {
                 return BadRequest("Role not found.");
             }
-            newUser.Role = clientRole;
-            
+            UserRole userRole = new UserRole() { Role = role, User = newUser };
+            newUser.Role = role;
+
+            db.UserRoles.Add(userRole);
             db.Users.Add(newUser);
             db.SaveChanges();
             return Ok();
@@ -122,6 +124,33 @@ namespace creativo_API.Controllers
             user.Role = clientRole;
             db.SaveChanges();
             return Ok();
+        }
+        [HttpGet]
+        [Route("api/Admins")]
+        public IHttpActionResult getAdmins()
+        {
+
+            List<User> admins = db.Users.Where(u => u.Role.Name == "Admin").ToList();
+            List<UserResponseDto> response = new List<UserResponseDto>();
+            foreach (User admin in admins)
+            {
+                UserResponseDto user = new UserResponseDto()
+                {
+                    IdClient = admin.Cedula,
+                    Username = admin.UserName,
+                    Password = admin.Password,
+                    Email = admin.Email,
+                    FirstName = admin.FirstName,
+                    LastName = admin.LastName,
+                    Phone = admin.Phone,
+                    Province = admin.District.Canton.Province.Name,
+                    District = admin.District.Name,
+                    Canton = admin.District.Canton.Name,
+                    Role = admin.Role.Name
+                };
+                response.Add(user);
+            }
+            return Ok(response);
         }
     }
 }

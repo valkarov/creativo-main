@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
-import { Observable } from "rxjs";
-import { CookieService } from "ngx-cookie-service";
-import { SessionService } from "./services/session.service";
+import { SessionService } from "../services/session.service";
 
 @Injectable({
     providedIn: "root",
 })
-export class clienteGuard implements CanActivate {
+export class combinedGuard implements CanActivate {
     constructor(
         private sessionService: SessionService,
         private router: Router
@@ -20,8 +18,8 @@ export class clienteGuard implements CanActivate {
     }
 
     canActivate(): boolean {
-        const isCliente = this.sessionService.isCliente();
-        this.redirect(isCliente);
-        return isCliente;
+        const isLoggedIn = this.sessionService.isLoggedIn();
+        this.redirect(isLoggedIn);
+        return isLoggedIn;
     }
 }

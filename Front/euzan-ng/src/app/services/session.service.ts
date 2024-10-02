@@ -17,6 +17,7 @@ export class SessionService {
 
     private setUser(user: any) {
         this.user = user;
+        console.log(user);
         this.userSubject.next(user);
     }
     constructor(
@@ -47,18 +48,44 @@ export class SessionService {
     getSession(): any {
         return this.user;
     }
+    isAdmin(): boolean {
+        return this.user.UserRoles.some(
+            (userRole) => userRole.Role.Name === "ADMIN"
+        );
+    }
+    isCliente(): boolean {
+        return this.user.UserRoles.some(
+            (userRole) => userRole.Role.Name === "CLIENTE"
+        );
+    }
+    isRepartidor(): boolean {
+        return this.user.UserRoles.some(
+            (userRole) => userRole.Role.Name === "REPARTIDOR"
+        );
+    }
+    isEmprendimiento(): boolean {
+        return this.user.UserRoles.some(
+            (userRole) => userRole.Role.Name === "EMPRENDIMIENTO"
+        );
+    }
+    isLoggedIn(): boolean {
+        return !!this.user ? true : false;
+    }
     // Get basic user data from session
     async getUserData(): Promise<any> {
         const session = this.loadSession();
         if (session) {
-            this.user = await this.userService
-                .getSession(session.Password)
-                .subscribe({
-                    next: (data) => {
-                        this.setUser(data);
-                        this.cookieService.set("XSRF-TOKEN", data.Password);
-                    },
-                });
+            this.setUser(session);
+            this.userService.getSession(session.Password).subscribe({
+                next: (data) => {
+                    this.setUser(data);
+                    this.cookieService.set("XSRF-TOKEN", data.Password);
+                },
+                error: () => {
+                    this.clearSession();
+                    //TODO: go to login
+                },
+            });
         }
 
         return session ? session.userData : null;

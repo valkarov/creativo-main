@@ -10,6 +10,7 @@ import {
     CantonService,
     DistritoService,
 } from "src/app/services/lugares.service";
+import { SessionService } from "src/app/services/session.service";
 import { TempPassService } from "src/app/services/temp-pass.service";
 import Swal from "sweetalert2";
 
@@ -34,29 +35,29 @@ export class NuevoClienteComponent {
         private route: Router,
         private rou: ActivatedRoute,
 
-        private cookieService: CookieService,
+        private sessionService: SessionService,
         private tempService: TempPassService
     ) {
         this.getProvincias();
     }
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.editMode) {
-            console.log(changes.Role.currentValue);
-            const user = this.cookieService.get(
-                `cookie${changes.Role.currentValue}`
-            );
-            this.service.get("User", user).subscribe({
+        if (changes.editMode.currentValue) {
+            const user = this.sessionService.userChanges.subscribe({
                 next: (data) => {
-                    const temp: Cliente = data;
-                    this.getProvincias();
-                    this.objeto.Province = temp.Province;
-                    this.getCantones();
-                    this.objeto.Canton = temp.Canton;
-                    this.getDistritos();
-                    this.objeto = data;
-                },
-                error: (err) => {
-                    console.log(err);
+                    this.service.get("User", data.Cedula).subscribe({
+                        next: (data) => {
+                            const temp: Cliente = data;
+                            this.getProvincias();
+                            this.objeto.Province = temp.Province;
+                            this.getCantones();
+                            this.objeto.Canton = temp.Canton;
+                            this.getDistritos();
+                            this.objeto = data;
+                        },
+                        error: (err) => {
+                            console.log(err);
+                        },
+                    });
                 },
             });
         }
@@ -326,7 +327,7 @@ export class NuevoClienteComponent {
             next: (data) => {
                 this.tempService.successMessage(
                     "Solicitud cancelada",
-                    "/mi-perfil/cliente"
+                    "/editar-perfil"
                 );
             },
             error: (err) => {
