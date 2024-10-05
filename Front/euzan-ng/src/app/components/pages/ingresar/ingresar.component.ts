@@ -10,6 +10,7 @@ import { UsersService } from "src/app/services/cliente.service";
 import { TempPassService } from "src/app/services/temp-pass.service";
 import Swal from "sweetalert2";
 import { SessionService } from "src/app/services/session.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-ingresar",
@@ -32,7 +33,8 @@ export class IngresarComponent {
         private service: UsersService,
         private cookieService: CookieService,
         private tempService: TempPassService,
-        private SessionService: SessionService
+        private SessionService: SessionService,
+        private router: Router
     ) {
         if (cookieService.get("cookieADMIN") != "") {
             this.redirigir("/dashboard-admin");
@@ -46,7 +48,7 @@ export class IngresarComponent {
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.router.navigate([url]);
     }
 
     eliminarTemp(username) {
@@ -68,7 +70,7 @@ export class IngresarComponent {
             this.service.login(this.usuario, this.pass).subscribe({
                 next: (data) => {
                     this.error = false;
-                    this.SessionService.saveSession(data);
+                    this.SessionService.login(data.token, data.roles);
                     this.service.successMessage(
                         "¡Bienvenido a tu cuenta!",
                         "/ingresar"

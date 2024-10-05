@@ -17,8 +17,8 @@ export class combinedGuard implements CanActivate {
         }
     }
 
-    canActivate(): boolean {
-        const isLoggedIn = this.sessionService.isLoggedIn();
+    async canActivate(): Promise<boolean> {
+        const isLoggedIn = await this.sessionService.isAuthenticated();
         this.redirect(isLoggedIn);
         return isLoggedIn;
     }

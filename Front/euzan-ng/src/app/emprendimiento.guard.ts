@@ -17,8 +17,10 @@ export class emprendimientoGuard implements CanActivate {
         }
     }
 
-    canActivate(): boolean {
-        const isEmprendimiento = this.sessionService.isEmprendimiento();
+    async canActivate(): Promise<boolean> {
+        const isEmprendimiento = await this.sessionService.hasRole(
+            "EMPRENDIMIENTO"
+        );
         this.redirect(isEmprendimiento);
         return isEmprendimiento;
     }

@@ -19,8 +19,8 @@ export class adminGuard implements CanActivate {
         }
     }
 
-    canActivate(): boolean {
-        const isAdmin = this.sessionService.isAdmin();
+    async canActivate(): Promise<boolean> {
+        const isAdmin = await this.sessionService.hasRole("ADMIN");
         this.redirect(isAdmin);
         return isAdmin;
     }

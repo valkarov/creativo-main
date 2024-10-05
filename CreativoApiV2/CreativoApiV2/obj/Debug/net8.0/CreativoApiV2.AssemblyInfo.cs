@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CreativoApiV2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d8545a19c77eaf52504a33f6e6ae025c1f776b2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30e775d2fb015c4df772e6a246f9d5c714ac980c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CreativoApiV2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CreativoApiV2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

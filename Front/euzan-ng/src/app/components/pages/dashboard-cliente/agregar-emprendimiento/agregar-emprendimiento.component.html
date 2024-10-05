@@ -57,30 +57,6 @@
                             >
                         </form>
 
-                        <form class="newsletter-form">
-                            <input
-                                type="text"
-                                class="form-control"
-                                placeholder="Nombre de Usuario"
-                                name="Usuario"
-                                [(ngModel)]="objeto.Username"
-                                (ngModelChange)="checkAvailabilityUser()"
-                                [disabled]="editMode"
-                                [ngClass]="{ 'disabled-input': editMode }"
-                                [style.border]="
-                                    mensajeUser === 'Disponible'
-                                        ? '2px solid green'
-                                        : mensajeUser === 'No disponible'
-                                        ? '2px solid red'
-                                        : ''
-                                "
-                            />
-
-                            <label class="texto" for="Usuario" type="submit"
-                                >Nombre de Usuario:</label
-                            >
-                        </form>
-
                         <form
                             class="newsletter-form"
                             *ngIf="objeto.IdType === 'Fisica'"
@@ -154,8 +130,8 @@
                                     [ngForOf]="tipos"
                                     let-i="index"
                                 >
-                                    <option [value]="obj.type">
-                                        {{ obj.type }}
+                                    <option [value]="obj.Id">
+                                        {{ obj.Name }}
                                     </option>
                                 </ng-template>
                             </select>

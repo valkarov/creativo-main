@@ -21,7 +21,7 @@
         <div
             class="collapse navbar-collapse"
             id="navbarSupportedContent"
-            *ngIf="!user"
+            *ngIf="unregistered"
         >
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
@@ -65,24 +65,22 @@
             </div>
         </div>
         <div
-            *ngIf="!!user"
+            *ngIf="!unregistered"
             class="collapse navbar-collapse"
             id="navbarSupportedContent"
         >
             <div class="nav-container">
                 <ul>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            title="Inicio"
+                            (click)="onClick('/inicio', 'home')"
+                            ><i class="fas fa-home"></i
+                            ><span class="nav-title">Inicio</span></a
+                        >
+                    </li>
                     <ng-container *ngIf="isAdmin">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                title="Inicio"
-                                (click)="onClick('/inicio', 'home')"
-                            >
-                                <i class="fas fa-home"></i
-                                ><span class="nav-title">Inicio</span>
-                            </a>
-                        </li>
-
                         <li class="nav-item">
                             <a
                                 class="nav-link"
@@ -127,22 +125,8 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link"
-                                title="Inicio"
-                                (click)="onClick('/inicio', 'home')"
-                                ><i class="fas fa-home"></i
-                                ><span class="nav-title">Inicio</span></a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
                                 title="Perfil"
-                                (click)="
-                                    onClick(
-                                        '/mi-perfil/repartidor/repartidor',
-                                        ''
-                                    )
-                                "
+                                (click)="onClick('/editar-perfil', '')"
                                 ><i class="fas fa-user"></i
                                 ><span class="nav-title">Perfil</span></a
                             >
@@ -160,15 +144,6 @@
                         </li>
                     </ng-container>
                     <ng-container *ngIf="isCliente">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                title="Inicio"
-                                (click)="onClick('/inicio', 'home')"
-                                ><i class="fas fa-home"></i
-                                ><span class="nav-title">Inicio</span></a
-                            >
-                        </li>
                         <li class="nav-item">
                             <a
                                 class="nav-link"
@@ -221,26 +196,6 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link"
-                                title="Inicio"
-                                (click)="onClick('/inicio', 'home')"
-                                ><i class="fas fa-home"></i
-                                ><span class="nav-title">Inicio</span></a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                title="Perfil"
-                                (click)="
-                                    onClick('/mi-perfil/emprendimiento', '')
-                                "
-                                ><i class="fas fa-user"></i
-                                ><span class="nav-title">Perfil</span></a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
                                 title="Talleres"
                                 (click)="onClick('/talleres', '')"
                                 ><i class="fas fa-cut"></i
@@ -254,17 +209,6 @@
                                 (click)="onClick('/pagos', '')"
                                 ><i class="fas fa-dollar-sign"></i
                                 ><span class="nav-title">Pagos</span></a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                title="Administradores"
-                                (click)="onClick('/emprendimiento-admins', '')"
-                                ><i class="fas fa-user-cog"></i
-                                ><span class="nav-title"
-                                    >Administradores</span
-                                ></a
                             >
                         </li>
                     </ng-container>

@@ -176,7 +176,7 @@ export class CompletarInfoComponent {
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.route.navigate([url]);
     }
 
     formatoNumeros(event, cantidad) {

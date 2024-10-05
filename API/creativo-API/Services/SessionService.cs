@@ -9,11 +9,13 @@ namespace creativo_API.Services
     public class SessionService
     {
         private static SessionService instance;
-        private Dictionary<string, User> sessions;
+        private Dictionary<string, int> sessions;
+        private Dictionary<int, string> usersessions;
 
         private SessionService()
         {
-            sessions = new Dictionary<string, User>();
+            sessions = new Dictionary<string, int>();
+            usersessions = new Dictionary<int, string>();
         }
 
         public static SessionService Instance
@@ -31,20 +33,26 @@ namespace creativo_API.Services
         {
             return Guid.NewGuid().ToString();
         }
-        public string AddSession(User sessionData)
+        public string AddSession(int sessionData)
         {
             string sessionId = generateSessionId();
+            if(usersessions.ContainsKey(sessionData))
+            {
+                sessions.Remove(usersessions[sessionData]);
+                usersessions.Remove(sessionData);
+            }
             sessions.Add(sessionId, sessionData);
+            usersessions.Add(sessionData, sessionId);
             return sessionId;
         }
 
-        public User GetSession(string sessionId)
+        public int GetSession(string sessionId)
         {
             if (sessions.ContainsKey(sessionId))
             {
                 return sessions[sessionId];
             }
-            return null;
+            return -1;
         }
 
         public void RemoveSession(string sessionId)

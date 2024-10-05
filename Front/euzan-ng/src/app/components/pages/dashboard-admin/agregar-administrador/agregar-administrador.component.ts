@@ -24,14 +24,14 @@ export class AgregarAdministradorComponent {
         if (currentUrl.includes("editar")) {
             this.editMode = true;
 
-            this.sessionService.userChanges.subscribe({
-                next: (data) => {
-                    this.service.get("User", data.Id);
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
+            // this.sessionService.userChanges.subscribe({
+            //     next: (data) => {
+            //         this.service.get("User", data.Id);
+            //     },
+            //     error: (err) => {
+            //         console.log(err);
+            //     },
+            // });
         } else {
             this.editMode = false;
         }

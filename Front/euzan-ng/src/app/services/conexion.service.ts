@@ -30,7 +30,7 @@ export abstract class ConexionService<T> {
             id = id + "/" + id2;
         }
         console.log(this.getRuta() + "/" + id);
-        return this.httpClient.get<T>(this.getRuta() + "/" + id2);
+        return this.httpClient.get<T>(this.getRuta() + "/" + id);
     }
 
     add(resource: T, id?: string | number): Observable<T> {

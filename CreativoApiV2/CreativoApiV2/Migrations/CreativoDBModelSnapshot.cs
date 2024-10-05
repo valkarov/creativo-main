@@ -89,6 +89,9 @@ namespace CreativoApiV2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EntrepeneurshipTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -111,6 +114,8 @@ namespace CreativoApiV2.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DistrictId");
+
+                    b.HasIndex("EntrepeneurshipTypeId");
 
                     b.ToTable("Entrepeneurships");
                 });
@@ -159,6 +164,23 @@ namespace CreativoApiV2.Migrations
                     b.HasIndex("SocialId");
 
                     b.ToTable("EntrepeneurshipSocials");
+                });
+
+            modelBuilder.Entity("CreativoApiV2.Model.EntrepeneurshipType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EntrepeneurshipType");
                 });
 
             modelBuilder.Entity("CreativoApiV2.Model.Forum", b =>
@@ -607,7 +629,15 @@ namespace CreativoApiV2.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("CreativoApiV2.Model.EntrepeneurshipType", "EntrepeneurshipType")
+                        .WithMany()
+                        .HasForeignKey("EntrepeneurshipTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("District");
+
+                    b.Navigation("EntrepeneurshipType");
                 });
 
             modelBuilder.Entity("CreativoApiV2.Model.EntrepeneurshipAdmin", b =>

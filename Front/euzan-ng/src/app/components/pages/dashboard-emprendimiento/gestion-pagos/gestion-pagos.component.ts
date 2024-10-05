@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Cliente } from "src/app/interfaces/cliente";
 import {
@@ -28,7 +29,8 @@ export class GestionPagosComponent {
         private service: TalleresPagoService,
         private tallerService: TalleresService,
         private clientService: UsersService,
-        private cookieService: CookieService
+        private cookieService: CookieService,
+        private router: Router
     ) {
         this.service
             .getSelectedList(
@@ -79,7 +81,7 @@ export class GestionPagosComponent {
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.router.navigate([url]);
     }
 
     aceptarPago(obj: TallerPago) {

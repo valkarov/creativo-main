@@ -52,6 +52,8 @@
         <AssociationConnector Association="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" />
         <AssociationConnector Association="CreativoDBV2Model.FK_Forums_Users_AuthorId" />
         <AssociationConnector Association="CreativoDBV2Model.FK_UserRoles_Roles_RoleId" />
+        <EntityTypeShape EntityType="CreativoDBV2Model.EntrepeneurshipType" Width="1.5" PointX="0.75" PointY="13.875" />
+        <AssociationConnector Association="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

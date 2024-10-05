@@ -81,7 +81,7 @@ export class NuevoRepartidorComponent {
                             next: (data) => {
                                 this.service.successMessage(
                                     "Correctamente actualizado",
-                                    "/mi-perfil/repartidor/repartidor"
+                                    "/editar-perfil"
                                 );
                             },
                             error: (err) => {
@@ -159,7 +159,7 @@ export class NuevoRepartidorComponent {
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.route.navigate([url]);
     }
 
     checkAvailabilityId() {

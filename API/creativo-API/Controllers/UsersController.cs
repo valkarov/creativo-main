@@ -8,7 +8,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using static creativo_API.Models.UserDto;
 
 namespace creativo_API.Controllers
 {
@@ -26,23 +25,13 @@ namespace creativo_API.Controllers
             {
                 return BadRequest("Login Failed");
             }
-            string result = sessionService.AddSession(userLogin);
-            userLogin.Password = result;
-            return Ok(userLogin);
-        }
-
-        [HttpPost]
-        [Route("api/Users/Login/Session")]
-        public IHttpActionResult User(UserSessionLoginDto login)
-        {
-            User user = sessionService.GetSession(login.session);
-            if (user == null)
+            string session = sessionService.AddSession(userLogin.Id);
+            var result = new UserSessionLoginDto()
             {
-                return NotFound();
-            }
-
-            user.Password = login.session;
-            return Ok(user);
+                token = session,
+                roles = userLogin.UserRoles.Select(ur => ur.Role.Name).ToArray()
+            };
+            return Ok(result);
         }
 
         [HttpPost]
@@ -53,15 +42,8 @@ namespace creativo_API.Controllers
                 return BadRequest("Invalid data.");
             }
             Role role = db.Roles.Where(r => r.Name == user.Role).FirstOrDefault();
-            User newUser = new User();
-            newUser.FirstName = user.FirstName;
-            newUser.LastName = user.LastName;
-            newUser.Cedula = user.IdClient;
-            newUser.UserName = user.Username;
-            newUser.Phone = user.Phone;
-            newUser.Email = user.Email;
-            newUser.Password = user.Password;
-            newUser.District = db.Districts.Where(d => d.Name == user.District).FirstOrDefault();
+
+            User newUser = ClientRequestDto.MapToUser(db, user);
             if (role == null)
             {
                 return BadRequest("Role not found.");
@@ -75,13 +57,18 @@ namespace creativo_API.Controllers
             return Ok();
         }
         [HttpGet]
-        [Route("api/Users/{Username}")]
-        public IHttpActionResult GetUserByUsername(string username)
+        [Route("api/Users/{Cedula}")]
+        public IHttpActionResult GetUserByCedulaOrSession(string cedula)
         {
-            User user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+            User user = db.Users.Where(u => u.Cedula == cedula).FirstOrDefault();
             if (user == null)
             {
-                return NotFound();
+                int userId = sessionService.GetSession(cedula);
+                if (userId == -1)
+                {
+                    return NotFound();
+                }
+                user = db.Users.Find(userId);
             }
             UserResponseDto response = new UserResponseDto()
             {

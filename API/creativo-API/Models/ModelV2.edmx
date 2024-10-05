@@ -50,6 +50,7 @@
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
           <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="EntrepeneurshipTypeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EntrepeneurshipSocials">
           <Key>
@@ -58,6 +59,13 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
           <Property Name="SocialId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntrepeneurshipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ForumComments">
           <Key>
@@ -271,6 +279,20 @@
             </Principal>
             <Dependent Role="Entrepeneurships">
               <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+          <End Role="EntrepeneurshipType" Type="Self.EntrepeneurshipType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntrepeneurshipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entrepeneurships">
+              <PropertyRef Name="EntrepeneurshipTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -550,6 +572,7 @@
           <EntitySet Name="EntrepeneurshipAdmins" EntityType="Self.EntrepeneurshipAdmins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entrepeneurships" EntityType="Self.Entrepeneurships" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EntrepeneurshipSocials" EntityType="Self.EntrepeneurshipSocials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntrepeneurshipType" EntityType="Self.EntrepeneurshipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ForumComments" EntityType="Self.ForumComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Forums" EntityType="Self.Forums" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inventories" EntityType="Self.Inventories" Schema="dbo" store:Type="Tables" />
@@ -585,6 +608,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Entrepeneurships_Districts_DistrictId" Association="Self.FK_Entrepeneurships_Districts_DistrictId">
             <End Role="Districts" EntitySet="Districts" />
+            <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" Association="Self.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+            <End Role="EntrepeneurshipType" EntitySet="EntrepeneurshipType" />
             <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
           </AssociationSet>
           <AssociationSet Name="FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId">
@@ -718,6 +745,8 @@
           <NavigationProperty Name="EntrepeneurshipSocials" Relationship="Self.FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="EntrepeneurshipSocials" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="Orders" />
           <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="EntrepeneurshipTypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EntrepeneurshipType" Relationship="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" FromRole="Entrepeneurship" ToRole="EntrepeneurshipType" />
         </EntityType>
         <EntityType Name="EntrepeneurshipSocial">
           <Key>
@@ -1286,6 +1315,11 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="UserRole" EntitySet="UserRoles" />
           </AssociationSet>
+          <EntitySet Name="EntrepeneurshipTypes" EntityType="CreativoDBV2Model.EntrepeneurshipType" />
+          <AssociationSet Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" Association="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+            <End Role="EntrepeneurshipType" EntitySet="EntrepeneurshipTypes" />
+            <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1385,6 +1419,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EntrepeneurshipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Entrepeneurships" Relationship="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" FromRole="EntrepeneurshipType" ToRole="Entrepeneurship" />
+        </EntityType>
+        <Association Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+          <End Type="CreativoDBV2Model.EntrepeneurshipType" Role="EntrepeneurshipType" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.Entrepeneurship" Role="Entrepeneurship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EntrepeneurshipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entrepeneurship">
+              <PropertyRef Name="EntrepeneurshipTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1421,6 +1477,7 @@
           <EntitySetMapping Name="Entrepeneurships">
             <EntityTypeMapping TypeName="CreativoDBV2Model.Entrepeneurship">
               <MappingFragment StoreEntitySet="Entrepeneurships">
+                <ScalarProperty Name="EntrepeneurshipTypeId" ColumnName="EntrepeneurshipTypeId" />
                 <ScalarProperty Name="state" ColumnName="state" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1643,6 +1700,14 @@
               <MappingFragment StoreEntitySet="UserRoles">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntrepeneurshipTypes">
+            <EntityTypeMapping TypeName="CreativoDBV2Model.EntrepeneurshipType">
+              <MappingFragment StoreEntitySet="EntrepeneurshipType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -50,6 +50,8 @@
     <NavigationProperty Name="EntrepeneurshipSocials" Relationship="Self.FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="EntrepeneurshipSocials" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurships" ToRole="Orders" />
     <Property Name="state" Type="Int32" Nullable="false" />
+    <Property Name="EntrepeneurshipTypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EntrepeneurshipType" Relationship="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" FromRole="Entrepeneurship" ToRole="EntrepeneurshipType" />
   </EntityType>
   <EntityType Name="EntrepeneurshipSocial">
     <Key>
@@ -618,6 +620,11 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="UserRole" EntitySet="UserRoles" />
     </AssociationSet>
+    <EntitySet Name="EntrepeneurshipTypes" EntityType="CreativoDBV2Model.EntrepeneurshipType" />
+    <AssociationSet Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" Association="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+      <End Role="EntrepeneurshipType" EntitySet="EntrepeneurshipTypes" />
+      <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -714,6 +721,28 @@
       </Principal>
       <Dependent Role="UserRole">
         <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EntrepeneurshipType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Entrepeneurships" Relationship="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" FromRole="EntrepeneurshipType" ToRole="Entrepeneurship" />
+  </EntityType>
+  <Association Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+    <End Type="CreativoDBV2Model.EntrepeneurshipType" Role="EntrepeneurshipType" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.Entrepeneurship" Role="Entrepeneurship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EntrepeneurshipType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurship">
+        <PropertyRef Name="EntrepeneurshipTypeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

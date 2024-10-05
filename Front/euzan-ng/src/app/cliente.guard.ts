@@ -19,8 +19,8 @@ export class clienteGuard implements CanActivate {
         }
     }
 
-    canActivate(): boolean {
-        const isCliente = this.sessionService.isCliente();
+    async canActivate(): Promise<boolean> {
+        const isCliente = await this.sessionService.hasRole("CLIENTE");
         this.redirect(isCliente);
         return isCliente;
     }

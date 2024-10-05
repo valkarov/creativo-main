@@ -42,7 +42,7 @@ export class AgregarPreguntaComponent {
             confirmButtonText: "Salir",
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = url;
+                this.route.navigate([url]);
             }
         });
     }

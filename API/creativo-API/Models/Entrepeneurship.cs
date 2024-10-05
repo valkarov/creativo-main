@@ -32,6 +32,7 @@ namespace creativo_API.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public int state { get; set; }
+        public int EntrepeneurshipTypeId { get; set; }
     
         public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,5 +41,6 @@ namespace creativo_API.Models
         public virtual ICollection<EntrepeneurshipSocial> EntrepeneurshipSocials { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual EntrepeneurshipType EntrepeneurshipType { get; set; }
     }
 }

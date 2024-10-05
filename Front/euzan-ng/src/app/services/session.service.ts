@@ -1,93 +1,55 @@
 import { Injectable } from "@angular/core";
-import { UsersService } from "./cliente.service";
-import { CookieService } from "ngx-cookie-service";
-import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class SessionService {
-    private userSubject = new BehaviorSubject<any>(null);
-    private sessionKey = "sessionUser";
-    private user: any;
+    private tokenKey = "authToken";
+    private rolesKey = "userRoles";
+    private sessionSubject = new BehaviorSubject<boolean>(
+        this.isAuthenticated()
+    );
 
-    get userChanges() {
-        return this.userSubject.asObservable();
-    }
+    constructor(private router: Router) {}
 
-    private setUser(user: any) {
-        this.user = user;
-        console.log(user);
-        this.userSubject.next(user);
-    }
-    constructor(
-        private userService: UsersService,
-        private cookieService: CookieService
-    ) {
-        this.getUserData();
-    }
-    // Load session data from local storage
-    loadSession(): any {
-        const sessionData = localStorage.getItem(this.sessionKey);
-        return sessionData ? JSON.parse(sessionData) : null;
+    login(token: string, roles: string[]): void {
+        localStorage.setItem(this.tokenKey, token);
+        localStorage.setItem(this.rolesKey, JSON.stringify(roles));
+        this.sessionSubject.next(true);
     }
 
-    // Save session data to local storage
-    saveSession(data: any): void {
-        this.cookieService.set("XSRF-TOKEN", data.Password);
-        localStorage.setItem(this.sessionKey, JSON.stringify(data));
-        localStorage.setItem("session", data.Password);
+    logout(): void {
+        localStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.rolesKey);
+        this.sessionSubject.next(false);
+        this.router.navigate(["/login"]);
     }
 
-    // Clear session data from local storage
-    clearSession(): void {
-        localStorage.removeItem(this.sessionKey);
-        this.cookieService.delete("XSRF-TOKEN");
-        this.setUser(null);
+    isAuthenticated(): boolean {
+        return !!localStorage.getItem(this.tokenKey);
     }
-    getSession(): any {
-        return this.user;
-    }
-    isAdmin(): boolean {
-        return this.user.UserRoles.some(
-            (userRole) => userRole.Role.Name === "ADMIN"
-        );
-    }
-    isCliente(): boolean {
-        return this.user.UserRoles.some(
-            (userRole) => userRole.Role.Name === "CLIENTE"
-        );
-    }
-    isRepartidor(): boolean {
-        return this.user.UserRoles.some(
-            (userRole) => userRole.Role.Name === "REPARTIDOR"
-        );
-    }
-    isEmprendimiento(): boolean {
-        return this.user.UserRoles.some(
-            (userRole) => userRole.Role.Name === "EMPRENDIMIENTO"
-        );
-    }
-    isLoggedIn(): boolean {
-        return !!this.user ? true : false;
-    }
-    // Get basic user data from session
-    async getUserData(): Promise<any> {
-        const session = this.loadSession();
-        if (session) {
-            this.setUser(session);
-            this.userService.getSession(session.Password).subscribe({
-                next: (data) => {
-                    this.setUser(data);
-                    this.cookieService.set("XSRF-TOKEN", data.Password);
-                },
-                error: () => {
-                    this.clearSession();
-                    //TODO: go to login
-                },
-            });
-        }
 
-        return session ? session.userData : null;
+    getToken(): string | null {
+        return localStorage.getItem(this.tokenKey);
+    }
+
+    setRoles(roles: string[]): void {
+        localStorage.setItem(this.rolesKey, JSON.stringify(roles));
+    }
+
+    getRoles(): string[] {
+        const roles = localStorage.getItem(this.rolesKey);
+        return roles ? JSON.parse(roles) : [];
+    }
+
+    hasRole(role: string): boolean {
+        const roles = this.getRoles();
+        return roles.includes(role);
+    }
+
+    getSessionChanges(): Observable<boolean> {
+        return this.sessionSubject.asObservable();
     }
 }

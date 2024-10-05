@@ -17,8 +17,8 @@ export class repartidorGuard implements CanActivate {
         }
     }
 
-    canActivate(): boolean {
-        const isRepartidor = this.sessionService.isRepartidor();
+    async canActivate(): Promise<boolean> {
+        const isRepartidor = this.sessionService.hasRole("REPARTIDOR");
         this.redirect(isRepartidor);
         return isRepartidor;
     }

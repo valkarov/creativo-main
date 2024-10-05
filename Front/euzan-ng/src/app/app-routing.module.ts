@@ -99,6 +99,11 @@ const routes: Routes = [
         component: AgregarEmprendimientoComponent,
         canActivate: [clienteGuard],
     },
+    {
+        path: "editar-emprendimiento/:id",
+        component: AgregarEmprendimientoComponent,
+        canActivate: [emprendimientoGuard],
+    },
     { path: "registrarse", component: NuevoRegistroComponent },
     { path: "registrarse/google", component: CompletarInfoComponent },
     {
@@ -151,7 +156,7 @@ const routes: Routes = [
         canActivate: [emprendimientoGuard],
     },
     {
-        path: "emprendimiento-admins",
+        path: "emprendimiento-admins/:id",
         component: GestionEmprendimientoAdminsComponent,
         canActivate: [emprendimientoGuard],
     },

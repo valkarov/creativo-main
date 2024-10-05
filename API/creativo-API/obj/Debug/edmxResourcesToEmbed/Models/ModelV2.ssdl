@@ -45,6 +45,7 @@
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
     <Property Name="state" Type="int" Nullable="false" />
+    <Property Name="EntrepeneurshipTypeId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="EntrepeneurshipSocials">
     <Key>
@@ -53,6 +54,13 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
     <Property Name="SocialId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EntrepeneurshipType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ForumComments">
     <Key>
@@ -266,6 +274,20 @@
       </Principal>
       <Dependent Role="Entrepeneurships">
         <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+    <End Role="EntrepeneurshipType" Type="Self.EntrepeneurshipType" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EntrepeneurshipType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurships">
+        <PropertyRef Name="EntrepeneurshipTypeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -545,6 +567,7 @@
     <EntitySet Name="EntrepeneurshipAdmins" EntityType="Self.EntrepeneurshipAdmins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Entrepeneurships" EntityType="Self.Entrepeneurships" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EntrepeneurshipSocials" EntityType="Self.EntrepeneurshipSocials" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EntrepeneurshipType" EntityType="Self.EntrepeneurshipType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ForumComments" EntityType="Self.ForumComments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Forums" EntityType="Self.Forums" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Inventories" EntityType="Self.Inventories" Schema="dbo" store:Type="Tables" />
@@ -580,6 +603,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Entrepeneurships_Districts_DistrictId" Association="Self.FK_Entrepeneurships_Districts_DistrictId">
       <End Role="Districts" EntitySet="Districts" />
+      <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" Association="Self.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId">
+      <End Role="EntrepeneurshipType" EntitySet="EntrepeneurshipType" />
       <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
     </AssociationSet>
     <AssociationSet Name="FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_EntrepeneurshipSocials_Entrepeneurships_EntrepeneurshipId">

@@ -1,6 +1,5 @@
 import { Component, Input, SimpleChanges } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
 import { Cliente } from "src/app/interfaces/cliente";
 import { Province, Canton, Distrito } from "src/app/interfaces/lugares";
 import { TempPass } from "src/app/interfaces/temp_pass";
@@ -42,9 +41,9 @@ export class NuevoClienteComponent {
     }
     ngOnChanges(changes: SimpleChanges) {
         if (changes.editMode.currentValue) {
-            const user = this.sessionService.userChanges.subscribe({
-                next: (data) => {
-                    this.service.get("User", data.Cedula).subscribe({
+            const user = this.sessionService.getSessionChanges().subscribe({
+                next: () => {
+                    this.service.get(this.sessionService.getToken()).subscribe({
                         next: (data) => {
                             const temp: Cliente = data;
                             this.getProvincias();
@@ -216,7 +215,7 @@ export class NuevoClienteComponent {
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.route.navigate([url]);
     }
 
     formatoNumeros(event, cantidad) {

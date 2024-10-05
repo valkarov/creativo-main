@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 import { Administrador } from "src/app/interfaces/administrador";
 import { AdministradorService } from "src/app/services/administrador.service";
 import Swal from "sweetalert2";
@@ -12,7 +13,7 @@ export class GestionAdministradoresComponent {
     admins: Administrador[] = [];
     objeto: Administrador = new Administrador();
 
-    constructor(private service: AdministradorService) {
+    constructor(private service: AdministradorService, private router: Router) {
         this.service.getList().subscribe({
             next: (data) => {
                 this.admins = data;
@@ -24,7 +25,7 @@ export class GestionAdministradoresComponent {
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.router.navigate([url]);
     }
 
     eliminarAdministrador(id: number) {

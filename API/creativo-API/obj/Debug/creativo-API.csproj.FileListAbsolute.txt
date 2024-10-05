@@ -136,6 +136,8 @@ C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Goo
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Google.Apis.Calendar.v3.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Google.Apis.Core.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Google.Apis.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Newtonsoft.Json.Bson.dll
@@ -146,7 +148,10 @@ C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Sys
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Net.Http.Formatting.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Numerics.Vectors.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Encodings.Web.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Json.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.ValueTuple.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Web.Cors.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Web.Helpers.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Web.Http.Cors.dll
@@ -169,6 +174,9 @@ C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Goo
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Google.Apis.Calendar.v3.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Google.Apis.Core.pdb
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Google.Apis.Core.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.pdb
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Newtonsoft.Json.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Newtonsoft.Json.Bson.pdb
@@ -179,7 +187,10 @@ C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Sys
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Net.Http.Formatting.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Numerics.Vectors.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Encodings.Web.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Json.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.ValueTuple.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Web.Helpers.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Web.Http.xml
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Web.Http.Cors.xml
@@ -206,14 +217,3 @@ C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Deb
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Debug\creativo.DE9B5D8D.Up2Date
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Debug\creativo-API.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\obj\Debug\creativo-API.pdb
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.dll
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Encodings.Web.dll
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Json.dll
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.ValueTuple.dll
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.pdb
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\JWT.xml
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\Microsoft.Bcl.AsyncInterfaces.xml
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Encodings.Web.xml
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.Text.Json.xml
-C:\Users\metal\OneDrive\Documentos\github\creativo-main\API\creativo-API\bin\System.ValueTuple.xml

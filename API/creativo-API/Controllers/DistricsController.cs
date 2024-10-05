@@ -1,4 +1,5 @@
 ﻿using creativo_API.Models;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -23,9 +24,17 @@ namespace creativo_API.Controllers
         // GET: api/Districs/Canton
         [HttpGet]
         [Route("api/Districs/{canton}")]
-        public IQueryable<District> GetCantones(string canton)
+        public List<District> GetCantones(string canton)
         {
-            return db.Districts.Where(e => e.Canton.Name == canton);
+            List<District> districts= db.Districts.Where(e => e.Canton.Name == canton).ToList();
+            foreach (var district in districts)
+            {
+                district.Users = null;
+                district.Canton = null;
+                district.Entrepeneurships = null;
+                district.Orders = null;
+            }
+            return districts;
         }
 
 

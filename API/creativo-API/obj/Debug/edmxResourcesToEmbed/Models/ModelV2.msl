@@ -31,6 +31,7 @@
     <EntitySetMapping Name="Entrepeneurships">
       <EntityTypeMapping TypeName="CreativoDBV2Model.Entrepeneurship">
         <MappingFragment StoreEntitySet="Entrepeneurships">
+          <ScalarProperty Name="EntrepeneurshipTypeId" ColumnName="EntrepeneurshipTypeId" />
           <ScalarProperty Name="state" ColumnName="state" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -253,6 +254,14 @@
         <MappingFragment StoreEntitySet="UserRoles">
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EntrepeneurshipTypes">
+      <EntityTypeMapping TypeName="CreativoDBV2Model.EntrepeneurshipType">
+        <MappingFragment StoreEntitySet="EntrepeneurshipType">
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

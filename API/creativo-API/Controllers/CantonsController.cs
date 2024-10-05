@@ -1,4 +1,6 @@
 ﻿using creativo_API.Models;
+using Microsoft.Ajax.Utilities;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -16,17 +18,29 @@ namespace creativo_API.Controllers
         private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Cantons
-        public IQueryable<Canton> GetCantons()
+        public List<Canton> GetCantons()
         {
-            return db.Cantons;
+            List<Canton> cantons = db.Cantons.ToList();
+            foreach (var canton in db.Cantons)
+            {
+                canton.Districts = null;
+            }
+            return cantons;
+
         }
 
         // GET: api/Cantons/Provincia
         [HttpGet]
         [Route("api/Cantons/{province}")]
-        public IQueryable<Canton> GetCantones(string province)
+        public List<Canton> GetCantones(string province)
         {
-            return db.Cantons.Where(e => e.Province.Name == province);
+            List<Canton> cantons = db.Cantons.Where(e => e.Province.Name == province).ToList();
+            foreach (var canton in db.Cantons)
+            {
+                canton.Districts = null;
+            }
+            return cantons;
+
         }
 
         // GET: api/Cantons/5

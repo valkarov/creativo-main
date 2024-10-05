@@ -283,12 +283,25 @@ namespace CreativoApiV2.Model
 
         [ForeignKey("DistrictId")]
         public virtual District District { get; set; }
+        
+        public int EntrepeneurshipTypeId { get; set; }
+        [ForeignKey("EntrepeneurshipTypeId")]
+        public virtual EntrepeneurshipType EntrepeneurshipType { get; set; }
+
         public virtual ICollection<EntrepeneurshipSocial> EntrepeneurshipSocials { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 
+
     }
 
+    public class EntrepeneurshipType
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
     public class EntrepeneurshipSocial
     {
         [Key]

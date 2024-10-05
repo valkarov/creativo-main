@@ -4,6 +4,7 @@ import { ViewportScroller } from "@angular/common";
 import { Role } from "src/app/interfaces/role";
 import Swal from "sweetalert2";
 import { SessionService } from "src/app/services/session.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "app-navbar",
@@ -11,56 +12,25 @@ import { SessionService } from "src/app/services/session.service";
     styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
-    rol = new Role();
     unregistered = false;
     logo: string = "assets/img/Club Creativo Logo Blanco.png";
-    user: any = null;
     isAdmin: boolean = false;
     isCliente: boolean = false;
     isEmprendedor: boolean = false;
     isRepartidor: boolean = false;
     constructor(
         private viewportScroller: ViewportScroller,
-        private sessionService: SessionService
+        private sessionService: SessionService,
+        private router: Router
     ) {
-        // if (cookieService.get("cookieADMIN") !="") {
-        //     this.rol.Type = "ADMIN"
-        //     this.rol.Username = cookieService.get("cookieADMIN")
-        //     this.logo = "assets/img/Club Creativo Administrador.png"
-
-        //   } else if (cookieService.get("cookieEMPRENDIMIENTO") !="") {
-        //     this.rol.Type = "EMPRENDIMIENTO"
-        //     this.rol.Username = cookieService.get("cookieEMPRENDIMIENTO")
-        //     this.logo = "assets/img/Club Creativo Emprendedor.png"
-
-        //   } else if (cookieService.get("cookieCLIENTE") !="") {
-        //     this.rol.Type = "CLIENTE"
-        //     this.rol.Username = cookieService.get("cookieCLIENTE")
-        //     this.logo = "assets/img/Club Creativo Cliente.png"
-
-        //   } else if (cookieService.get("cookieREPARTIDOR") !="") {
-        //     this.rol.Type = "REPARTIDOR"
-        //     this.rol.Username = cookieService.get("cookieREPARTIDOR")
-        //     this.logo = "assets/img/Club Creativo Repartidor.png"
-        //   } else {
-        //     this.unregistered = true;
-        //     this.logo = "assets/img/Club Creativo Logo Blanco.png"
-        //   }
-        this.sessionService.userChanges.subscribe({
-            next: (data) => {
-                this.user = data;
-                this.isAdmin = this.sessionService.isAdmin();
-                this.isCliente = this.sessionService.isCliente();
-                this.isEmprendedor = this.sessionService.isEmprendimiento();
-                this.isRepartidor = this.sessionService.isRepartidor();
-            },
+        this.sessionService.getSessionChanges().subscribe(() => {
+            this.isCliente = this.sessionService.hasRole("CLIENTE");
+            this.isAdmin = this.sessionService.hasRole("ADMIN");
+            this.isEmprendedor = this.sessionService.hasRole("EMPRENDIMIENTO");
+            this.isRepartidor = this.sessionService.hasRole("REPARTIDOR");
+            this.unregistered = !this.sessionService.isAuthenticated();
         });
-        const currentPath = window.location.pathname;
-        if (currentPath === "/ingresar") {
-            this.unregistered = false;
-        }
     }
-
     public onClick(mainpage: string, elementId: string): void {
         const currentPath = window.location.pathname;
         if (currentPath != mainpage) {
@@ -101,14 +71,14 @@ export class NavbarComponent implements OnInit {
             confirmButtonText: "Salir",
         }).then((result) => {
             if (result.isConfirmed) {
-                this.sessionService.clearSession();
+                this.sessionService.logout();
                 this.redirigir("/inicio");
             }
         });
     }
 
     redirigir(url: string) {
-        window.location.href = url;
+        this.router.navigate([url]);
     }
 
     // Navbar Sticky
