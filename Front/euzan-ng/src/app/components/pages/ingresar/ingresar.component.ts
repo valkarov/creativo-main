@@ -36,13 +36,13 @@ export class IngresarComponent {
         private SessionService: SessionService,
         private router: Router
     ) {
-        if (cookieService.get("cookieADMIN") != "") {
+        if (SessionService.hasRole("ADMIN")) {
             this.redirigir("/dashboard-admin");
-        } else if (cookieService.get("cookieEMPRENDIMIENTO") != "") {
-            this.redirigir("/dashboard-emprendimiento");
-        } else if (cookieService.get("cookieCLIENTE") != "") {
+        } else if (SessionService.hasRole("CLIENTE")) {
             this.redirigir("/dashboard-cliente");
-        } else if (cookieService.get("cookieREPARTIDOR") != "") {
+        } else if (SessionService.hasRole("EMPRENDIMIENTO")) {
+            this.redirigir("/dashboard-emprendimiento");
+        } else if (SessionService.hasRole("REPARTIDOR")) {
             this.redirigir("/dashboard-repartidor");
         }
     }
