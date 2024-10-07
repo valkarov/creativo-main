@@ -26,18 +26,14 @@ export class GestionEmprendimientosComponent {
         private cookieService: CookieService,
         private router: Router
     ) {
-        this.service
-            .getSelectedList(
-                "byClient" + "/" + this.cookieService.get("cookieCLIENTE")
-            )
-            .subscribe({
-                next: (data) => {
-                    this.emprendimientos = data;
-                },
-                error: (err) => {
-                    console.log(err);
-                },
-            });
+        this.service.getSelectedList("byClient" + "/").subscribe({
+            next: (data) => {
+                this.emprendimientos = data;
+            },
+            error: (err) => {
+                console.log(err);
+            },
+        });
     }
 
     esPendiente(id: number): boolean {
