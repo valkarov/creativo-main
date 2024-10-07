@@ -20,6 +20,10 @@ namespace creativo_API.Models
         public string token { get; set; }
         public string[] roles { get; set; }
     }
+    public class UserSessionRequestDto
+    {
+        public string session { get; set; }
+    }
     public class UserLoginDto
     {
         public string Username { get; set; }

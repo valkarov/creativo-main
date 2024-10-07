@@ -4,6 +4,7 @@ using CreativoApiV2.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CreativoApiV2.Migrations
 {
     [DbContext(typeof(CreativoDB))]
-    partial class CreativoDBModelSnapshot : ModelSnapshot
+    [Migration("20241006194903_add_workshop_entrepeneurship_relation")]
+    partial class add_workshop_entrepeneurship_relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -541,10 +544,6 @@ namespace CreativoApiV2.Migrations
                     b.Property<int>("EntrepeneurshipId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Link")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -552,9 +551,6 @@ namespace CreativoApiV2.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
 
                     b.Property<int>("WorkshopTypeId")
                         .HasColumnType("int");

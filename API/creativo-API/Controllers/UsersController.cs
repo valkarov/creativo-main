@@ -35,6 +35,16 @@ namespace creativo_API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Users/Login/Session")]
+        public IHttpActionResult UserLoginSession(UserSessionRequestDto sessionRequest)
+        {
+            int session = sessionService.GetSession(sessionRequest.session);
+            if (session != -1)
+                return Ok(session);
+            else
+                return Unauthorized();
+        }
+        [HttpPost]
         public IHttpActionResult PostClient(ClientRequestDto user)
         {
             if (user == null)

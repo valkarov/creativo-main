@@ -316,6 +316,7 @@
     <Compile Include="Models\WorkShopClient.cs">
       <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\WorkshopDto.cs" />
     <Compile Include="Models\WorkshopPhoto.cs">
       <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>

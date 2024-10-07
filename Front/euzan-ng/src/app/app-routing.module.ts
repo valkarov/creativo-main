@@ -111,7 +111,21 @@ const routes: Routes = [
         component: AgregarTallerComponent,
         canActivate: [emprendimientoGuard],
     },
-
+    {
+        path: "nuevo-taller/:entrepeneurshipId",
+        component: AgregarTallerComponent,
+        canActivate: [emprendimientoGuard],
+    },
+    {
+        path: "actualizar-taller/:entrepeneurshipId/:id",
+        component: AgregarTallerComponent,
+        canActivate: [emprendimientoGuard],
+    },
+    {
+        path: "talleres/:entrepeneurshipId",
+        component: GestionTalleresComponent,
+        canActivate: [emprendimientoGuard],
+    },
     {
         path: "entradas",
         component: EntradasComponent,
@@ -149,7 +163,6 @@ const routes: Routes = [
         component: GestionAdministradoresComponent,
         canActivate: [adminGuard],
     },
-
     {
         path: "talleres",
         component: GestionTalleresComponent,

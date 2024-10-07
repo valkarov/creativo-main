@@ -27,11 +27,15 @@ namespace creativo_API.Models
         public System.DateTime Date { get; set; }
         public string Location { get; set; }
         public int WorkshopTypeId { get; set; }
+        public int EntrepeneurshipId { get; set; }
+        public string Link { get; set; }
+        public float Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkShopClient> WorkShopClients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WorkshopPhoto> WorkshopPhotos { get; set; }
         public virtual WorkshopType WorkshopType { get; set; }
+        public virtual Entrepeneurship Entrepeneurship { get; set; }
     }
 }

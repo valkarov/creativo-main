@@ -7,15 +7,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class WorkshopsController : ApiController
     {
         private CreativoDBV2Entities db = new CreativoDBV2Entities();
-
         // GET: api/Workshops
         public IQueryable<Workshop> GetWorkshops()
         {
@@ -32,27 +33,16 @@ namespace creativo_API.Controllers
                 return NotFound();
             }
 
-            return Ok(workshop);
+            return Ok(WorkshopRequestDto.workshopRequestDto(workshop));
         }
 
         // PUT: api/Workshops/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutWorkshop(int id, Workshop workshop)
+        public IHttpActionResult PutWorkshop(int id, WorkshopRequestDto workshopDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != workshop.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(workshop).State = EntityState.Modified;
-
             try
             {
+                WorkshopRequestDto.MapToWorkshop(db, workshopDto);
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -69,20 +59,26 @@ namespace creativo_API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        [HttpGet]
+        [Route("api/Workshops/ByEntre/{id}")]
+        public List<WorkshopRequestDto> GetWorkshopsByEntre(int id)
+        {
+            var workshops = db.Workshops.Where(w => w.EntrepeneurshipId == id).ToList();
+            List<WorkshopRequestDto> workshopDtos = new List<WorkshopRequestDto>();
+            foreach (var workshop in workshops)
+            {
+                workshopDtos.Add(WorkshopRequestDto.workshopRequestDto(workshop));
+            }
+            return workshopDtos;
+        }
         // POST: api/Workshops
         [ResponseType(typeof(Workshop))]
-        public IHttpActionResult PostWorkshop(Workshop workshop)
+        public IHttpActionResult PostWorkshop(WorkshopRequestDto workshopDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Workshops.Add(workshop);
+            db.Workshops.Add(WorkshopRequestDto.MapToWorkshop(db, workshopDto));
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = workshop.Id }, workshop);
+            return Ok();
         }
 
         // DELETE: api/Workshops/5

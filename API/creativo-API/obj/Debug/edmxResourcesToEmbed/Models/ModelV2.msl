@@ -199,6 +199,9 @@
     <EntitySetMapping Name="Workshops">
       <EntityTypeMapping TypeName="CreativoDBV2Model.Workshop">
         <MappingFragment StoreEntitySet="Workshops">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+          <ScalarProperty Name="EntrepeneurshipId" ColumnName="EntrepeneurshipId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />

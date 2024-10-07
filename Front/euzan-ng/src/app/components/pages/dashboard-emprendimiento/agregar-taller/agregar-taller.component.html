@@ -10,44 +10,101 @@
                     </div>
                     <div class="col-lg-6">
                         <form class="newsletter-form">
-                            <input type="text" class="form-control" placeholder="Name" name="Name" [(ngModel)]="objeto.Name" required>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Name"
+                                name="Name"
+                                [(ngModel)]="objeto.Name"
+                                required
+                            />
                             <label class="texto" type="submit">Nombre</label>
                         </form>
-                        
                         <form class="newsletter-form">
-                            <input type="number" class="form-control" placeholder="Price" name="Price" [(ngModel)]="objeto.Price" required>
+                            <input
+                                type="datetime-local"
+                                class="form-control"
+                                placeholder="fecha"
+                                name="fecha"
+                                [(ngModel)]="objeto.Date"
+                                required
+                            />
+                            <label class="texto" type="submit">fecha</label>
+                        </form>
+                        <form class="newsletter-form">
+                            <input
+                                type="string"
+                                class="form-control"
+                                placeholder="Dirección completa"
+                                name="Dirección completa"
+                                [(ngModel)]="objeto.Location"
+                                required
+                            />
+                            <label class="texto" type="submit">Dirección</label>
+                        </form>
+                        <form class="newsletter-form">
+                            <input
+                                type="number"
+                                class="form-control"
+                                placeholder="Price"
+                                name="Price"
+                                [(ngModel)]="objeto.Price"
+                                required
+                            />
                             <label class="texto" type="submit">Precio</label>
                         </form>
-                        
-                        
-                        
+
                         <form class="newsletter-form">
-                            <input type="text" class="form-control" placeholder="Link" name="Link" [(ngModel)]="objeto.Link" required>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Link"
+                                name="Link"
+                                [(ngModel)]="objeto.Link"
+                                required
+                            />
                             <label class="texto" type="submit">Enlace</label>
                         </form>
-                        
+
                         <form class="newsletter-form">
-                            
-                            <select class="form-control" id="tipo" [(ngModel)]="objeto.Type" name="tipo">
+                            <select
+                                class="form-control"
+                                id="tipo"
+                                [(ngModel)]="objeto.Type"
+                                name="tipo"
+                            >
                                 <option value="Virtual">Virtual</option>
                                 <option value="Presencial">Presencial</option>
                             </select>
-                            <label class="texto" for="Tipo" type="submit">Tipo</label>
+                            <label class="texto" for="Tipo" type="submit"
+                                >Tipo</label
+                            >
                         </form>
 
-                        <form class="newsletter-form" style="flex-direction: column;">
-                            <div class="texto2" for="description">Descipción:</div>
-                            <textarea class="form-control" id="description" placeholder="Describe tu taller" name="description" [(ngModel)]="objeto.Description"></textarea>
+                        <form
+                            class="newsletter-form"
+                            style="flex-direction: column"
+                        >
+                            <div class="texto2" for="description">
+                                Descipción:
+                            </div>
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                placeholder="Describe tu taller"
+                                name="description"
+                                [(ngModel)]="objeto.Description"
+                            ></textarea>
                         </form>
-                        
 
                         <div class="banner-btn">
                             <a (click)="guardar()">Agregar</a>
-                            <a (click)="redirigir('/dashboard-emprendimiento')">Cancelar</a>
+                            <a (click)="redirigir('/dashboard-emprendimiento')"
+                                >Cancelar</a
+                            >
                         </div>
-
                     </div>
-                </div>  
+                </div>
             </div>
         </div>
     </div>

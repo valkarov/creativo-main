@@ -213,6 +213,9 @@
           <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
           <Property Name="WorkshopTypeId" Type="int" Nullable="false" />
+          <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+          <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Price" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkshopTypes">
           <Key>
@@ -522,6 +525,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+          <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Workshops" Type="Self.Workshops" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entrepeneurships">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Workshops">
+              <PropertyRef Name="EntrepeneurshipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Workshops_WorkshopTypes_WorkshopTypeId">
           <End Role="WorkshopTypes" Type="Self.WorkshopTypes" Multiplicity="1" />
           <End Role="Workshops" Type="Self.Workshops" Multiplicity="*" />
@@ -686,6 +703,10 @@
             <End Role="Workshops" EntitySet="Workshops" />
             <End Role="WorkshopPhotos" EntitySet="WorkshopPhotos" />
           </AssociationSet>
+          <AssociationSet Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+            <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+            <End Role="Workshops" EntitySet="Workshops" />
+          </AssociationSet>
           <AssociationSet Name="FK_Workshops_WorkshopTypes_WorkshopTypeId" Association="Self.FK_Workshops_WorkshopTypes_WorkshopTypeId">
             <End Role="WorkshopTypes" EntitySet="WorkshopTypes" />
             <End Role="Workshops" EntitySet="Workshops" />
@@ -747,6 +768,7 @@
           <Property Name="state" Type="Int32" Nullable="false" />
           <Property Name="EntrepeneurshipTypeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EntrepeneurshipType" Relationship="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" FromRole="Entrepeneurship" ToRole="EntrepeneurshipType" />
+          <NavigationProperty Name="Workshops" Relationship="CreativoDBV2Model.FK_Workshops_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurship" ToRole="Workshop" />
         </EntityType>
         <EntityType Name="EntrepeneurshipSocial">
           <Key>
@@ -927,6 +949,10 @@
           <NavigationProperty Name="WorkShopClients" Relationship="Self.FK_WorkShopClients_Workshops_WorkshopId" FromRole="Workshops" ToRole="WorkShopClients" />
           <NavigationProperty Name="WorkshopPhotos" Relationship="Self.FK_WorkshopPhotos_Workshops_WorkshopId" FromRole="Workshops" ToRole="WorkshopPhotos" />
           <NavigationProperty Name="WorkshopType" Relationship="Self.FK_Workshops_WorkshopTypes_WorkshopTypeId" FromRole="Workshops" ToRole="WorkshopTypes" />
+          <Property Name="EntrepeneurshipId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entrepeneurship" Relationship="CreativoDBV2Model.FK_Workshops_Entrepeneurships_EntrepeneurshipId" FromRole="Workshop" ToRole="Entrepeneurship" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Single" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkshopType">
           <Key>
@@ -1320,6 +1346,10 @@
             <End Role="EntrepeneurshipType" EntitySet="EntrepeneurshipTypes" />
             <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
           </AssociationSet>
+          <AssociationSet Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId" Association="CreativoDBV2Model.FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+            <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+            <End Role="Workshop" EntitySet="Workshops" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1438,6 +1468,20 @@
             </Principal>
             <Dependent Role="Entrepeneurship">
               <PropertyRef Name="EntrepeneurshipTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+          <End Type="CreativoDBV2Model.Entrepeneurship" Role="Entrepeneurship" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CreativoDBV2Model.Workshop" Role="Workshop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entrepeneurship">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Workshop">
+              <PropertyRef Name="EntrepeneurshipId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1645,6 +1689,9 @@
           <EntitySetMapping Name="Workshops">
             <EntityTypeMapping TypeName="CreativoDBV2Model.Workshop">
               <MappingFragment StoreEntitySet="Workshops">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="EntrepeneurshipId" ColumnName="EntrepeneurshipId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

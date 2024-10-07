@@ -52,6 +52,7 @@
     <Property Name="state" Type="Int32" Nullable="false" />
     <Property Name="EntrepeneurshipTypeId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="EntrepeneurshipType" Relationship="CreativoDBV2Model.FK_Entrepeneurships_EntrepeneurshipType_EntrepeneurshipTypeId" FromRole="Entrepeneurship" ToRole="EntrepeneurshipType" />
+    <NavigationProperty Name="Workshops" Relationship="CreativoDBV2Model.FK_Workshops_Entrepeneurships_EntrepeneurshipId" FromRole="Entrepeneurship" ToRole="Workshop" />
   </EntityType>
   <EntityType Name="EntrepeneurshipSocial">
     <Key>
@@ -232,6 +233,10 @@
     <NavigationProperty Name="WorkShopClients" Relationship="Self.FK_WorkShopClients_Workshops_WorkshopId" FromRole="Workshops" ToRole="WorkShopClients" />
     <NavigationProperty Name="WorkshopPhotos" Relationship="Self.FK_WorkshopPhotos_Workshops_WorkshopId" FromRole="Workshops" ToRole="WorkshopPhotos" />
     <NavigationProperty Name="WorkshopType" Relationship="Self.FK_Workshops_WorkshopTypes_WorkshopTypeId" FromRole="Workshops" ToRole="WorkshopTypes" />
+    <Property Name="EntrepeneurshipId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurship" Relationship="CreativoDBV2Model.FK_Workshops_Entrepeneurships_EntrepeneurshipId" FromRole="Workshop" ToRole="Entrepeneurship" />
+    <Property Name="Link" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Single" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkshopType">
     <Key>
@@ -625,6 +630,10 @@
       <End Role="EntrepeneurshipType" EntitySet="EntrepeneurshipTypes" />
       <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
     </AssociationSet>
+    <AssociationSet Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId" Association="CreativoDBV2Model.FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+      <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+      <End Role="Workshop" EntitySet="Workshops" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -743,6 +752,20 @@
       </Principal>
       <Dependent Role="Entrepeneurship">
         <PropertyRef Name="EntrepeneurshipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+    <End Type="CreativoDBV2Model.Entrepeneurship" Role="Entrepeneurship" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="CreativoDBV2Model.Workshop" Role="Workshop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurship">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workshop">
+        <PropertyRef Name="EntrepeneurshipId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

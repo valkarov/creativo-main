@@ -208,6 +208,9 @@
     <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
     <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
     <Property Name="WorkshopTypeId" Type="int" Nullable="false" />
+    <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
+    <Property Name="Link" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="real" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkshopTypes">
     <Key>
@@ -517,6 +520,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+    <End Role="Entrepeneurships" Type="Self.Entrepeneurships" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Workshops" Type="Self.Workshops" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurships">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workshops">
+        <PropertyRef Name="EntrepeneurshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Workshops_WorkshopTypes_WorkshopTypeId">
     <End Role="WorkshopTypes" Type="Self.WorkshopTypes" Multiplicity="1" />
     <End Role="Workshops" Type="Self.Workshops" Multiplicity="*" />
@@ -680,6 +697,10 @@
     <AssociationSet Name="FK_WorkshopPhotos_Workshops_WorkshopId" Association="Self.FK_WorkshopPhotos_Workshops_WorkshopId">
       <End Role="Workshops" EntitySet="Workshops" />
       <End Role="WorkshopPhotos" EntitySet="WorkshopPhotos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workshops_Entrepeneurships_EntrepeneurshipId" Association="Self.FK_Workshops_Entrepeneurships_EntrepeneurshipId">
+      <End Role="Entrepeneurships" EntitySet="Entrepeneurships" />
+      <End Role="Workshops" EntitySet="Workshops" />
     </AssociationSet>
     <AssociationSet Name="FK_Workshops_WorkshopTypes_WorkshopTypeId" Association="Self.FK_Workshops_WorkshopTypes_WorkshopTypeId">
       <End Role="WorkshopTypes" EntitySet="WorkshopTypes" />

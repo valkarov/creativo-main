@@ -17,12 +17,16 @@ export class AgregarTallerComponent {
     constructor(
         private service: TalleresService,
         private route: Router,
-        private rou: ActivatedRoute,
-        private cookieService: CookieService
+        private rou: ActivatedRoute
     ) {
         if (this.rou.snapshot.params["id"] == undefined) {
+            this.objeto.IdEntrepreneurship = parseInt(
+                this.rou.snapshot.params["entrepeneurshipId"]
+            );
             this.editMode = false;
         } else {
+            // this.objeto.IdEntrepreneurship =
+            //     this.rou.snapshot.params["entrepeneurshipId"];
             this.service.get(this.rou.snapshot.params["id"]).subscribe({
                 next: (data) => {
                     this.objeto = data;
@@ -73,9 +77,8 @@ export class AgregarTallerComponent {
                             },
                         });
                 } else {
-                    this.objeto.IdEntrepreneurship = this.cookieService.get(
-                        "cookieEMPRENDIMIENTO"
-                    );
+                    this.objeto.IdEntrepreneurship =
+                        this.rou.snapshot.params["entrepeneurshipId"];
                     this.objeto.IdWorkshop = 1;
                     this.service.add(this.objeto).subscribe({
                         next: (data) => {

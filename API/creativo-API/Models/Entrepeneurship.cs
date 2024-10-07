@@ -20,6 +20,7 @@ namespace creativo_API.Models
             this.EntrepeneurshipAdmins = new HashSet<EntrepeneurshipAdmin>();
             this.EntrepeneurshipSocials = new HashSet<EntrepeneurshipSocial>();
             this.Orders = new HashSet<Order>();
+            this.Workshops = new HashSet<Workshop>();
         }
     
         public int Id { get; set; }
@@ -42,5 +43,7 @@ namespace creativo_API.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual EntrepeneurshipType EntrepeneurshipType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Workshop> Workshops { get; set; }
     }
 }

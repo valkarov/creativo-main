@@ -61,6 +61,9 @@ export class GestionEmprendimientosComponent {
             `/emprendimiento-admins/${emprendimiento.IdEntrepreneurship}`
         );
     }
+    goTalleres(emprendimiento: Emprendimiento) {
+        this.redirigir(`talleres/${emprendimiento.IdEntrepreneurship}`);
+    }
     aceptarSolicitud(user: string) {
         // Swal.fire({
         //     title: "¿Quieres aceptar la solicitud de administración para este emprendimiento?",

@@ -233,6 +233,11 @@ namespace CreativoApiV2.Model
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public string Location { get; set; }
+        public float Price { get; set; }
+        public string Link { get; set; }
+        public int EntrepeneurshipId { get; set; }
+        [ForeignKey("EntrepeneurshipId")]
+        public virtual Entrepeneurship Entrepeneurship { get; set; }
         public int WorkshopTypeId { get; set; }
         [ForeignKey("WorkshopTypeId")]
         public virtual WorkshopType WorkshopType { get; set; }

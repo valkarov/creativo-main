@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
+import { UsersService } from "./cliente.service";
 
 @Injectable({
     providedIn: "root",
@@ -12,7 +13,24 @@ export class SessionService {
         this.isAuthenticated()
     );
 
-    constructor(private router: Router) {}
+    constructor(private router: Router, private service: UsersService) {
+        const token = this.getToken();
+        if (token) {
+            this.service.getSession(token).subscribe({
+                next: (data) => {
+                    console.log("hola");
+                    if (!data) {
+                        console.log("hola");
+                        this.logout();
+                    }
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.logout();
+                },
+            });
+        }
+    }
 
     login(token: string, roles: string[]): void {
         localStorage.setItem(this.tokenKey, token);
