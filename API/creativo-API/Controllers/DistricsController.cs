@@ -1,42 +1,48 @@
-﻿using System;
+﻿using creativo_API.Models;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class DistricsController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Districs
-        public IQueryable<Distric> GetDistrics()
+        public IQueryable<District> GetDistrics()
         {
-            return db.Districs;
+            return db.Districts;
         }
         // GET: api/Districs/Canton
         [HttpGet]
         [Route("api/Districs/{canton}")]
-        public IQueryable<Distric> GetCantones(string canton)
+        public List<District> GetCantones(string canton)
         {
-            return db.Districs.Where(e => e.Canton == canton);
+            List<District> districts= db.Districts.Where(e => e.Canton.Name == canton).ToList();
+            foreach (var district in districts)
+            {
+                district.Users = null;
+                district.Canton = null;
+                district.Entrepeneurships = null;
+                district.Orders = null;
+            }
+            return districts;
         }
 
 
         // GET: api/Districs/5
-        [ResponseType(typeof(Distric))]
+        [ResponseType(typeof(District))]
         public IHttpActionResult GetDistric(string id)
         {
-            Distric distric = db.Districs.Find(id);
+            District distric = db.Districts.Where(d => d.Name == id).FirstOrDefault();
             if (distric == null)
             {
                 return NotFound();
@@ -47,19 +53,19 @@ namespace creativo_API.Controllers
 
         // PUT: api/Districs/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutDistric(string id, Distric distric)
+        public IHttpActionResult PutDistric(string id, District district)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != distric.Name)
+            if (id != district.Name)
             {
                 return BadRequest();
             }
 
-            db.Entry(distric).State = EntityState.Modified;
+            db.Entry(district).State = EntityState.Modified;
 
             try
             {
@@ -81,15 +87,15 @@ namespace creativo_API.Controllers
         }
 
         // POST: api/Districs
-        [ResponseType(typeof(Distric))]
-        public IHttpActionResult PostDistric(Distric distric)
+        [ResponseType(typeof(District))]
+        public IHttpActionResult PostDistric(District district)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Districs.Add(distric);
+            db.Districts.Add(district);
 
             try
             {
@@ -97,7 +103,7 @@ namespace creativo_API.Controllers
             }
             catch (DbUpdateException)
             {
-                if (DistricExists(distric.Name))
+                if (DistricExists(district.Name))
                 {
                     return Conflict();
                 }
@@ -107,20 +113,20 @@ namespace creativo_API.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = distric.Name }, distric);
+            return CreatedAtRoute("DefaultApi", new { id = district.Name }, district);
         }
 
         // DELETE: api/Districs/5
-        [ResponseType(typeof(Distric))]
+        [ResponseType(typeof(District))]
         public IHttpActionResult DeleteDistric(string id)
         {
-            Distric distric = db.Districs.Find(id);
+            District distric = db.Districts.Where(d => d.Name == id).FirstOrDefault();
             if (distric == null)
             {
                 return NotFound();
             }
 
-            db.Districs.Remove(distric);
+            db.Districts.Remove(distric);
             db.SaveChanges();
 
             return Ok(distric);
@@ -137,7 +143,7 @@ namespace creativo_API.Controllers
 
         private bool DistricExists(string id)
         {
-            return db.Districs.Count(e => e.Name == id) > 0;
+            return db.Districts.Count(e => e.Name == id) > 0;
         }
     }
 }

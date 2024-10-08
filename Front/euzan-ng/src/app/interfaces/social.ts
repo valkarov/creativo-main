@@ -1,23 +1,19 @@
 export interface SocialInterface {
-    Username:string;
-    Type:string;
-    Link:string;
+    Id: string;
+    Type: string;
+    Link: string;
 }
 
-
-export class Social implements SocialInterface{
-    Username!: string;
+export class Social implements SocialInterface {
+    Id: string;
     Type!: string;
-    Link!:string;
+    Link!: string;
 }
-
 
 export interface SocialTypeInterface {
-    type:string;
+    type: string;
 }
 
-
-export class SocialType implements SocialTypeInterface{
+export class SocialType implements SocialTypeInterface {
     type!: string;
-
 }

@@ -14,7 +14,18 @@ namespace creativo_API.Models
     
     public partial class Canton
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Canton()
+        {
+            this.Districts = new HashSet<District>();
+        }
+    
+        public int Id { get; set; }
         public string Name { get; set; }
-        public string Province { get; set; }
+        public int ProvinceId { get; set; }
+    
+        public virtual Province Province { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<District> Districts { get; set; }
     }
 }

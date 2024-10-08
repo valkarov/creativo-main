@@ -16,8 +16,7 @@ namespace creativo_API.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class WorkshopsController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
-
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
         // GET: api/Workshops
         public IQueryable<Workshop> GetWorkshops()
         {
@@ -34,67 +33,16 @@ namespace creativo_API.Controllers
                 return NotFound();
             }
 
-            return Ok(workshop);
-        }
-        // GET: api/Workshops/byEntre/{entre_user}
-        [HttpGet]
-        [Route("api/Workshops/byEntre/{entre_user}")]
-        public IQueryable<Workshop> GetWorkshop_by_entre(string entre_user)
-        {
-
-            return db.Workshops.Where(e => e.IdEntrepreneurship == entre_user);
-        }
-
-        [HttpGet]
-        [Route("api/Workshops/byClient/{client_user}")]
-        public IQueryable<Workshop> GetWorkshop_by_client(string client_user)
-        {
-            // Obtener los IDs de los talleres asociados al cliente y cuyo estado sea "Aceptado"
-            var workshopIds = db.WorkshopRecords
-                .Where(wr => wr.IdClient == client_user && wr.State == "Aceptado")
-                .Select(wr => wr.IdWorkshop)
-                .ToList();
-
-            // Obtener los talleres que corresponden a esos IDs
-            var workshops = db.Workshops
-                .Where(w => workshopIds.Contains(w.IdWorkshop))
-                .AsQueryable();
-
-            return workshops;
+            return Ok(WorkshopRequestDto.workshopRequestDto(workshop));
         }
 
         // PUT: api/Workshops/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutWorkshop(int id, Workshop workshop)
+        public IHttpActionResult PutWorkshop(int id, WorkshopRequestDto workshopDto)
         {
-            if (AnyAttributeEmpty(workshop))
-            {
-                return BadRequest("Hay espacios en blanco");
-            }
-
-            if (workshop.Description?.Length > 250)
-            {
-                return BadRequest("La descripción ha superado los 250 Caracteres");
-            }
-
-            if (workshop.Link?.Length > 250)
-            {
-                return BadRequest("El link ha superado los 250 Caracteres");
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != workshop.IdWorkshop)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(workshop).State = EntityState.Modified;
-
             try
             {
+                WorkshopRequestDto.MapToWorkshop(db, workshopDto);
                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
@@ -111,36 +59,26 @@ namespace creativo_API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        [HttpGet]
+        [Route("api/Workshops/ByEntre/{id}")]
+        public List<WorkshopRequestDto> GetWorkshopsByEntre(int id)
+        {
+            var workshops = db.Workshops.Where(w => w.EntrepeneurshipId == id).ToList();
+            List<WorkshopRequestDto> workshopDtos = new List<WorkshopRequestDto>();
+            foreach (var workshop in workshops)
+            {
+                workshopDtos.Add(WorkshopRequestDto.workshopRequestDto(workshop));
+            }
+            return workshopDtos;
+        }
         // POST: api/Workshops
         [ResponseType(typeof(Workshop))]
-        public IHttpActionResult PostWorkshop(Workshop workshop)
+        public IHttpActionResult PostWorkshop(WorkshopRequestDto workshopDto)
         {
-            if (AnyAttributeEmpty(workshop))
-            {
-                return BadRequest("Hay espacios en blanco");
-            }
-
-            if (workshop.Description?.Length > 250)
-            {
-                return BadRequest("La descripción ha superado los 250 Caracteres");
-            }
-
-            if (workshop.Link?.Length > 250)
-            {
-                return BadRequest("El link ha superado los 250 Caracteres");
-            }
-
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Workshops.Add(workshop);
+            db.Workshops.Add(WorkshopRequestDto.MapToWorkshop(db, workshopDto));
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = workshop.IdWorkshop }, workshop);
+            return Ok();
         }
 
         // DELETE: api/Workshops/5
@@ -170,18 +108,7 @@ namespace creativo_API.Controllers
 
         private bool WorkshopExists(int id)
         {
-            return db.Workshops.Count(e => e.IdWorkshop == id) > 0;
-        }
-
-        private bool AnyAttributeEmpty(Workshop workshop)
-        {
-            return string.IsNullOrEmpty(workshop.IdEntrepreneurship) ||
-                   workshop.IdWorkshop == 0 ||
-                   string.IsNullOrEmpty(workshop.Name) ||
-                   workshop.Price == null ||
-                   string.IsNullOrEmpty(workshop.Description) ||
-                   string.IsNullOrEmpty(workshop.Link) ||
-                   string.IsNullOrEmpty(workshop.Type);
+            return db.Workshops.Count(e => e.Id == id) > 0;
         }
     }
 }

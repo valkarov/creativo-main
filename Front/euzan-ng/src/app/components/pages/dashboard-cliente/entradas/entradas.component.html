@@ -1,33 +1,33 @@
-<div id="showcase" class="show-case-section pt-100 pb-70">
+<div id="showcase" class="show-case-section pt-100">
     <div class="container">
-        
         <span class="space">---</span>
         <div class="section-title">
             <h2>Te has suscrito exitosamente a estos talleres</h2>
-            <p>Descarga tu factura y escanea el código qr para conseguir la ubicación de tu taller</p>
+            <p>
+                Descarga tu factura y escanea el código qr para conseguir la
+                ubicación de tu taller
+            </p>
         </div>
         <div class="row">
-            
             <ng-template ngFor let-obj [ngForOf]="talleres" let-i="index">
                 <div class="col-lg-4 col-md-6 col-sm-6">
-                  <div class="showcase-card">
-                    <div class="showcase-text" style="padding-top: 15px;">
-                      <h3>{{ obj.Name }}</h3>
-                      <p>Tipo: {{ obj.Type }}</p>
+                    <div class="showcase-card">
+                        <div class="showcase-text" style="padding-top: 15px">
+                            <h3>{{ obj.Name }}</h3>
+                            <p>Tipo: {{ obj.Type }}</p>
+                        </div>
+                        <div class="button-container">
+                            <button
+                                class="download-button"
+                                (click)="downloadPdf(obj)"
+                            >
+                                <i class="fas fa-download"></i> Descargar tu
+                                factura
+                            </button>
+                        </div>
                     </div>
-                    <div class="button-container">
-                      <button class="download-button" (click)="downloadPdf(obj)">
-                        <i class="fas fa-download"></i> Descargar tu factura
-                      </button>
-                    </div>
-                  </div>
                 </div>
-              </ng-template>
-              
-            
-            
-            
-            
+            </ng-template>
         </div>
     </div>
 </div>

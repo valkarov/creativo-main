@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using creativo_API.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuestionsController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Questions
         public IQueryable<Question> GetQuestions()
@@ -46,7 +42,7 @@ namespace creativo_API.Controllers
                 return BadRequest("Hay espacios en blanco");
             }
 
-            if (question.Question1?.Length > 250)
+            if (question.QuestionText?.Length > 250)
             {
                 return BadRequest("La pregunta ha superado los 250 Caracteres");
             }
@@ -61,7 +57,7 @@ namespace creativo_API.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != question.IdQuestion)
+            if (id != question.Id)
             {
                 return BadRequest();
             }
@@ -96,7 +92,7 @@ namespace creativo_API.Controllers
                 return BadRequest("Hay espacios en blanco");
             }
 
-            if (question.Question1?.Length > 250)
+            if (question.QuestionText?.Length > 250)
             {
                 return BadRequest("La pregunta ha superado los 250 Caracteres");
             }
@@ -116,7 +112,7 @@ namespace creativo_API.Controllers
             db.Questions.Add(question);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = question.IdQuestion }, question);
+            return CreatedAtRoute("DefaultApi", new { id = question.Id }, question);
         }
 
         // DELETE: api/Questions/5
@@ -146,18 +142,18 @@ namespace creativo_API.Controllers
 
         private bool QuestionExists(int id)
         {
-            return db.Questions.Count(e => e.IdQuestion == id) > 0;
+            return db.Questions.Count(e => e.Id == id) > 0;
         }
 
         private bool AnyAttributeEmpty(Question question)
         {
             // Verificar cada propiedad del objeto Question
             // Devolver true si alguna propiedad es una cadena vacía, de lo contrario, devolver false
-            return string.IsNullOrEmpty(question.Question1) ||
+            return string.IsNullOrEmpty(question.QuestionText) ||
                    string.IsNullOrEmpty(question.Answer);
         }
 
-        
+
 
     }
 }

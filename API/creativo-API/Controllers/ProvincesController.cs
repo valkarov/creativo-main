@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using creativo_API.Models;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProvincesController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Provinces
         public IQueryable<Province> GetProvinces()

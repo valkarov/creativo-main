@@ -1,14 +1,11 @@
 export interface PreguntaInterface {
-    IdQuestion: number;
-    Question1: string;
+    Id: number;
+    QuestionText: string;
     Answer: string;
-
 }
 
-
-export class Pregunta implements PreguntaInterface{
-    IdQuestion!: number;
-    Question1!: string;
+export class Pregunta implements PreguntaInterface {
+    Id!: number;
+    QuestionText!: string;
     Answer!: string;
-    
 }

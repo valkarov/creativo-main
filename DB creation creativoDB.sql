@@ -189,20 +189,5 @@ CREATE TABLE Distric (
 );
 
 
-CREATE TRIGGER add_admin_rol ON Admins FOR INSERT AS 
-BEGIN 
-    INSERT INTO Role(Username, Type) SELECT Username, 'ADMIN' FROM inserted;
-END
-
-CREATE TRIGGER add_client_rol ON Client FOR INSERT AS 
-BEGIN 
-    INSERT INTO Role(Username, Type) SELECT Username, 'CLIENTE' FROM inserted;
-END
-
-
-CREATE TRIGGER add_repartidor_rol ON Delivery_Person FOR INSERT AS 
-BEGIN 
-    INSERT INTO Role(Username, Type) SELECT Username, 'REPARTIDOR' FROM inserted;
-END
 
 

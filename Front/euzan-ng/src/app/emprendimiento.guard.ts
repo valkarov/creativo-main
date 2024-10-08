@@ -1,24 +1,27 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { Injectable } from "@angular/core";
+import { CanActivate, Router } from "@angular/router";
+import { SessionService } from "./services/session.service";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root",
 })
 export class emprendimientoGuard implements CanActivate {
+    constructor(
+        private sessionService: SessionService,
+        private router: Router
+    ) {}
 
-  constructor(private cookieService: CookieService, private router: Router) {}
-
-  redirect(flag:boolean):any {
-    if(!flag){
-      this.router.navigate(['/', 'dashboard-cliente'])
+    redirect(flag: boolean): any {
+        if (!flag) {
+            this.router.navigate(["/", "dashboard-cliente"]);
+        }
     }
-  }
 
-  canActivate(): boolean {
-    const cookie = this.cookieService.check('cookieEMPRENDIMIENTO')
-    this.redirect(cookie)
-    return cookie
-  }
+    async canActivate(): Promise<boolean> {
+        const isEmprendimiento = await this.sessionService.hasRole(
+            "EMPRENDIMIENTO"
+        );
+        this.redirect(isEmprendimiento);
+        return isEmprendimiento;
+    }
 }

@@ -1,39 +1,50 @@
-﻿using System;
+﻿using creativo_API.Models;
+using Microsoft.Ajax.Utilities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CantonsController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Cantons
-        public IQueryable<Canton> GetCantons()
+        public List<Canton> GetCantons()
         {
-            return db.Cantons;
+            List<Canton> cantons = db.Cantons.ToList();
+            foreach (var canton in db.Cantons)
+            {
+                canton.Districts = null;
+            }
+            return cantons;
+
         }
 
         // GET: api/Cantons/Provincia
         [HttpGet]
         [Route("api/Cantons/{province}")]
-        public IQueryable<Canton> GetCantones(string province)
+        public List<Canton> GetCantones(string province)
         {
-            return db.Cantons.Where(e => e.Province == province);
+            List<Canton> cantons = db.Cantons.Where(e => e.Province.Name == province).ToList();
+            foreach (var canton in db.Cantons)
+            {
+                canton.Districts = null;
+            }
+            return cantons;
+
         }
 
-            // GET: api/Cantons/5
-            [ResponseType(typeof(Canton))]
+        // GET: api/Cantons/5
+        [ResponseType(typeof(Canton))]
         public IHttpActionResult GetCanton(string id)
         {
             Canton canton = db.Cantons.Find(id);

@@ -1,4 +1,4 @@
-export interface ClienteInterface {
+export interface UsersInterface {
     IdClient: number;
     Username: string;
     Password: string;
@@ -9,9 +9,10 @@ export interface ClienteInterface {
     Province: string;
     Canton: string;
     District: string;
+    Role: string;
 }
 
-export class Cliente implements ClienteInterface{
+export class Cliente implements UsersInterface {
     IdClient!: number;
     Username!: string;
     Password!: string;
@@ -22,4 +23,5 @@ export class Cliente implements ClienteInterface{
     Province!: string;
     Canton!: string;
     District!: string;
+    Role: string;
 }

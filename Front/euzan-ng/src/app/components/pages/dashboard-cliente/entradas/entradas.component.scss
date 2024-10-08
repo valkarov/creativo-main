@@ -26,7 +26,7 @@
     background-color: #eff7ff;
     position: relative;
     z-index: 1;
-
+    min-height: calc(100vh - 251px);
     &::before {
         position: absolute;
         content: '';

@@ -1,24 +1,25 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { CookieService } from 'ngx-cookie-service';
+import { Injectable } from "@angular/core";
+import { CanActivate, Router } from "@angular/router";
+import { SessionService } from "./services/session.service";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: "root",
 })
 export class repartidorGuard implements CanActivate {
+    constructor(
+        private sessionService: SessionService,
+        private router: Router
+    ) {}
 
-  constructor(private cookieService: CookieService, private router: Router) {}
-
-  redirect(flag:boolean):any {
-    if(!flag){
-      this.router.navigate(['/', 'ingresar'])
+    redirect(flag: boolean): any {
+        if (!flag) {
+            this.router.navigate(["/", "ingresar"]);
+        }
     }
-  }
 
-  canActivate(): boolean {
-    const cookie = this.cookieService.check('cookieREPARTIDOR')
-    this.redirect(cookie)
-    return cookie
-  }
+    async canActivate(): Promise<boolean> {
+        const isRepartidor = this.sessionService.hasRole("REPARTIDOR");
+        this.redirect(isRepartidor);
+        return isRepartidor;
+    }
 }
