@@ -194,6 +194,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="WorkshopId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="lastDigits" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="price" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkshopPhotos">
           <Key>
@@ -926,6 +929,9 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_WorkShopClients_Users_UserId" FromRole="WorkShopClients" ToRole="Users" />
           <NavigationProperty Name="Workshop" Relationship="Self.FK_WorkShopClients_Workshops_WorkshopId" FromRole="WorkShopClients" ToRole="Workshops" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lastDigits" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Single" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkshopPhoto">
           <Key>
@@ -1671,6 +1677,9 @@
           <EntitySetMapping Name="WorkShopClients">
             <EntityTypeMapping TypeName="CreativoDBV2Model.WorkShopClient">
               <MappingFragment StoreEntitySet="WorkShopClients">
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="lastDigits" ColumnName="lastDigits" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="WorkshopId" ColumnName="WorkshopId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

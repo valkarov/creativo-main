@@ -60,6 +60,9 @@ export class GestionEmprendimientosComponent {
     goTalleres(emprendimiento: Emprendimiento) {
         this.redirigir(`talleres/${emprendimiento.IdEntrepreneurship}`);
     }
+    goPagos(emprendimiento: Emprendimiento) {
+        this.redirigir(`pagos/${emprendimiento.IdEntrepreneurship}`);
+    }
     aceptarSolicitud(user: string) {
         // Swal.fire({
         //     title: "¿Quieres aceptar la solicitud de administración para este emprendimiento?",

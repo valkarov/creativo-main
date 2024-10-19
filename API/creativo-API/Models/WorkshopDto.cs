@@ -23,7 +23,7 @@ namespace creativo_API.Models
             Workshop workshop;
             if(workshopDto.IdWorkshop != 0)
                 workshop = db.Workshops.Find(workshopDto.IdWorkshop);
-            else
+            else 
                 workshop = new Workshop();
             workshop.Name = workshopDto.Name;
             workshop.Date = workshopDto.Date;
@@ -49,6 +49,45 @@ namespace creativo_API.Models
                 Description = workshop.Description,
                 IdEntrepreneurship = workshop.EntrepeneurshipId,
                 IdWorkshop = workshop.Id
+            };
+        }
+    }
+    public class WorkshopClientRequestDto
+    {
+        public int Id { get; set; }
+        public string IdClient { get; set; }
+        public int IdWorkshop { get; set; }
+        public string LastDigits { get; set; }
+        public string Owner { get; set; }
+        public float Price { get; set; }
+        public string State { get; set; }
+
+        internal static  WorkShopClient MapToWorkshopClient(CreativoDBV2Entities db, WorkshopClientRequestDto workshopClientDto)
+        {
+            WorkShopClient workshopClient;
+            if (workshopClientDto.Id != 0)
+                workshopClient = db.WorkShopClients.Find(workshopClientDto.Id);
+            else
+                workshopClient = new WorkShopClient();
+            workshopClient.UserId = int.Parse(workshopClientDto.IdClient);
+            workshopClient.WorkshopId = workshopClientDto.IdWorkshop;
+            workshopClient.price = workshopClientDto.Price;
+            workshopClient.State = workshopClientDto.State;
+            workshopClient.lastDigits = workshopClientDto.LastDigits;
+            return workshopClient;
+        }
+
+        internal static WorkshopClientRequestDto MapToWorkshopClientDto(WorkShopClient workshopClient)
+        {
+            return new WorkshopClientRequestDto()
+            {
+                Id = workshopClient.Id,
+                IdClient = workshopClient.UserId.ToString(),
+                IdWorkshop = workshopClient.WorkshopId,
+                LastDigits = workshopClient.lastDigits,
+                Owner = workshopClient.User.FirstName + " " + workshopClient.User.LastName,
+                Price = workshopClient.price,
+                State = workshopClient.State
             };
         }
     }

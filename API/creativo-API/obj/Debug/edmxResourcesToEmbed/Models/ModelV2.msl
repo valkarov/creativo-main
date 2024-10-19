@@ -181,6 +181,9 @@
     <EntitySetMapping Name="WorkShopClients">
       <EntityTypeMapping TypeName="CreativoDBV2Model.WorkShopClient">
         <MappingFragment StoreEntitySet="WorkShopClients">
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="lastDigits" ColumnName="lastDigits" />
+          <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="WorkshopId" ColumnName="WorkshopId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />

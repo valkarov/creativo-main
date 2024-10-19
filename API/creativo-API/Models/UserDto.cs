@@ -85,5 +85,22 @@ namespace creativo_API.Models
                 District = db.Districts.Where(d => d.Name == user.District).FirstOrDefault(),
             };
         }
+        internal static UserResponseDto MapToUserResponseDto(User user)
+        {
+            return new UserResponseDto()
+            {
+                IdClient = user.Cedula,
+                Username = user.UserName,
+                Password = user.Password,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.Phone,
+                Province = user.District.Canton.Province.Name,
+                Canton = user.District.Canton.Name,
+                District = user.District.Name,
+                Role = user.Role.Name
+            };
+        }
     }
 }

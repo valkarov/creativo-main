@@ -210,6 +210,9 @@
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_WorkShopClients_Users_UserId" FromRole="WorkShopClients" ToRole="Users" />
     <NavigationProperty Name="Workshop" Relationship="Self.FK_WorkShopClients_Workshops_WorkshopId" FromRole="WorkShopClients" ToRole="Workshops" />
+    <Property Name="State" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="lastDigits" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Single" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkshopPhoto">
     <Key>

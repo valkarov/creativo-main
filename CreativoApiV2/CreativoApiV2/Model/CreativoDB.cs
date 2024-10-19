@@ -490,6 +490,9 @@ namespace CreativoApiV2.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string State { get; set; }
+        public string lastDigits { get; set; }
+        public float price { get; set; }
         public int WorkshopId { get; set; }
         [ForeignKey("WorkshopId")]
         public virtual Workshop Workshop { get; set; }

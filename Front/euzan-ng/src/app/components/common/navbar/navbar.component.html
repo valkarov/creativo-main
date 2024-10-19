@@ -80,16 +80,16 @@
                             ><span class="nav-title">Inicio</span></a
                         >
                     </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            title="Perfil"
+                            (click)="onClick('/editar-perfil', '')"
+                            ><i class="fas fa-user"></i
+                            ><span class="nav-title">Perfil</span></a
+                        >
+                    </li>
                     <ng-container *ngIf="isAdmin">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                title="Perfil"
-                                (click)="onClick('/editar-perfil', '')"
-                                ><i class="fas fa-user"></i
-                                ><span class="nav-title">Perfil</span></a
-                            >
-                        </li>
                         <li class="nav-item">
                             <a
                                 class="nav-link"
@@ -125,15 +125,6 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link"
-                                title="Perfil"
-                                (click)="onClick('/editar-perfil', '')"
-                                ><i class="fas fa-user"></i
-                                ><span class="nav-title">Perfil</span></a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
                                 title="Pedidos"
                                 (click)="onClick('/pedidos', '')"
                                 ><i class="fas fa-receipt"></i
@@ -144,15 +135,6 @@
                         </li>
                     </ng-container>
                     <ng-container *ngIf="isCliente">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                title="Perfil"
-                                (click)="onClick('/editar-perfil', '')"
-                                ><i class="fas fa-user"></i
-                                ><span class="nav-title">Perfil</span></a
-                            >
-                        </li>
                         <li class="nav-item">
                             <a
                                 class="nav-link"

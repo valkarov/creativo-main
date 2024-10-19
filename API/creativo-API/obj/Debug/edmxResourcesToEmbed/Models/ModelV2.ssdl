@@ -189,6 +189,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="WorkshopId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="lastDigits" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="price" Type="real" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkshopPhotos">
     <Key>

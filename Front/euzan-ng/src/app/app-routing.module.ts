@@ -127,6 +127,11 @@ const routes: Routes = [
         canActivate: [emprendimientoGuard],
     },
     {
+        path: "pagos/:entrepeneurshipId",
+        component: GestionPagosComponent,
+        canActivate: [emprendimientoGuard],
+    },
+    {
         path: "entradas",
         component: EntradasComponent,
         canActivate: [clienteGuard],
@@ -147,7 +152,6 @@ const routes: Routes = [
         component: GestionPagosComponent,
         canActivate: [emprendimientoGuard],
     },
-
     {
         path: "solicitudes",
         component: GestionSolicitudesComponent,

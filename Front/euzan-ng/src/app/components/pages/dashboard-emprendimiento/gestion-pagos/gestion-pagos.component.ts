@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Cliente } from "src/app/interfaces/cliente";
 import {
@@ -29,12 +29,12 @@ export class GestionPagosComponent {
         private service: TalleresPagoService,
         private tallerService: TalleresService,
         private clientService: UsersService,
-        private cookieService: CookieService,
-        private router: Router
+        private router: Router,
+        private rou: ActivatedRoute
     ) {
         this.service
             .getSelectedList(
-                "byEntre" + "/" + this.cookieService.get("cookieEMPRENDIMIENTO")
+                "byEntre" + "/" + this.rou.snapshot.params["entrepeneurshipId"]
             )
             .subscribe({
                 next: (data) => {
@@ -140,31 +140,28 @@ export class GestionPagosComponent {
     }
 
     contactarCliente(pago: TallerPago) {
-        this.clientService.get("User", pago.IdClient).subscribe({
+        this.service.getUser(pago.Id).subscribe({
             next: (data) => {
-                const cliente: Cliente = data;
-                console.log(cliente);
-
                 // Mostrar SweetAlert con enlaces
                 Swal.fire({
                     title: "Contactar Cliente",
                     html: `
             <div style="font-size: 16px; text-align: center;">
-              <p><strong>Nombre:</strong> ${cliente.FirstName}</p>
+              <p><strong>Nombre:</strong> ${data.FirstName}</p>
               <p>
                 <strong>Correo:</strong> 
-                <a href="mailto:${cliente.Email}" 
+                <a href="mailto:${data.Email}" 
                    style="color: #1a73e8; text-decoration: underline; font-weight: bold;"
                    target="_blank">
-                   ${cliente.Email}
+                   ${data.Email}
                 </a>
               </p>
               <p>
                 <strong>WhatsApp:</strong> 
-                <a href="https://wa.me/506${cliente.Phone}" 
+                <a href="https://wa.me/506${data.Phone}" 
                    style="color: #25d366; text-decoration: underline; font-weight: bold;"
                    target="_blank">
-                   ${cliente.Phone}
+                   ${data.Phone}
                 </a>
               </p>
             </div>

@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using creativo_API.Models;
+using creativo_API.Services;
 
 namespace creativo_API.Controllers
 {
@@ -17,10 +18,18 @@ namespace creativo_API.Controllers
     public class WorkshopsController : ApiController
     {
         private CreativoDBV2Entities db = new CreativoDBV2Entities();
+        private SessionService sessionService = SessionService.Instance;
         // GET: api/Workshops
-        public IQueryable<Workshop> GetWorkshops()
+        public List<WorkshopRequestDto> GetWorkshops()
         {
-            return db.Workshops;
+            DateTime now = DateTime.Now;
+            var workshops = db.Workshops.Where(w => now < w.Date).ToList();
+            List<WorkshopRequestDto> workshopDtos = new List<WorkshopRequestDto>();
+            foreach (var workshop in workshops)
+            {
+                workshopDtos.Add(WorkshopRequestDto.workshopRequestDto(workshop));
+            }
+            return workshopDtos;
         }
 
         // GET: api/Workshops/5
@@ -65,6 +74,28 @@ namespace creativo_API.Controllers
         {
             var workshops = db.Workshops.Where(w => w.EntrepeneurshipId == id).ToList();
             List<WorkshopRequestDto> workshopDtos = new List<WorkshopRequestDto>();
+            foreach (var workshop in workshops)
+            {
+                workshopDtos.Add(WorkshopRequestDto.workshopRequestDto(workshop));
+            }
+            return workshopDtos;
+        }
+        [HttpGet]
+        [Route("api/Workshops/ByClient")]
+        public List<WorkshopRequestDto> GetWorkshopsByClient()
+        {
+            
+            string authorization = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            string[] strings = authorization.Split(' ');
+            int userId = sessionService.GetSession(strings[1]);
+            if (userId == -1)
+            {
+                return null;
+            }
+            var workshops = db.Workshops.Where(w => w.WorkShopClients.Any(wc => wc.UserId == userId)).ToList();
+            
+            List<WorkshopRequestDto> workshopDtos = new List<WorkshopRequestDto>();
+
             foreach (var workshop in workshops)
             {
                 workshopDtos.Add(WorkshopRequestDto.workshopRequestDto(workshop));

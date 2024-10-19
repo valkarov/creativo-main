@@ -149,5 +149,30 @@ namespace creativo_API.Controllers
             }
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("api/Users/User")]
+        public IHttpActionResult getUserBySession(){
+            string authorization = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            string[] strings = authorization.Split(' ');
+            int userId = sessionService.GetSession(strings[1]);
+
+            var user = db.Users.Find(userId);
+            UserResponseDto userResponse = new UserResponseDto()
+            {
+                IdClient = user.Cedula,
+                Username = user.UserName,
+                Password = user.Password,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.Phone,
+                Province = user.District.Canton.Province.Name,
+                District = user.District.Name,
+                Canton = user.District.Canton.Name,
+                Role = user.Role.Name
+            };
+            return Ok(userResponse);
+        }
     }
 }

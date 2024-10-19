@@ -17,6 +17,10 @@
                             <h3>{{ obj.Name }}</h3>
                             <p>Tipo: {{ obj.Type }}</p>
                             <p>Precio: {{ obj.Price }}</p>
+                            <p>Fecha: {{ obj.Date }}</p>
+                            <ng-container *ngIf="obj.Type == 'Presencial'">
+                                <p>Lugar: {{ obj.Location }}</p>
+                            </ng-container>
                         </div>
                         <div class="shoscase-hover">
                             <div class="d-table">

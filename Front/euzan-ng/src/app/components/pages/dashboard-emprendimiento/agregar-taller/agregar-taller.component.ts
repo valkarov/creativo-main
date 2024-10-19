@@ -61,7 +61,6 @@ export class AgregarTallerComponent {
             confirmButtonText: "Aceptar",
         }).then((result) => {
             if (result.isConfirmed) {
-                console.log(this.objeto);
                 if (this.editMode) {
                     this.service
                         .update(this.objeto.IdWorkshop, this.objeto)
@@ -79,7 +78,7 @@ export class AgregarTallerComponent {
                 } else {
                     this.objeto.IdEntrepreneurship =
                         this.rou.snapshot.params["entrepeneurshipId"];
-                    this.objeto.IdWorkshop = 1;
+                    this.objeto.IdWorkshop = 0;
                     this.service.add(this.objeto).subscribe({
                         next: (data) => {
                             this.service.successMessage(

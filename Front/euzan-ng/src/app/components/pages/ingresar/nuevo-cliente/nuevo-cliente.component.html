@@ -99,7 +99,7 @@
     <label class="texto" for="Correo" type="submit">Correo:</label>
 </form>
 
-<form class="newsletter-form" *ngIf="editMode == false">
+<form class="newsletter-form">
     <input
         type="password"
         class="form-control"
@@ -175,10 +175,6 @@
     </select>
     <label class="texto" for="Distrito" type="submit">Distrito:</label>
 </form>
-
-<div class="banner-btn">
-    <a (click)="recuperar()">Cambiar Contraseña</a>
-</div>
 
 <div class="banner-btn">
     <a (click)="guardar()">

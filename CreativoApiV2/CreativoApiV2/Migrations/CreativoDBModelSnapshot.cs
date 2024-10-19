@@ -508,11 +508,22 @@ namespace CreativoApiV2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<int>("WorkshopId")
                         .HasColumnType("int");
+
+                    b.Property<string>("lastDigits")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("price")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

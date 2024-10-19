@@ -31,7 +31,6 @@ export class VerTalleresComponent {
         this.service.getList().subscribe({
             next: (data) => {
                 this.talleres = data;
-                console.log(this.talleres);
             },
             error: (err) => {
                 console.log(err);
@@ -72,16 +71,14 @@ export class VerTalleresComponent {
     }
 
     registrarPago(taller: Taller) {
-        this.emService
-            .get("User", taller.IdEntrepreneurship.toString())
-            .subscribe({
-                next: (data) => {
-                    console.log(data);
-                    const temp: Emprendimiento = data;
+        this.emService.get(taller.IdEntrepreneurship.toString()).subscribe({
+            next: (data) => {
+                console.log(data);
+                const temp: Emprendimiento = data;
 
-                    Swal.fire({
-                        title: "Registra tu pago",
-                        html: `
+                Swal.fire({
+                    title: "Registra tu pago",
+                    html: `
             <p>Realiza una transacción SINPE al número <strong>${temp.Sinpe}</strong> a nombre de <strong>${temp.Name}</strong> por <strong>₡${taller.Price}</p>
             
             <label for="input1">Escribe los últimos 4 dígitos de la transacción registrada</label>
@@ -90,76 +87,75 @@ export class VerTalleresComponent {
             <label for="input2" style="margin-top: 15px; display: block;">Escribe el Nombre del Propietario de la Cuenta</label>
             <input type="text" id="input2" class="swal2-input" placeholder="Inés Rodríguez">
           `,
-                        focusConfirm: false,
-                        showCancelButton: true,
-                        confirmButtonText: "Registrar Pago",
-                        cancelButtonText: "Cancelar",
-                        confirmButtonColor: "#3085d6", // Color del botón de confirmar
-                        cancelButtonColor: "#d33", // Color del botón de cancelar
-                        preConfirm: () => {
-                            const input1 = (
-                                document.getElementById(
-                                    "input1"
-                                ) as HTMLInputElement
-                            ).value;
-                            const input2 = (
-                                document.getElementById(
-                                    "input2"
-                                ) as HTMLInputElement
-                            ).value;
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonText: "Registrar Pago",
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#3085d6", // Color del botón de confirmar
+                    cancelButtonColor: "#d33", // Color del botón de cancelar
+                    preConfirm: () => {
+                        const input1 = (
+                            document.getElementById(
+                                "input1"
+                            ) as HTMLInputElement
+                        ).value;
+                        const input2 = (
+                            document.getElementById(
+                                "input2"
+                            ) as HTMLInputElement
+                        ).value;
 
-                            // Validar que input1 tenga exactamente 4 dígitos
-                            if (!/^\d{4}$/.test(input1)) {
-                                Swal.showValidationMessage(
-                                    "Debe ingresar exactamente 4 dígitos numéricos"
-                                );
-                                return false;
-                            }
-
-                            return {
-                                input1: input1,
-                                input2: input2,
-                            };
-                        },
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            console.log(
-                                "Dígitos Transacción:",
-                                result.value?.input1
+                        // Validar que input1 tenga exactamente 4 dígitos
+                        if (!/^\d{4}$/.test(input1)) {
+                            Swal.showValidationMessage(
+                                "Debe ingresar exactamente 4 dígitos numéricos"
                             );
-                            console.log(
-                                "Nombre Propietario:",
-                                result.value?.input2
-                            );
-
-                            const pago: TallerPago = new TallerPago();
-                            pago.Id = 0;
-                            pago.IdClient =
-                                this.cookieService.get("cookieCLIENTE");
-                            pago.IdWorkshop = taller.IdWorkshop;
-                            pago.LastDigits = result.value?.input1;
-                            pago.Owner = result.value?.input2;
-                            pago.Price = taller.Price;
-                            pago.State = "Pendiente";
-
-                            this.pagoService.add(pago).subscribe({
-                                next: (data) => {
-                                    console.log(data);
-                                    this.service.successMessage(
-                                        "Te has suscrito al Taller, en cuanto el emprendimiento verifique tu pago, llegarán las entradas a tu correo",
-                                        "/ver-talleres"
-                                    );
-                                },
-                                error: (err) => {
-                                    console.log(err);
-                                },
-                            });
-                        } else if (result.isDismissed) {
-                            console.log("Acción cancelada");
+                            return false;
                         }
-                    });
-                },
-            });
+
+                        return {
+                            input1: input1,
+                            input2: input2,
+                        };
+                    },
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        console.log(
+                            "Dígitos Transacción:",
+                            result.value?.input1
+                        );
+                        console.log(
+                            "Nombre Propietario:",
+                            result.value?.input2
+                        );
+
+                        const pago: TallerPago = new TallerPago();
+                        pago.Id = 0;
+                        pago.IdClient = this.cookieService.get("cookieCLIENTE");
+                        pago.IdWorkshop = taller.IdWorkshop;
+                        pago.LastDigits = result.value?.input1;
+                        pago.Owner = result.value?.input2;
+                        pago.Price = taller.Price;
+                        pago.State = "Pendiente";
+
+                        this.pagoService.add(pago).subscribe({
+                            next: (data) => {
+                                console.log(data);
+                                this.service.successMessage(
+                                    "Te has suscrito al Taller, en cuanto el emprendimiento verifique tu pago, llegarán las entradas a tu correo",
+                                    "/ver-talleres"
+                                );
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            },
+                        });
+                    } else if (result.isDismissed) {
+                        console.log("Acción cancelada");
+                    }
+                });
+            },
+        });
     }
 
     mensajeSuscripcion(id: number) {
