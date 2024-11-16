@@ -35,6 +35,32 @@ namespace creativo_API.Models
             public string Reason { get; set; }
             public string State { get; set; }
             public EntrepeneurshipSocialRequest[] Socials { get; set; }
+
+            internal static EntrepeneurshipRequestDto MapFromEntrepeneurhip(Entrepeneurship entrepeneurship)
+            {
+                return new EntrepeneurshipRequestDto()
+                {
+                    IdType = entrepeneurship.EntrepeneurshipTypeId.ToString(),
+                    Name = entrepeneurship.Name,
+                    IdEntrepreneurship = entrepeneurship.Id,
+                    Type = entrepeneurship.EntrepeneurshipType.Name,
+                    Email = entrepeneurship.Email,
+                    Sinpe = entrepeneurship.Sinpe,
+                    Phone = entrepeneurship.Phone,
+                    Description = entrepeneurship.Description,
+                    District = entrepeneurship.District.Name,
+                    Province = entrepeneurship.District.Canton.Province.Name,
+                    Canton = entrepeneurship.District.Canton.Name,
+                    Reason = entrepeneurship.Reason,
+                    State = entrepeneurship.state.ToString(),
+                    Socials = entrepeneurship.EntrepeneurshipSocials.Select(s => new EntrepeneurshipSocialRequest()
+                    {
+                        Id = s.Id,
+                        Type = s.Social.SocialType.Name,
+                        Link = s.Social.UserName
+                    }).ToArray()
+                };
+            }
         }
     }
 }

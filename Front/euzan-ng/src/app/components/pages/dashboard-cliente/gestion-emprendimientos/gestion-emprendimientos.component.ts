@@ -63,6 +63,11 @@ export class GestionEmprendimientosComponent {
     goPagos(emprendimiento: Emprendimiento) {
         this.redirigir(`pagos/${emprendimiento.IdEntrepreneurship}`);
     }
+    goOrdenes(emprendimiento: Emprendimiento) {
+        this.redirigir(
+            `ordenes/emprendimiento/${emprendimiento.IdEntrepreneurship}`
+        );
+    }
     aceptarSolicitud(user: string) {
         // Swal.fire({
         //     title: "¿Quieres aceptar la solicitud de administración para este emprendimiento?",

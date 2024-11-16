@@ -24,9 +24,17 @@ namespace creativo_API.Controllers
         private CreativoDBV2Entities db = new CreativoDBV2Entities();
         private SessionService sessionService = SessionService.Instance;
         // GET: api/Entrepeneurships
-        public IQueryable<Entrepeneurship> GetEntrepeneurships()
+        public List<EntrepeneurshipRequestDto> GetEntrepeneurships()
         {
-            return db.Entrepeneurships;
+            List<Entrepeneurship> entrepeneurships = db.Entrepeneurships.ToList();
+            List<EntrepeneurshipRequestDto> entrepeneurshipDtos = new List<EntrepeneurshipRequestDto>();
+            foreach (var item in entrepeneurships)
+            {
+                entrepeneurshipDtos.Add(EntrepeneurshipRequestDto.MapFromEntrepeneurhip(item));
+            }
+
+
+            return entrepeneurshipDtos;
         }
 
         [HttpGet]

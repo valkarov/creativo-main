@@ -111,6 +111,9 @@
     <Property Name="DistrictId" Type="int" Nullable="false" />
     <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
     <Property Name="DeliveryManId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="DeliveryDate" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="State" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Provinces">
     <Key>

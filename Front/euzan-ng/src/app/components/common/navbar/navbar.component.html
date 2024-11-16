@@ -89,6 +89,16 @@
                             ><span class="nav-title">Perfil</span></a
                         >
                     </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            title="Foro"
+                            (click)="onClick('/foro', '')"
+                        >
+                            <i class="fas fa-comment"></i
+                            ><span class="nav-title">Foro</span>
+                        </a>
+                    </li>
                     <ng-container *ngIf="isAdmin">
                         <li class="nav-item">
                             <a
@@ -118,6 +128,26 @@
                             >
                                 <i class="fas fa-user-cog"></i
                                 ><span class="nav-title">Administradores</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Inventario"
+                                (click)="onClick('/editar-inventario', '')"
+                            >
+                                <i class="fas fa-truck"></i
+                                ><span class="nav-title">Inventario</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Ordenes"
+                                (click)="onClick('/ordenes', '')"
+                            >
+                                <i class="fas fa-box"></i
+                                ><span class="nav-title">Ordenes</span>
                             </a>
                         </li>
                     </ng-container>

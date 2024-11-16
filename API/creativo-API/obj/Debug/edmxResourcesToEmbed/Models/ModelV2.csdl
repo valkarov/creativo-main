@@ -124,6 +124,9 @@
     <NavigationProperty Name="OrderProducts" Relationship="Self.FK_OrderProducts_Orders_OrderId" FromRole="Orders" ToRole="OrderProducts" />
     <Property Name="DeliveryManId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_Orders_Users_DeliveryManId" FromRole="Order" ToRole="User" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="State" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Province">
     <Key>

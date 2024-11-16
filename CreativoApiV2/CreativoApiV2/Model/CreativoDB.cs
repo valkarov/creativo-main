@@ -402,7 +402,8 @@ namespace CreativoApiV2.Model
         public string address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public int State;
+
+        public int State { get; set; }
         public int DistrictId { get; set; }
         [ForeignKey("DistrictId")]
         public virtual District District { get; set; }
@@ -412,6 +413,9 @@ namespace CreativoApiV2.Model
         public virtual User DeliveryMan { get; set; }
         public int EntrepeneurshipId { get; set; }
         
+        public DateTime Date { get; set; }
+
+        public DateTime DeliveryDate { get; set; }
 
         [ForeignKey("EntrepeneurshipId")]
         public virtual Entrepeneurship Entrepeneurship { get; set; }

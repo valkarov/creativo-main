@@ -1,0 +1,33 @@
+<div id="home" class="main-banner banner-style-three">
+    <div style="height: max-content" class="container">
+        <div class="section-title">
+            <span class="space">---</span>
+            <h2>Crear Post</h2>
+        </div>
+
+        <form class="newsletter-form">
+            <label for="Nombre">Titulo:</label>
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Titulo"
+                name="Nombre"
+                [(ngModel)]="objeto.Title"
+                required
+            />
+            <label for="Nombre">Descripcion:</label>
+            <textarea
+                class="form-control"
+                placeholder="Descripcion"
+                name="Nombre"
+                [(ngModel)]="objeto.Description"
+                required
+            >
+            </textarea>
+            <div class="banner-btn">
+                <a (click)="crearPost()"> Agregar </a>
+            </div>
+            <hr style="visibility: hidden" />
+        </form>
+    </div>
+</div>

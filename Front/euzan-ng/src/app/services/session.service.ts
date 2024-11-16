@@ -18,9 +18,7 @@ export class SessionService {
         if (token) {
             this.service.getSession(token).subscribe({
                 next: (data) => {
-                    console.log("hola");
                     if (!data) {
-                        console.log("hola");
                         this.logout();
                     }
                 },

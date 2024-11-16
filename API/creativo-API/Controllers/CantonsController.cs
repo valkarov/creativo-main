@@ -18,28 +18,24 @@ namespace creativo_API.Controllers
         private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Cantons
-        public List<Canton> GetCantons()
+        public List<CantonDto> GetCantons()
         {
             List<Canton> cantons = db.Cantons.ToList();
-            foreach (var canton in db.Cantons)
-            {
-                canton.Districts = null;
-            }
-            return cantons;
+            List<CantonDto> cantonsDto = new List<CantonDto>();
+            cantons.ForEach(c => cantonsDto.Add(CantonDto.MapToCantonDto(c)));
+            return cantonsDto;
 
         }
 
         // GET: api/Cantons/Provincia
         [HttpGet]
         [Route("api/Cantons/{province}")]
-        public List<Canton> GetCantones(string province)
+        public List<CantonDto> GetCantones(string province)
         {
             List<Canton> cantons = db.Cantons.Where(e => e.Province.Name == province).ToList();
-            foreach (var canton in db.Cantons)
-            {
-                canton.Districts = null;
-            }
-            return cantons;
+            List<CantonDto> cantonsDto = new List<CantonDto>();
+            cantons.ForEach(c => cantonsDto.Add(CantonDto.MapToCantonDto(c)));
+            return cantonsDto;
 
         }
 

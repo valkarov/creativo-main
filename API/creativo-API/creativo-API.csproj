@@ -278,8 +278,11 @@
     <Compile Include="Controllers\EntrepeneurshipAdminsController.cs" />
     <Compile Include="Controllers\EntrepeneurshipsController.cs" />
     <Compile Include="Controllers\EntrepeneurshipTypesController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\OrdenesController.cs" />
     <Compile Include="Controllers\ProvincesController.cs" />
     <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -301,6 +304,10 @@
     <Compile Include="Models\EntrepeneurshipType.cs">
       <DependentUpon>ModelV2.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ForumDto.cs" />
+    <Compile Include="Models\inventoryDto.cs" />
+    <Compile Include="Models\LocationsDto.cs" />
+    <Compile Include="Models\OrdersDto.cs" />
     <Compile Include="Models\UserDto.cs" />
     <Compile Include="Models\District.cs">
       <DependentUpon>ModelV2.tt</DependentUpon>

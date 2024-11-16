@@ -98,9 +98,17 @@ import { CompletarInfoComponent } from "./components/pages/ingresar/completar-in
 import { GestionPagosComponent } from "./components/pages/dashboard-emprendimiento/gestion-pagos/gestion-pagos.component";
 import { EntradasComponent } from "./components/pages/dashboard-cliente/entradas/entradas.component";
 import { MyHttpInterceptor } from "./services/Interceptor.service";
+import { GestionInventarioComponent } from "./components/pages/dashboard-admin/gestion-inventario/gestion-inventario.component";
+import { CreatePostComponent } from "./create-post/create-post.component";
+import { ForumComponent } from "./forum/forum.component";
+import { PostComponent } from "./post/post.component";
+import { OrdenesComponent } from "./ordenes/ordenes.component";
+import { CrearOrdenComponent } from "./crear-orden/crear-orden.component";
+import { VerOrdenesEmprendedorComponent } from "./ver-ordenes-emprendedor/ver-ordenes-emprendedor.component";
 
 @NgModule({
     declarations: [
+        GestionInventarioComponent,
         AppComponent,
         SassLandingOneComponent,
         AppLandingComponent,
@@ -188,6 +196,12 @@ import { MyHttpInterceptor } from "./services/Interceptor.service";
         CompletarInfoComponent,
         GestionPagosComponent,
         EntradasComponent,
+        CreatePostComponent,
+        ForumComponent,
+        PostComponent,
+        OrdenesComponent,
+        CrearOrdenComponent,
+        VerOrdenesEmprendedorComponent,
     ],
     imports: [
         BrowserModule,

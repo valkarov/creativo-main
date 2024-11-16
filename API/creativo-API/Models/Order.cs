@@ -27,6 +27,9 @@ namespace creativo_API.Models
         public int DistrictId { get; set; }
         public int EntrepeneurshipId { get; set; }
         public int DeliveryManId { get; set; }
+        public System.DateTime Date { get; set; }
+        public System.DateTime DeliveryDate { get; set; }
+        public int State { get; set; }
     
         public virtual District District { get; set; }
         public virtual Entrepeneurship Entrepeneurship { get; set; }

@@ -4,6 +4,7 @@ import { Cliente } from "src/app/interfaces/cliente";
 import { Province, Canton, Distrito } from "src/app/interfaces/lugares";
 import { TempPass } from "src/app/interfaces/temp_pass";
 import { UsersService } from "src/app/services/cliente.service";
+import { EmprendimientoService } from "src/app/services/emprendimiento.service";
 import {
     ProvinciaService,
     CantonService,
@@ -31,6 +32,7 @@ export class NuevoClienteComponent {
         private provinciaService: ProvinciaService,
         private cantonService: CantonService,
         private distritoService: DistritoService,
+        private emprendimientosService: EmprendimientoService,
         private route: Router,
         private rou: ActivatedRoute,
 

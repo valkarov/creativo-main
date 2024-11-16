@@ -99,6 +99,9 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="CreativoDBV2Model.Order">
         <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="DeliveryManId" ColumnName="DeliveryManId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="address" ColumnName="address" />

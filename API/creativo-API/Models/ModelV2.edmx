@@ -116,6 +116,9 @@
           <Property Name="DistrictId" Type="int" Nullable="false" />
           <Property Name="EntrepeneurshipId" Type="int" Nullable="false" />
           <Property Name="DeliveryManId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DeliveryDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Provinces">
           <Key>
@@ -843,6 +846,9 @@
           <NavigationProperty Name="OrderProducts" Relationship="Self.FK_OrderProducts_Orders_OrderId" FromRole="Orders" ToRole="OrderProducts" />
           <Property Name="DeliveryManId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="CreativoDBV2Model.FK_Orders_Users_DeliveryManId" FromRole="Order" ToRole="User" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DeliveryDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="State" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -1595,6 +1601,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="CreativoDBV2Model.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="DeliveryManId" ColumnName="DeliveryManId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="address" ColumnName="address" />

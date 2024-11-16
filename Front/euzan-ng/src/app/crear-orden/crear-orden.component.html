@@ -1,0 +1,185 @@
+<div id="home" class="main-banner banner-style-three banner-bg-five">
+    <div class="container">
+        <h1>Nueva Orden</h1>
+        <div style="height: max-content">
+            <form class="newsletter-form">
+                <label class="texto" for="Distrito" type="submit"
+                    >Emprendimiento:</label
+                >
+                <select
+                    class="form-control"
+                    id="entrepeneurship"
+                    [(ngModel)]="orden.EntrepeneurshipId"
+                    name="entrepeneurship"
+                >
+                    <ng-template
+                        ngFor
+                        let-obj
+                        [ngForOf]="emprendimientos"
+                        let-i="index"
+                    >
+                        <option [value]="obj.IdEntrepreneurship">
+                            {{ obj.Name }}
+                        </option>
+                    </ng-template>
+                </select>
+            </form>
+            <form class="newsletter-form">
+                <label class="texto" for="Telefono" type="submit"
+                    >Teléfono:</label
+                >
+                <input
+                    type="tel"
+                    class="form-control"
+                    placeholder="XXXX-XXXX"
+                    name="Telefono"
+                    [(ngModel)]="orden.Phone"
+                    required
+                    (input)="formatoNumeros($event, 8)"
+                />
+            </form>
+            <form class="newsletter-form">
+                <label class="texto" for="Provincia" type="submit"
+                    >Provincia:</label
+                >
+                <select
+                    class="form-control"
+                    placeholder="Selecciona una provincia"
+                    id="provincia"
+                    [(ngModel)]="provincia"
+                    name="provincia"
+                    (click)="selected()"
+                >
+                    <ng-template
+                        ngFor
+                        let-obj
+                        [ngForOf]="provincias"
+                        let-i="index"
+                    >
+                        <option [value]="obj.Name">{{ obj.Name }}</option>
+                    </ng-template>
+                </select>
+            </form>
+
+            <form class="newsletter-form">
+                <label class="texto" for="Cantón" type="submit">Cantón:</label>
+
+                <select
+                    class="form-control"
+                    id="canton"
+                    [(ngModel)]="canton"
+                    name="Canton"
+                    (click)="selectedcant()"
+                >
+                    <ng-template
+                        ngFor
+                        let-obj
+                        [ngForOf]="cantones"
+                        let-i="index"
+                    >
+                        <option [value]="obj.Name">{{ obj.Name }}</option>
+                    </ng-template>
+                </select>
+            </form>
+
+            <form class="newsletter-form">
+                <label class="texto" for="Distrito" type="submit"
+                    >Distrito:</label
+                >
+                <select
+                    class="form-control"
+                    id="distrito"
+                    [(ngModel)]="orden.City"
+                    name="distrito"
+                >
+                    <ng-template
+                        ngFor
+                        let-obj
+                        [ngForOf]="distritos"
+                        let-i="index"
+                    >
+                        <option [value]="obj.Name">{{ obj.Name }}</option>
+                    </ng-template>
+                </select>
+            </form>
+            <form class="newsletter-form">
+                <label class="texto" for="Apellido" type="submit"
+                    >Direccion:</label
+                >
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Direccion"
+                    name="Direccion"
+                    [(ngModel)]="orden.Address"
+                    required
+                />
+            </form>
+            <label class="texto" for="Distrito" type="submit">Products:</label>
+
+            <ng-template ngFor let-product [ngForOf]="orden.OrderProducts">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p>Producto:</p>
+                        <b>{{ product.Product }}</b>
+                    </div>
+                    <div class="col-md-5">
+                        <p>Cantidad:</p>
+                        <input
+                            type="number"
+                            class="form-control"
+                            placeholder="Cantidad"
+                            name="Cantidad"
+                            [(ngModel)]="product.Quantity"
+                            required
+                        />
+                    </div>
+                    <div class="col-md-2">
+                        <p>Acciones:</p>
+                        <a (click)="eliminarProducto(product)">Eliminar</a>
+                    </div>
+                </div>
+            </ng-template>
+            <br />
+            <div class="row">
+                <div class="col-md-5">
+                    <select
+                        class="form-control"
+                        id="product"
+                        [(ngModel)]="nuevoProducto.Id"
+                        name="product"
+                    >
+                        <ng-template
+                            ngFor
+                            let-obj
+                            [ngForOf]="inventario"
+                            let-i="index"
+                        >
+                            <option [value]="obj.Id">
+                                {{ obj.Name }}
+                            </option>
+                        </ng-template>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Cantidad"
+                        name="Cantidad"
+                        [(ngModel)]="nuevoProducto.Quantity"
+                        required
+                    />
+                </div>
+                <div class="col-md-2">
+                    <a (click)="agregarProducto()">Agregar</a>
+                </div>
+                <div class="banner-btn">
+                    <a (click)="submit()"> Aceptar </a>
+                    <a (click)="redirigir('/ordenes')">Cancelar</a>
+                </div>
+            </div>
+        </div>
+        <br />
+    </div>
+</div>

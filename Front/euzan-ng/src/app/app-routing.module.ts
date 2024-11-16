@@ -32,10 +32,16 @@ import { GestionEmprendimientosComponent } from "./components/pages/dashboard-cl
 import { MisPedidosComponent } from "./components/pages/dashboard-cliente/mis-pedidos/mis-pedidos.component";
 import { Login2Component } from "./components/pages/ingresar/login2/login2.component";
 import { CompletarInfoComponent } from "./components/pages/ingresar/completar-info/completar-info.component";
-import { NuevoClienteComponent } from "./components/pages/ingresar/nuevo-cliente/nuevo-cliente.component";
 import { GestionPagosComponent } from "./components/pages/dashboard-emprendimiento/gestion-pagos/gestion-pagos.component";
 import { EntradasComponent } from "./components/pages/dashboard-cliente/entradas/entradas.component";
 import { combinedGuard } from "./services/combined.guard";
+import { GestionInventarioComponent } from "./components/pages/dashboard-admin/gestion-inventario/gestion-inventario.component";
+import { ForumComponent } from "./forum/forum.component";
+import { CreatePostComponent } from "./create-post/create-post.component";
+import { PostComponent } from "./post/post.component";
+import { OrdenesComponent } from "./ordenes/ordenes.component";
+import { CrearOrdenComponent } from "./crear-orden/crear-orden.component";
+import { VerOrdenesEmprendedorComponent } from "./ver-ordenes-emprendedor/ver-ordenes-emprendedor.component";
 
 const routes: Routes = [
     { path: "", component: InicioComponent },
@@ -183,11 +189,15 @@ const routes: Routes = [
         component: VerOrdenesComponent,
         canActivate: [repartidorGuard],
     },
-
     {
         path: "ver-talleres",
         component: VerTalleresComponent,
         canActivate: [clienteGuard],
+    },
+    {
+        path: "editar-inventario",
+        component: GestionInventarioComponent,
+        canActivate: [adminGuard],
     },
     {
         path: "mis-pedidos",
@@ -211,6 +221,32 @@ const routes: Routes = [
         canActivate: [repartidorGuard],
     },
     { path: "ingresar2", component: Login2Component },
+    { path: "foro", component: ForumComponent, canActivate: [combinedGuard] },
+    {
+        path: "foro/post/:id",
+        component: PostComponent,
+        canActivate: [combinedGuard],
+    },
+    {
+        path: "foro/crearpost",
+        component: CreatePostComponent,
+        canActivate: [combinedGuard],
+    },
+    {
+        path: "ordenes",
+        component: OrdenesComponent,
+        canActivate: [adminGuard],
+    },
+    {
+        path: "ordenes/emprendimiento/:entrepeneurshipId",
+        component: VerOrdenesEmprendedorComponent,
+        canActivate: [emprendimientoGuard],
+    },
+    {
+        path: "crear-orden",
+        component: CrearOrdenComponent,
+        canActivate: [adminGuard],
+    },
 ];
 
 @NgModule({
