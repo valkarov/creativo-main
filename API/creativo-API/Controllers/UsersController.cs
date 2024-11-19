@@ -150,6 +150,25 @@ namespace creativo_API.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("api/Temp_Pass")]
+        public IHttpActionResult TempPass([FromBody] dynamic body)
+        {
+            string username = body.Username;
+            User user = db.Users.Where(u => u.UserName == username).FirstOrDefault();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            string tempPass = Guid.NewGuid().ToString().Substring(0, 8);
+            user.Password = tempPass;
+            db.SaveChanges();
+            MailService.SendEmail(user.Email, "Contraseña Temporal", $"Su contraseña temporal es: {tempPass}", null);
+
+            // Procesa el username según sea necesario
+            return Ok(new { Message = "Username received", Username = username });
+        }
+
         [HttpGet]
         [Route("api/Users/User")]
         public IHttpActionResult getUserBySession(){

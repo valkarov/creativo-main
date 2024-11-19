@@ -103,8 +103,18 @@ export class IngresarComponent {
                         this.temp.Username = value;
                         this.tempService.add(this.temp).subscribe({
                             next: (data) => {
-                                this.temp = data;
-                                resolve();
+                                this.temp = {
+                                    Username: "",
+                                    Email: "",
+                                    Pin: 0,
+                                    NewPass: "",
+                                    State: "",
+                                };
+                                this.service.successMessage(
+                                    "Se ha enviado su nueva contraseña al correo",
+                                    "/ingresar"
+                                ),
+                                    resolve();
                             },
                             error: (err) => {
                                 console.log(err);
@@ -140,72 +150,6 @@ export class IngresarComponent {
                 });
             },
         });
-
-        // Verificar si se obtuvo correctamente el nombre de usuario
-        if (username) {
-            // Pedir el PIN
-
-            const hiddenEmail = this.getObfuscatedEmail(this.temp.Email);
-            const { value: pin } = await Swal.fire({
-                title: "Ingrese su PIN",
-                input: "number",
-                inputPlaceholder: "PIN",
-                showCancelButton: true,
-                confirmButtonText: "Siguiente",
-                cancelButtonText: "Cancelar",
-                html: `<p>Hemos enviado el PIN al correo: ${hiddenEmail}</p>`,
-                inputValidator: (value) => {
-                    return new Promise((resolve) => {
-                        if (!value) {
-                            resolve("¡Necesitas ingresar un PIN!");
-                        } else if (parseInt(value) !== this.temp.Pin) {
-                            resolve("PIN incorrecto."); // Si el PIN no coincide con this.temp.Pin
-                        } else {
-                            console.log("PIN correcto."); // Aquí puedes agregar lógica adicional si el PIN es correcto
-                            resolve(); // Resolver la promesa si el PIN es válido
-                        }
-                    });
-                },
-            });
-
-            // Continuar con el flujo si se proporcionó un PIN válido
-            if (pin) {
-                // Aquí puedes continuar con lo que necesites hacer después de validar el PIN
-                console.log("Usuario validado y PIN ingresado correctamente.");
-
-                // Aquí puedes proceder a pedir una nueva contraseña
-                const { value: newPassword } = await Swal.fire({
-                    title: "Ingrese su nueva contraseña",
-                    input: "password",
-                    inputPlaceholder: "Nueva contraseña",
-                    showCancelButton: true,
-                    confirmButtonText: "Guardar",
-                    cancelButtonText: "Cancelar",
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return "¡Necesitas ingresar una nueva contraseña!";
-                        } else {
-                            this.temp.NewPass = value;
-                            this.temp.State = "Autorizado";
-                            console.log("Nueva contraseña guardada:", value);
-                            this.tempService
-                                .update(this.temp.Username, this.temp)
-                                .subscribe({
-                                    next: (data) =>
-                                        this.service.successMessage(
-                                            "Contraseña Cambiada con éxito",
-                                            "/ingresar"
-                                        ),
-                                    error: (data) =>
-                                        this.service.errorMessage(
-                                            "Algo ha salido mal, intenta de nuevo en unos minutos"
-                                        ),
-                                });
-                        }
-                    },
-                });
-            }
-        }
     }
 
     getObfuscatedEmail(email) {

@@ -13,19 +13,16 @@ namespace creativo_API.Services
     {
         internal static void SendEmail(string toEmail, string subject, string body, string attachmentPath)
         {
-            var fromEmail = "tuemail@dominio.com";
-            var fromPassword = "tucontraseña";
-
-            var smtpClient = new SmtpClient("smtp.dominio.com")
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential(fromEmail, fromPassword),
+                Credentials = new NetworkCredential("clubcreativo95@gmail.com", "rhslulyagacuxvbe"),
                 EnableSsl = true,
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(fromEmail),
+                From = new MailAddress("clubcreativo95@gmail.com"),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true,
