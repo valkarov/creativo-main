@@ -127,7 +127,7 @@ namespace creativo_API.Controllers
         public IHttpActionResult getAdmins()
         {
 
-            List<User> admins = db.Users.Where(u => u.Role.Name == "Admin").ToList();
+            List<User> admins = db.Users.Where(u => u.UserRoles.Any(ur => ur.Role.Name == "ADMIN")).ToList();
             List<UserResponseDto> response = new List<UserResponseDto>();
             foreach (User admin in admins)
             {
@@ -148,6 +148,28 @@ namespace creativo_API.Controllers
                 response.Add(user);
             }
             return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("api/Admins/{id}")]
+        public IHttpActionResult deleteAdmin(string id)
+        {
+            User admin = db.Users.Where(u => u.Cedula == id).FirstOrDefault();
+            if (admin == null)
+            {
+                return NotFound();
+            }
+            if(admin.UserRoles.Where(ur => ur.Role.Name == "ADMIN").FirstOrDefault() == null)
+            {
+                return BadRequest("Este usuario no es un administrador.");
+            }
+            if (admin.UserRoles.Where(ur => ur.Role.Name == "SUPERADMIN").FirstOrDefault() != null)
+            {
+                return BadRequest("No se puede eliminar un Super Administrador.");
+            }
+            db.UserRoles.RemoveRange(admin.UserRoles.Where(ur => ur.Role.Name == "ADMIN"));
+            db.SaveChanges();
+            return Ok();
         }
 
         [HttpPost]
