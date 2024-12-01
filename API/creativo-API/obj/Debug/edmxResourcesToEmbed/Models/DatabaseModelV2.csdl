@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DatabaseModelV2" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="DatabaseModelV2Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Questions" EntityType="DatabaseModelV2.Question" />
+    <EntitySet Name="Provinces" EntityType="DatabaseModelV2.Province" />
+    <EntitySet Name="Cantons" EntityType="DatabaseModelV2.Canton" />
+    <EntitySet Name="Districts" EntityType="DatabaseModelV2.District" />
+    <AssociationSet Name="DistrictCanton" Association="DatabaseModelV2.DistrictCanton">
+      <End Role="District" EntitySet="Districts" />
+      <End Role="Canton" EntitySet="Cantons" />
+    </AssociationSet>
+    <AssociationSet Name="CantonProvince" Association="DatabaseModelV2.CantonProvince">
+      <End Role="Canton" EntitySet="Cantons" />
+      <End Role="Province" EntitySet="Provinces" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="DatabaseModelV2.User" />
+    <EntitySet Name="Roles" EntityType="DatabaseModelV2.Role" />
+    <AssociationSet Name="RoleUser" Association="DatabaseModelV2.RoleUser">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="UserDistrict" Association="DatabaseModelV2.UserDistrict">
+      <End Role="User" EntitySet="Users" />
+      <End Role="District" EntitySet="Districts" />
+    </AssociationSet>
+    <EntitySet Name="Entrepeneurships" EntityType="DatabaseModelV2.Entrepeneurship" />
+    <EntitySet Name="Entrepeneurship_type" EntityType="DatabaseModelV2.Entrepeneurship_type" />
+    <AssociationSet Name="EntrepeneurshipDistrict" Association="DatabaseModelV2.EntrepeneurshipDistrict">
+      <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+      <End Role="District" EntitySet="Districts" />
+    </AssociationSet>
+    <AssociationSet Name="Entrepeneurship_typeEntrepeneurship" Association="DatabaseModelV2.Entrepeneurship_typeEntrepeneurship">
+      <End Role="Entrepeneurship_type" EntitySet="Entrepeneurship_type" />
+      <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+    </AssociationSet>
+    <EntitySet Name="Entrepeneurship_Admins" EntityType="DatabaseModelV2.Entrepeneurship_Admins" />
+    <AssociationSet Name="Entrepeneurship_AdminsEntrepeneurship" Association="DatabaseModelV2.Entrepeneurship_AdminsEntrepeneurship">
+      <End Role="Entrepeneurship_Admins" EntitySet="Entrepeneurship_Admins" />
+      <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+    </AssociationSet>
+    <AssociationSet Name="Entrepeneurship_AdminsUser" Association="DatabaseModelV2.Entrepeneurship_AdminsUser">
+      <End Role="Entrepeneurship_Admins" EntitySet="Entrepeneurship_Admins" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="DatabaseModelV2.Order" />
+    <AssociationSet Name="OrderUser" Association="DatabaseModelV2.OrderUser">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="DeliveryPersonOrder" Association="DatabaseModelV2.DeliveryPersonOrder">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Products" EntityType="DatabaseModelV2.Product" />
+    <EntitySet Name="OrderProducts" EntityType="DatabaseModelV2.OrderProduct" />
+    <AssociationSet Name="OrderProductProduct" Association="DatabaseModelV2.OrderProductProduct">
+      <End Role="OrderProduct" EntitySet="OrderProducts" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="OrderProductOrder" Association="DatabaseModelV2.OrderProductOrder">
+      <End Role="OrderProduct" EntitySet="OrderProducts" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="Workshops" EntityType="DatabaseModelV2.Workshop" />
+    <EntitySet Name="Workshop_photo" EntityType="DatabaseModelV2.Workshop_photo" />
+    <AssociationSet Name="Workshop_photoWorkshop" Association="DatabaseModelV2.Workshop_photoWorkshop">
+      <End Role="Workshop_photo" EntitySet="Workshop_photo" />
+      <End Role="Workshop" EntitySet="Workshops" />
+    </AssociationSet>
+    <AssociationSet Name="WorkshopEntrepeneurship" Association="DatabaseModelV2.WorkshopEntrepeneurship">
+      <End Role="Workshop" EntitySet="Workshops" />
+      <End Role="Entrepeneurship" EntitySet="Entrepeneurships" />
+    </AssociationSet>
+    <EntitySet Name="WorkshopRecords" EntityType="DatabaseModelV2.WorkshopRecord" />
+    <AssociationSet Name="WorkshopRecordWorkshop" Association="DatabaseModelV2.WorkshopRecordWorkshop">
+      <End Role="WorkshopRecord" EntitySet="WorkshopRecords" />
+      <End Role="Workshop" EntitySet="Workshops" />
+    </AssociationSet>
+    <AssociationSet Name="WorkshopRecordUser" Association="DatabaseModelV2.WorkshopRecordUser">
+      <End Role="WorkshopRecord" EntitySet="WorkshopRecords" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Forums" EntityType="DatabaseModelV2.Forum" />
+    <EntitySet Name="Forum_Comment" EntityType="DatabaseModelV2.Forum_Comment" />
+    <AssociationSet Name="Forum_CommentForum" Association="DatabaseModelV2.Forum_CommentForum">
+      <End Role="Forum_Comment" EntitySet="Forum_Comment" />
+      <End Role="Forum" EntitySet="Forums" />
+    </AssociationSet>
+    <AssociationSet Name="UserForum" Association="DatabaseModelV2.UserForum">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Forum" EntitySet="Forums" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" />
+    <Property Name="Answer" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Province">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Cantons" Relationship="DatabaseModelV2.CantonProvince" FromRole="Province" ToRole="Canton" />
+  </EntityType>
+  <EntityType Name="Canton">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Districts" Relationship="DatabaseModelV2.DistrictCanton" FromRole="Canton" ToRole="District" />
+    <NavigationProperty Name="Province" Relationship="DatabaseModelV2.CantonProvince" FromRole="Canton" ToRole="Province" />
+    <Property Name="ProvinceId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="District">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Canton" Relationship="DatabaseModelV2.DistrictCanton" FromRole="District" ToRole="Canton" />
+    <Property Name="CantonId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="DatabaseModelV2.UserDistrict" FromRole="District" ToRole="User" />
+    <NavigationProperty Name="Entrepeneurships" Relationship="DatabaseModelV2.EntrepeneurshipDistrict" FromRole="District" ToRole="Entrepeneurship" />
+  </EntityType>
+  <Association Name="DistrictCanton">
+    <End Type="DatabaseModelV2.District" Role="District" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Canton" Role="Canton" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Canton">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="District">
+        <PropertyRef Name="CantonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CantonProvince">
+    <End Type="DatabaseModelV2.Canton" Role="Canton" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Province" Role="Province" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Province">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Canton">
+        <PropertyRef Name="ProvinceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="Lastname" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="IsAdmin" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <NavigationProperty Name="Roles" Relationship="DatabaseModelV2.RoleUser" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="District" Relationship="DatabaseModelV2.UserDistrict" FromRole="User" ToRole="District" />
+    <Property Name="DistrictId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurship_Admins" Relationship="DatabaseModelV2.Entrepeneurship_AdminsUser" FromRole="User" ToRole="Entrepeneurship_Admins" />
+    <NavigationProperty Name="Orders" Relationship="DatabaseModelV2.OrderUser" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="Orders1" Relationship="DatabaseModelV2.DeliveryPersonOrder" FromRole="User" ToRole="Order" />
+    <NavigationProperty Name="WorkshopRecords" Relationship="DatabaseModelV2.WorkshopRecordUser" FromRole="User" ToRole="WorkshopRecord" />
+    <NavigationProperty Name="Fora" Relationship="DatabaseModelV2.UserForum" FromRole="User" ToRole="Forum" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="DatabaseModelV2.RoleUser" FromRole="Role" ToRole="User" />
+  </EntityType>
+  <Association Name="RoleUser">
+    <End Type="DatabaseModelV2.Role" Role="Role" Multiplicity="*" />
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="*" />
+  </Association>
+  <Association Name="UserDistrict">
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="*" />
+    <End Type="DatabaseModelV2.District" Role="District" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Entrepeneurship">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Sinpe" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <Property Name="State" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <Property Name="Reason" Type="String" Nullable="false" />
+    <NavigationProperty Name="District" Relationship="DatabaseModelV2.EntrepeneurshipDistrict" FromRole="Entrepeneurship" ToRole="District" />
+    <Property Name="DistrictId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurship_type" Relationship="DatabaseModelV2.Entrepeneurship_typeEntrepeneurship" FromRole="Entrepeneurship" ToRole="Entrepeneurship_type" />
+    <Property Name="Entrepeneurship_typeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurship_Admins" Relationship="DatabaseModelV2.Entrepeneurship_AdminsEntrepeneurship" FromRole="Entrepeneurship" ToRole="Entrepeneurship_Admins" />
+    <NavigationProperty Name="Workshops" Relationship="DatabaseModelV2.WorkshopEntrepeneurship" FromRole="Entrepeneurship" ToRole="Workshop" />
+  </EntityType>
+  <EntityType Name="Entrepeneurship_type">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurships" Relationship="DatabaseModelV2.Entrepeneurship_typeEntrepeneurship" FromRole="Entrepeneurship_type" ToRole="Entrepeneurship" />
+  </EntityType>
+  <Association Name="EntrepeneurshipDistrict">
+    <End Type="DatabaseModelV2.Entrepeneurship" Role="Entrepeneurship" Multiplicity="*" />
+    <End Type="DatabaseModelV2.District" Role="District" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="District">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurship">
+        <PropertyRef Name="DistrictId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Entrepeneurship_typeEntrepeneurship">
+    <End Type="DatabaseModelV2.Entrepeneurship_type" Role="Entrepeneurship_type" Multiplicity="1" />
+    <End Type="DatabaseModelV2.Entrepeneurship" Role="Entrepeneurship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurship_type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurship">
+        <PropertyRef Name="Entrepeneurship_typeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Entrepeneurship_Admins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="State" Type="String" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurship" Relationship="DatabaseModelV2.Entrepeneurship_AdminsEntrepeneurship" FromRole="Entrepeneurship_Admins" ToRole="Entrepeneurship" />
+    <Property Name="EntrepeneurshipId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="DatabaseModelV2.Entrepeneurship_AdminsUser" FromRole="Entrepeneurship_Admins" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="Entrepeneurship_AdminsEntrepeneurship">
+    <End Type="DatabaseModelV2.Entrepeneurship_Admins" Role="Entrepeneurship_Admins" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Entrepeneurship" Role="Entrepeneurship" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurship">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurship_Admins">
+        <PropertyRef Name="EntrepeneurshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Entrepeneurship_AdminsUser">
+    <End Type="DatabaseModelV2.Entrepeneurship_Admins" Role="Entrepeneurship_Admins" Multiplicity="*" />
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entrepeneurship_Admins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="State" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="DatabaseModelV2.OrderUser" FromRole="Order" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User1" Relationship="DatabaseModelV2.DeliveryPersonOrder" FromRole="Order" ToRole="User" />
+    <Property Name="DeliveryPersonId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderProducts" Relationship="DatabaseModelV2.OrderProductOrder" FromRole="Order" ToRole="OrderProduct" />
+  </EntityType>
+  <Association Name="OrderUser">
+    <End Type="DatabaseModelV2.Order" Role="Order" Multiplicity="*" />
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DeliveryPersonOrder">
+    <End Type="DatabaseModelV2.Order" Role="Order" Multiplicity="*" />
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="DeliveryPersonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <NavigationProperty Name="OrderProducts" Relationship="DatabaseModelV2.OrderProductProduct" FromRole="Product" ToRole="OrderProduct" />
+  </EntityType>
+  <EntityType Name="OrderProduct">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Product" Relationship="DatabaseModelV2.OrderProductProduct" FromRole="OrderProduct" ToRole="Product" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="DatabaseModelV2.OrderProductOrder" FromRole="OrderProduct" ToRole="Order" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="OrderProductProduct">
+    <End Type="DatabaseModelV2.OrderProduct" Role="OrderProduct" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Product" Role="Product" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OrderProductOrder">
+    <End Type="DatabaseModelV2.OrderProduct" Role="OrderProduct" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Order" Role="Order" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderProduct">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Workshop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Workshop_photo" Relationship="DatabaseModelV2.Workshop_photoWorkshop" FromRole="Workshop" ToRole="Workshop_photo" />
+    <Property Name="Name" Type="String" Nullable="false" />
+    <Property Name="Price" Type="Double" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <Property Name="Link" Type="String" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <NavigationProperty Name="Entrepeneurship" Relationship="DatabaseModelV2.WorkshopEntrepeneurship" FromRole="Workshop" ToRole="Entrepeneurship" />
+    <Property Name="EntrepeneurshipId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="WorkshopRecords" Relationship="DatabaseModelV2.WorkshopRecordWorkshop" FromRole="Workshop" ToRole="WorkshopRecord" />
+  </EntityType>
+  <EntityType Name="Workshop_photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PhotoURL" Type="String" Nullable="false" />
+    <NavigationProperty Name="Workshop" Relationship="DatabaseModelV2.Workshop_photoWorkshop" FromRole="Workshop_photo" ToRole="Workshop" />
+    <Property Name="WorkshopId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="Workshop_photoWorkshop">
+    <End Type="DatabaseModelV2.Workshop_photo" Role="Workshop_photo" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Workshop" Role="Workshop" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Workshop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workshop_photo">
+        <PropertyRef Name="WorkshopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkshopEntrepeneurship">
+    <End Type="DatabaseModelV2.Workshop" Role="Workshop" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Entrepeneurship" Role="Entrepeneurship" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Entrepeneurship">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Workshop">
+        <PropertyRef Name="EntrepeneurshipId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="WorkshopRecord">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Payment" Type="String" Nullable="false" />
+    <Property Name="State" Type="String" Nullable="false" />
+    <NavigationProperty Name="Workshop" Relationship="DatabaseModelV2.WorkshopRecordWorkshop" FromRole="WorkshopRecord" ToRole="Workshop" />
+    <Property Name="WorkshopId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="DatabaseModelV2.WorkshopRecordUser" FromRole="WorkshopRecord" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="WorkshopRecordWorkshop">
+    <End Type="DatabaseModelV2.WorkshopRecord" Role="WorkshopRecord" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Workshop" Role="Workshop" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Workshop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkshopRecord">
+        <PropertyRef Name="WorkshopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkshopRecordUser">
+    <End Type="DatabaseModelV2.WorkshopRecord" Role="WorkshopRecord" Multiplicity="*" />
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkshopRecord">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Forum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" />
+    <NavigationProperty Name="Forum_Comment" Relationship="DatabaseModelV2.Forum_CommentForum" FromRole="Forum" ToRole="Forum_Comment" />
+    <NavigationProperty Name="User" Relationship="DatabaseModelV2.UserForum" FromRole="Forum" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Forum_Comment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Text" Type="String" Nullable="false" />
+    <NavigationProperty Name="Forum" Relationship="DatabaseModelV2.Forum_CommentForum" FromRole="Forum_Comment" ToRole="Forum" />
+    <Property Name="ForumId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="Forum_CommentForum">
+    <End Type="DatabaseModelV2.Forum_Comment" Role="Forum_Comment" Multiplicity="*" />
+    <End Type="DatabaseModelV2.Forum" Role="Forum" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Forum">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Forum_Comment">
+        <PropertyRef Name="ForumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserForum">
+    <End Type="DatabaseModelV2.User" Role="User" Multiplicity="1" />
+    <End Type="DatabaseModelV2.Forum" Role="Forum" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Forum">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

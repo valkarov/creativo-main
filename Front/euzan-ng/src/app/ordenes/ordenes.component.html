@@ -1,0 +1,29 @@
+<div id="home" class="main-banner banner-style-three">
+    <div style="height: max-content" class="container">
+        <div class="section-title">
+            <span class="space">---</span>
+            <h2>Ordenes</h2>
+            <div class="button-agregar">
+                <a (click)="redirigir('/crear-orden')">Nueva Orden</a>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 200px">
+            <ng-template ngFor let-obj [ngForOf]="ordenes" ; let-i="index">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="service-card">
+                        <h3>Orden número {{ obj.Id }}</h3>
+                        <p>Fecha: {{ obj.Date }}</p>
+                        <p>Cliente: {{ obj.entrepeneurship }}</p>
+                        <p>Direccion: {{ obj.Address }}</p>
+                        <p>Estado: {{ obj.Status }}</p>
+                        <div class="banner-btn">
+                            <a id="aceptar" (click)="verProductos(obj)"
+                                >Ver productos</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

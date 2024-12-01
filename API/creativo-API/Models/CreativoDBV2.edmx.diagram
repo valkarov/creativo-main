@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a3bdac82a57f434a828fe51fece8bead" Name="Diagram1" ZoomLevel="52" >
+        <EntityTypeShape EntityType="CreativoDBV2.District" Width="1.5" PointX="0.5" PointY="4.375" />
+        <EntityTypeShape EntityType="CreativoDBV2.Canton" Width="1.5" PointX="0.5" PointY="2.25" />
+        <EntityTypeShape EntityType="CreativoDBV2.Province" Width="1.5" PointX="0.5" PointY="0.5" />
+        <AssociationConnector Association="CreativoDBV2.DistrictCanton" />
+        <AssociationConnector Association="CreativoDBV2.CantonProvince" />
+        <EntityTypeShape EntityType="CreativoDBV2.Question" Width="1.5" PointX="22.75" PointY="1.625" />
+        <EntityTypeShape EntityType="CreativoDBV2.Product" Width="1.5" PointX="1.125" PointY="15.625" />
+        <EntityTypeShape EntityType="CreativoDBV2.OrderProduct" Width="1.5" PointX="1" PointY="12.375" />
+        <AssociationConnector Association="CreativoDBV2.OrderProductProduct" />
+        <EntityTypeShape EntityType="CreativoDBV2.Order" Width="1.5" PointX="2.125" PointY="9.25" />
+        <AssociationConnector Association="CreativoDBV2.OrderProductOrder" />
+        <EntityTypeShape EntityType="CreativoDBV2.Forum" Width="1.5" PointX="10.5" PointY="0.75" />
+        <EntityTypeShape EntityType="CreativoDBV2.Forum_Comment" Width="1.5" PointX="16.75" PointY="0.875" />
+        <AssociationConnector Association="CreativoDBV2.Forum_CommentForum" />
+        <EntityTypeShape EntityType="CreativoDBV2.Entrepeneurship_type" Width="3.375" PointX="3.875" PointY="22.375" />
+        <EntityTypeShape EntityType="CreativoDBV2.Entrepeneurship" Width="2.125" PointX="9.125" PointY="19.5" />
+        <AssociationConnector Association="CreativoDBV2.EntrepeneurshipEntrepeneurship_type" />
+        <EntityTypeShape EntityType="CreativoDBV2.Workshop_photo" Width="1.5" PointX="14.25" PointY="23.875" />
+        <EntityTypeShape EntityType="CreativoDBV2.Workshop" Width="1.5" PointX="14.125" PointY="19.375" />
+        <AssociationConnector Association="CreativoDBV2.Workshop_photoWorkshop" />
+        <AssociationConnector Association="CreativoDBV2.WorkshopEntrepeneurship" />
+        <EntityTypeShape EntityType="CreativoDBV2.User" Width="1.5" PointX="13.625" PointY="10" />
+        <AssociationConnector Association="CreativoDBV2.UserDistrict" />
+        <EntityTypeShape EntityType="CreativoDBV2.Entrepeneurship_Admins" Width="2.125" PointX="9.25" PointY="16.25" />
+        <AssociationConnector Association="CreativoDBV2.Entrepeneurship_AdminsEntrepeneurship" />
+        <AssociationConnector Association="CreativoDBV2.UserEntrepeneurship_Admins" />
+        <AssociationConnector Association="CreativoDBV2.OrderUser" />
+        <AssociationConnector Association="CreativoDBV2.DeliveryPersonId" />
+        <AssociationConnector Association="CreativoDBV2.ForumUser" />
+        <AssociationConnector Association="CreativoDBV2.Forum_CommentUser" />
+        <EntityTypeShape EntityType="CreativoDBV2.Role" Width="1.5" PointX="20.375" PointY="13.125" />
+        <EntityTypeShape EntityType="CreativoDBV2.UserRoles" Width="1.5" PointX="17.25" PointY="13.25" />
+        <AssociationConnector Association="CreativoDBV2.UserRolesUser" ></AssociationConnector>
+        <AssociationConnector Association="CreativoDBV2.UserRolesRole" />
+        <EntityTypeShape EntityType="CreativoDBV2.Workshop_Record" Width="2.25" PointX="14" PointY="15.625" />
+        <AssociationConnector Association="CreativoDBV2.workshop_recordWorkshop" />
+        <AssociationConnector Association="CreativoDBV2.workshop_recordUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

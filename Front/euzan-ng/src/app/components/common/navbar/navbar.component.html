@@ -65,9 +65,9 @@
             </div>
         </div>
         <div
+            *ngIf="!unregistered"
             class="collapse navbar-collapse"
             id="navbarSupportedContent"
-            *ngIf="this.rol.Type == 'ADMIN'"
         >
             <div class="nav-container">
                 <ul>
@@ -76,17 +76,15 @@
                             class="nav-link"
                             title="Inicio"
                             (click)="onClick('/inicio', 'home')"
+                            ><i class="fas fa-home"></i
+                            ><span class="nav-title">Inicio</span></a
                         >
-                            <i class="fas fa-home"></i
-                            ><span class="nav-title">Inicio</span>
-                        </a>
                     </li>
-
                     <li class="nav-item">
                         <a
                             class="nav-link"
                             title="Perfil"
-                            (click)="onClick('/editar-administrador', '')"
+                            (click)="onClick('/editar-perfil', '')"
                             ><i class="fas fa-user"></i
                             ><span class="nav-title">Perfil</span></a
                         >
@@ -94,33 +92,129 @@
                     <li class="nav-item">
                         <a
                             class="nav-link"
-                            title="Solicitudes"
-                            (click)="onClick('/solicitudes', '')"
+                            title="Foro"
+                            (click)="onClick('/foro', '')"
                         >
-                            <i class="fas fa-envelope"></i
-                            ><span class="nav-title">Solicitudes</span>
+                            <i class="fas fa-comment"></i
+                            ><span class="nav-title">Foro</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Preguntas"
-                            (click)="onClick('/preguntas', '')"
-                        >
-                            <i class="fas fa-question-circle"></i
-                            ><span class="nav-title">Preguntas</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Administradores"
-                            (click)="onClick('/administradores', '')"
-                        >
-                            <i class="fas fa-user-cog"></i
-                            ><span class="nav-title">Administradores</span>
-                        </a>
-                    </li>
+                    <ng-container *ngIf="isAdmin">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Solicitudes"
+                                (click)="onClick('/solicitudes', '')"
+                            >
+                                <i class="fas fa-envelope"></i
+                                ><span class="nav-title">Solicitudes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Preguntas"
+                                (click)="onClick('/preguntas', '')"
+                            >
+                                <i class="fas fa-question-circle"></i
+                                ><span class="nav-title">Preguntas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Administradores"
+                                (click)="onClick('/administradores', '')"
+                            >
+                                <i class="fas fa-user-cog"></i
+                                ><span class="nav-title">Administradores</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Inventario"
+                                (click)="onClick('/editar-inventario', '')"
+                            >
+                                <i class="fas fa-truck"></i
+                                ><span class="nav-title">Inventario</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Ordenes"
+                                (click)="onClick('/ordenes', '')"
+                            >
+                                <i class="fas fa-box"></i
+                                ><span class="nav-title">Ordenes</span>
+                            </a>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="isRepartidor">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Pedidos"
+                                (click)="onClick('/pedidos', '')"
+                                ><i class="fas fa-receipt"></i
+                                ><span class="nav-title"
+                                    >Próximas Entregas</span
+                                ></a
+                            >
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="isCliente">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Mis Pedidos"
+                                (click)="onClick('/mis-pedidos', '')"
+                                ><i class="fas fa-box"></i
+                                ><span class="nav-title">Pedidos</span></a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Entradas"
+                                (click)="onClick('/entradas', 'home')"
+                                ><i class="fas fa-ticket-alt"></i>
+                                <span class="nav-title">Entradas</span></a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Explora Talleres"
+                                (click)="onClick('/ver-talleres', '')"
+                                ><i class="fas fa-cut"></i
+                                ><span class="nav-title">Talleres</span></a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Mis Emprendimientos"
+                                (click)="onClick('/mis-emprendimientos', '')"
+                                ><i class="fas fa-briefcase"></i
+                                ><span class="nav-title"
+                                    >Emprendimientos</span
+                                ></a
+                            >
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="isEmprendedor">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                title="Pagos"
+                                (click)="onClick('/pagos', '')"
+                                ><i class="fas fa-dollar-sign"></i
+                                ><span class="nav-title">Pagos</span></a
+                            >
+                        </li>
+                    </ng-container>
                 </ul>
                 <a class="logout" title="Salir" (click)="logOut()">
                     <i class="fas fa-sign-in-alt"></i
@@ -165,288 +259,6 @@
                             onClick('/dashboard-admin', 'administradores')
                         "
                         >Administradores</span
-                    >
-                </li>
-            </ul>
-        </div>
-        <div
-            class="collapse navbar-collapse"
-            id="navbarSupportedContent"
-            *ngIf="this.rol.Type == 'EMPRENDIMIENTO'"
-        >
-            <div class="nav-container">
-                <ul>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Inicio"
-                            (click)="onClick('/inicio', 'home')"
-                            ><i class="fas fa-home"></i
-                            ><span class="nav-title">Inicio</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Perfil"
-                            (click)="onClick('/mi-perfil/emprendimiento', '')"
-                            ><i class="fas fa-user"></i
-                            ><span class="nav-title">Perfil</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Talleres"
-                            (click)="onClick('/talleres', '')"
-                            ><i class="fas fa-cut"></i
-                            ><span class="nav-title">Talleres</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Pagos"
-                            (click)="onClick('/pagos', '')"
-                            ><i class="fas fa-dollar-sign"></i
-                            ><span class="nav-title">Pagos</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Administradores"
-                            (click)="onClick('/emprendimiento-admins', '')"
-                            ><i class="fas fa-user-cog"></i
-                            ><span class="nav-title">Administradores</span></a
-                        >
-                    </li>
-                </ul>
-                <a class="logout" title="Salir" (click)="logOut()"
-                    ><i class="fas fa-sign-in-alt"></i
-                    ><span class="nav-title">Salir</span></a
-                >
-            </div>
-
-            <ul class="navbar-nav ms-auto for-responsive">
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="toggleClass(); onClick('/inicio', 'home')"
-                        >Inicio</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass();
-                            onClick('/mi-perfil/emprendimiento', 'home')
-                        "
-                        >Perfil</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass();
-                            onClick('/dashboard-emprendimiento', 'talleres')
-                        "
-                        >Talleres</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass();
-                            onClick(
-                                '/dashboard-emprendimiento',
-                                'administradores'
-                            )
-                        "
-                        >Administradores</span
-                    >
-                </li>
-            </ul>
-            <div class="navbar-btn">
-                <a (click)="volverCuenta()">Volver a Cliente</a>
-            </div>
-        </div>
-        <div
-            class="collapse navbar-collapse"
-            id="navbarSupportedContent"
-            *ngIf="this.rol.Type == 'CLIENTE'"
-        >
-            <div class="nav-container">
-                <ul>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Inicio"
-                            (click)="onClick('/inicio', 'home')"
-                            ><i class="fas fa-home"></i
-                            ><span class="nav-title">Inicio</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Perfil"
-                            (click)="onClick('/mi-perfil/cliente/cliente', '')"
-                            ><i class="fas fa-user"></i
-                            ><span class="nav-title">Perfil</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Mis Pedidos"
-                            (click)="onClick('/mis-pedidos', '')"
-                            ><i class="fas fa-box"></i
-                            ><span class="nav-title">Pedidos</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Entradas"
-                            (click)="onClick('/entradas', 'home')"
-                            ><i class="fas fa-ticket-alt"></i>
-                            <span class="nav-title">Entradas</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Explora Talleres"
-                            (click)="onClick('/ver-talleres', '')"
-                            ><i class="fas fa-cut"></i
-                            ><span class="nav-title">Talleres</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Mis Emprendimientos"
-                            (click)="onClick('/mis-emprendimientos', '')"
-                            ><i class="fas fa-briefcase"></i
-                            ><span class="nav-title">Emprendimientos</span></a
-                        >
-                    </li>
-                </ul>
-                <a class="logout" title="Salir" (click)="logOut()"
-                    ><i class="fas fa-sign-in-alt"></i
-                    ><span class="nav-title">Salir</span></a
-                >
-            </div>
-
-            <ul class="navbar-nav ms-auto for-responsive">
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="toggleClass(); onClick('/inicio', 'home')"
-                        >Inicio</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="toggleClass(); onClick('/mis-pedidos', 'home')"
-                        >Perfil</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass(); onClick('/ver-talleres', 'talleres')
-                        "
-                        >Talleres</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass();
-                            onClick('/mis-emprendimientos', 'emprendimientos')
-                        "
-                        >Emprendimientos</span
-                    >
-                </li>
-            </ul>
-        </div>
-        <div
-            class="collapse navbar-collapse"
-            id="navbarSupportedContent"
-            *ngIf="this.rol.Type == 'REPARTIDOR'"
-        >
-            <div class="nav-container">
-                <ul>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Inicio"
-                            (click)="onClick('/inicio', 'home')"
-                            ><i class="fas fa-home"></i
-                            ><span class="nav-title">Inicio</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Perfil"
-                            (click)="
-                                onClick('/mi-perfil/repartidor/repartidor', '')
-                            "
-                            ><i class="fas fa-user"></i
-                            ><span class="nav-title">Perfil</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            title="Pedidos"
-                            (click)="onClick('/pedidos', '')"
-                            ><i class="fas fa-receipt"></i
-                            ><span class="nav-title">Próximas Entregas</span></a
-                        >
-                    </li>
-                </ul>
-                <a class="logout" title="Salir" (click)="logOut()"
-                    ><i class="fas fa-sign-in-alt"></i
-                    ><span class="nav-title">Salir</span></a
-                >
-            </div>
-
-            <ul class="navbar-nav ms-auto for-responsive">
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="toggleClass(); onClick('/inicio', 'home')"
-                        >Inicio</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass();
-                            onClick('/dashboard-repartidor', 'about')
-                        "
-                        >Perfil</span
-                    >
-                </li>
-                <li class="nav-item">
-                    <span
-                        class="nav-link"
-                        (click)="
-                            toggleClass();
-                            onClick('/dashboard-repartidor', 'pricing')
-                        "
-                        >Pedidos</span
                     >
                 </li>
             </ul>

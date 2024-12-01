@@ -14,10 +14,27 @@ namespace creativo_API.Models
     
     public partial class Order
     {
-        public int IdOrder { get; set; }
-        public string Address { get; set; }
-        public string State { get; set; }
-        public string IdDeliveryPerson { get; set; }
-        public string IdClient { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Order()
+        {
+            this.OrderProducts = new HashSet<OrderProduct>();
+        }
+    
+        public int Id { get; set; }
+        public string address { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+        public int DistrictId { get; set; }
+        public int EntrepeneurshipId { get; set; }
+        public int DeliveryManId { get; set; }
+        public System.DateTime Date { get; set; }
+        public System.DateTime DeliveryDate { get; set; }
+        public int State { get; set; }
+    
+        public virtual District District { get; set; }
+        public virtual Entrepeneurship Entrepeneurship { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual User User { get; set; }
     }
 }

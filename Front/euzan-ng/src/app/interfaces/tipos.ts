@@ -1,7 +1,9 @@
 export interface TiposInterface {
-    type:string
+    Id: string;
+    Name: string;
 }
 
-export class Tipos implements TiposInterface{
-    type!:string
+export class Tipos implements TiposInterface {
+    Id!: string;
+    Name!: string;
 }

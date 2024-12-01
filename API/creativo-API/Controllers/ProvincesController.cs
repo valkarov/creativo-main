@@ -1,31 +1,32 @@
-﻿using System;
+﻿using creativo_API.Models;
+using iText.Layout.Element;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProvincesController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Provinces
-        public IQueryable<Province> GetProvinces()
+        public List<ProvinceDto> GetProvinces()
         {
-            return db.Provinces;
+            List<Province> provinces = db.Provinces.ToList();
+            List<ProvinceDto> provincesDto = new List<ProvinceDto>();
+            provinces.ForEach(p => provincesDto.Add(ProvinceDto.MapToProvinceDto(p)));
+            return provincesDto;
         }
 
         // GET: api/Provinces/5
-        [ResponseType(typeof(Province))]
+        [ResponseType(typeof(ProvinceDto))]
         public IHttpActionResult GetProvince(string id)
         {
             Province province = db.Provinces.Find(id);
@@ -34,7 +35,7 @@ namespace creativo_API.Controllers
                 return NotFound();
             }
 
-            return Ok(province);
+            return Ok(ProvinceDto.MapToProvinceDto(province));
         }
 
         // PUT: api/Provinces/5

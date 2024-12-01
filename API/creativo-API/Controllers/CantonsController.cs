@@ -1,39 +1,46 @@
-﻿using System;
+﻿using creativo_API.Models;
+using Microsoft.Ajax.Utilities;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using creativo_API.Models;
 
 namespace creativo_API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CantonsController : ApiController
     {
-        private creativoDBEntity db = new creativoDBEntity();
+        private CreativoDBV2Entities db = new CreativoDBV2Entities();
 
         // GET: api/Cantons
-        public IQueryable<Canton> GetCantons()
+        public List<CantonDto> GetCantons()
         {
-            return db.Cantons;
+            List<Canton> cantons = db.Cantons.ToList();
+            List<CantonDto> cantonsDto = new List<CantonDto>();
+            cantons.ForEach(c => cantonsDto.Add(CantonDto.MapToCantonDto(c)));
+            return cantonsDto;
+
         }
 
         // GET: api/Cantons/Provincia
         [HttpGet]
         [Route("api/Cantons/{province}")]
-        public IQueryable<Canton> GetCantones(string province)
+        public List<CantonDto> GetCantones(string province)
         {
-            return db.Cantons.Where(e => e.Province == province);
+            List<Canton> cantons = db.Cantons.Where(e => e.Province.Name == province).ToList();
+            List<CantonDto> cantonsDto = new List<CantonDto>();
+            cantons.ForEach(c => cantonsDto.Add(CantonDto.MapToCantonDto(c)));
+            return cantonsDto;
+
         }
 
-            // GET: api/Cantons/5
-            [ResponseType(typeof(Canton))]
+        // GET: api/Cantons/5
+        [ResponseType(typeof(Canton))]
         public IHttpActionResult GetCanton(string id)
         {
             Canton canton = db.Cantons.Find(id);

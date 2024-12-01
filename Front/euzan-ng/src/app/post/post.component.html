@@ -1,0 +1,56 @@
+<div id="home" class="main-banner banner-style-three">
+    <div style="height: max-content" class="container">
+        <div *ngIf="!!forumPost" class="section-title">
+            <span class="space">---</span>
+            <h2>{{ forumPost.Title }}</h2>
+            <p>
+                {{ forumPost.Description }}
+            </p>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3>Comentarios</h3>
+                    <div
+                        *ngFor="let comment of forumPost.ForumComments"
+                        class="comment"
+                    >
+                        <div class="service-card">
+                            <div
+                                *ngIf="admin || comment.IsYours"
+                                class="comment-aux"
+                            >
+                                <a
+                                    title="Inicio"
+                                    (click)="deleteComment(comment.Id)"
+                                    ><i class="fas fa-trash"></i
+                                ></a>
+                            </div>
+                            <div class="comment-header">
+                                <h4>{{ comment.Usuario }}</h4>
+                                <span>{{
+                                    comment.Date | date : "dd/MM/yyyy"
+                                }}</span>
+                            </div>
+                            <p>{{ comment.Comment }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="service-card">
+                    <h3>Comenta</h3>
+                    <textarea
+                        [(ngModel)]="comment"
+                        class="form-control"
+                        placeholder="Escribe tu comentario"
+                    ></textarea>
+                    <br />
+                    <button (click)="addComment()" class="btn btn-primary">
+                        Comentar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
