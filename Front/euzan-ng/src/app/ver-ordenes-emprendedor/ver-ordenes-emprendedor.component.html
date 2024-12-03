@@ -13,17 +13,18 @@
                         <p>Cliente: {{ obj.entrepeneurship }}</p>
                         <p>Direccion: {{ obj.Address }}</p>
                         <p>Estado: {{ obj.Status }}</p>
+
                         <div class="banner-btn">
                             <a id="aceptar" (click)="verProductos(obj)"
                                 >Ver productos</a
                             >
                         </div>
                         <div
-                            *ngIf="obj.Status != 'Devuelto'"
+                            *ngIf="obj.Status == 'Entregado'"
                             class="banner-btn"
                         >
                             <a id="aceptar" (click)="devolverOrdenConfirm(obj)"
-                                >Confirmar devolución</a
+                                >Marcar como listo para devolver</a
                             >
                         </div>
                     </div>
