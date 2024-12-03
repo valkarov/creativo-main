@@ -44,9 +44,11 @@ export class VerOrdenesEmprendedorComponent {
         });
     }
     devolverOrdenConfirm(Order: Order) {
-        this.service.changeStatus(Order.Id, "Devuelto").subscribe(() => {
-            this.reload();
-        });
+        this.service
+            .changeStatus(Order.Id, "Listo Para Devolucion")
+            .subscribe(() => {
+                this.reload();
+            });
     }
     redirigir(url: string) {
         this.router.navigate([url]);
