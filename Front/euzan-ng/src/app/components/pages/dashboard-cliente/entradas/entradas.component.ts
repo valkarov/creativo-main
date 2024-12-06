@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
-import { Taller } from "src/app/interfaces/talleres";
+import { Taller, TallerInterface } from "src/app/interfaces/talleres";
 import { EmprendimientoService } from "src/app/services/emprendimiento.service";
 import {
     TallerClientesService,
@@ -37,6 +37,18 @@ export class EntradasComponent {
                 console.log(err);
             },
         });
+    }
+
+    generateGoogleCalendarUrl(taller: Taller): void {
+        const baseUrl =
+            "https://www.google.com/calendar/render?action=TEMPLATE";
+        const text = encodeURIComponent(taller.Name);
+        const dates = encodeURIComponent(taller.Date); // Assuming Date is in the correct format
+        const details = encodeURIComponent(taller.Description);
+        const location = encodeURIComponent(taller.Location);
+
+        const calendarUrl = `${baseUrl}&text=${text}&dates=${dates}&details=${details}&location=${location}`;
+        window.open(calendarUrl, "_blank");
     }
 
     downloadPdf(taller: Taller) {
