@@ -24,6 +24,11 @@ export class UsersService extends ConexionService<UsersInterface> {
             Password: password,
         });
     }
+    changePassword(password: string): Observable<any> {
+        return this.httpClient.post("https://localhost:44301/api/Users/Pass", {
+            password: password,
+        });
+    }
     getSession(sessionId): Observable<any> {
         return this.httpClient.post(
             "https://localhost:44301/api/Users/Login/Session",
