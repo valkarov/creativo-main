@@ -70,11 +70,17 @@ export class IngresarComponent {
             this.service.login(this.usuario, this.pass).subscribe({
                 next: (data) => {
                     this.error = false;
-                    this.SessionService.login(data.token, data.roles);
-                    this.service.successMessage(
-                        "¡Bienvenido a tu cuenta!",
-                        "/ingresar"
-                    );
+                    if (!data.JustReset) {
+                        this.SessionService.login(data.token, data.roles);
+                        this.service.successMessage(
+                            "¡Bienvenido a tu cuenta!",
+                            "/ingresar"
+                        );
+                        return;
+                    } else {
+                        this.SessionService.login(data.token, data.roles);
+                        this.cambiarContrasena();
+                    }
                 },
                 error: (err) => {
                     this.error = true;
@@ -84,6 +90,34 @@ export class IngresarComponent {
         }
         this.error = true;
         this.errorMessage = "Completa los espacios en blanco";
+    }
+
+    async cambiarContrasena() {
+        const { value: username } = await Swal.fire({
+            title: "Necesitamos que cambies tu contraseña",
+            input: "password",
+            inputPlaceholder: "Contraseña",
+            showCancelButton: true,
+            confirmButtonText: "Siguiente",
+            cancelButtonText: "Cancelar",
+            inputValidator: (value) => {
+                return new Promise((resolve) => {
+                    if (!value) {
+                        resolve("¡Necesitas escribir algo!");
+                    } else {
+                        this.service.changePassword(value).subscribe({
+                            next: (data) => {
+                                this.service.successMessage(
+                                    "Has cambiado tu contraseña, muchas gracias",
+                                    "/ingresar"
+                                ),
+                                    resolve();
+                            },
+                        });
+                    }
+                });
+            },
+        });
     }
 
     async recuperar() {
