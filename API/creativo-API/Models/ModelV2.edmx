@@ -189,6 +189,7 @@
           <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="JustReset" Type="bit" />
         </EntityType>
         <EntityType Name="WorkShopClients">
           <Key>
@@ -925,6 +926,7 @@
           <NavigationProperty Name="UserRoles" Relationship="CreativoDBV2Model.FK_UserRoles_Users_UserId" FromRole="User" ToRole="UserRole" />
           <NavigationProperty Name="ForumComments" Relationship="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" FromRole="User" ToRole="ForumComment" />
           <NavigationProperty Name="Forums" Relationship="CreativoDBV2Model.FK_Forums_Users_AuthorId" FromRole="User" ToRole="Forum" />
+          <Property Name="JustReset" Type="Boolean" />
         </EntityType>
         <EntityType Name="WorkShopClient">
           <Key>
@@ -1670,6 +1672,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CreativoDBV2Model.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="JustReset" ColumnName="JustReset" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Cedula" ColumnName="Cedula" />

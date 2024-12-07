@@ -184,6 +184,7 @@
     <Property Name="Cedula" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JustReset" Type="bit" />
   </EntityType>
   <EntityType Name="WorkShopClients">
     <Key>

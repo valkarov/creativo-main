@@ -203,6 +203,7 @@
     <NavigationProperty Name="UserRoles" Relationship="CreativoDBV2Model.FK_UserRoles_Users_UserId" FromRole="User" ToRole="UserRole" />
     <NavigationProperty Name="ForumComments" Relationship="CreativoDBV2Model.FK_ForumComments_Users_AuthorId" FromRole="User" ToRole="ForumComment" />
     <NavigationProperty Name="Forums" Relationship="CreativoDBV2Model.FK_Forums_Users_AuthorId" FromRole="User" ToRole="Forum" />
+    <Property Name="JustReset" Type="Boolean" />
   </EntityType>
   <EntityType Name="WorkShopClient">
     <Key>

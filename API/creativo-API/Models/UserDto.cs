@@ -19,6 +19,7 @@ namespace creativo_API.Models
     {
         public string token { get; set; }
         public string[] roles { get; set; }
+        public bool? justReset { get; set; }
     }
     public class UserSessionRequestDto
     {

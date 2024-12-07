@@ -423,3 +423,7 @@ C:\Users\metal\OneDrive\Documentos\github\creativo\creativo-main\API\creativo-AP
 C:\Users\metal\OneDrive\Documentos\github\creativo\creativo-main\API\creativo-API\obj\Debug\creativo.DE9B5D8D.Up2Date
 C:\Users\metal\OneDrive\Documentos\github\creativo\creativo-main\API\creativo-API\obj\Debug\creativo-API.dll
 C:\Users\metal\OneDrive\Documentos\github\creativo\creativo-main\API\creativo-API\obj\Debug\creativo-API.pdb
+C:\Users\metal\OneDrive\Documentos\github\oldercreativo\New folder\creativo-main\API\creativo-API\obj\Debug\creativo-API.csproj.AssemblyReference.cache
+C:\Users\metal\OneDrive\Documentos\github\oldercreativo\New folder\creativo-main\API\creativo-API\obj\Debug\creativo-API.csproj.CoreCompileInputs.cache
+C:\Users\metal\OneDrive\Documentos\github\oldercreativo\New folder\creativo-main\API\creativo-API\obj\Debug\creativo-API.dll
+C:\Users\metal\OneDrive\Documentos\github\oldercreativo\New folder\creativo-main\API\creativo-API\obj\Debug\creativo-API.pdb

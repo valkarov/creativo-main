@@ -168,6 +168,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="CreativoDBV2Model.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="JustReset" ColumnName="JustReset" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="Cedula" ColumnName="Cedula" />

@@ -29,7 +29,8 @@ namespace creativo_API.Controllers
             var result = new UserSessionLoginDto()
             {
                 token = session,
-                roles = userLogin.UserRoles.Select(ur => ur.Role.Name).ToArray()
+                roles = userLogin.UserRoles.Select(ur => ur.Role.Name).ToArray(),
+                justReset = userLogin.JustReset
             };
             return Ok(result);
         }
@@ -63,6 +64,25 @@ namespace creativo_API.Controllers
                 return Ok(session);
             else
                 return Unauthorized();
+        }
+        [HttpPost]
+        [Route("api/Users/Pass")]
+        public IHttpActionResult ChangePassword([FromBody] dynamic body)
+        {
+            string authorization = Request.Headers.GetValues("Authorization").FirstOrDefault();
+            string[] strings = authorization.Split(' ');
+            int userId = sessionService.GetSession(strings[1]);
+
+            var user = db.Users.Find(userId);
+            string password = body.Password;
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.Password = password;
+            user.JustReset = false;
+            db.SaveChanges();
+            return Ok();
         }
         [HttpPost]
         public IHttpActionResult PostClient(ClientRequestDto user)
@@ -204,6 +224,7 @@ namespace creativo_API.Controllers
             }
             string tempPass = Guid.NewGuid().ToString().Substring(0, 8);
             user.Password = tempPass;
+            user.JustReset = true;
             db.SaveChanges();
             MailService.SendEmail(user.Email, "Contraseña Temporal", $"Su contraseña temporal es: {tempPass}", null);
 
