@@ -238,10 +238,7 @@ export class IngresarComponent {
                 this.error = false;
                 // this.rol = data;
                 console.log(this.rol);
-                this.cookieService.set(
-                    "cookie" + this.rol.Type,
-                    this.rol.Username
-                );
+                this.SessionService.login(data.token, data.roles);
                 this.service.successMessage(
                     "¡Bienvenido a tu cuenta!",
                     "/ingresar"
