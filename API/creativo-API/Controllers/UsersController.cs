@@ -35,6 +35,26 @@ namespace creativo_API.Controllers
         }
 
         [HttpPost]
+        [Route("api/Users/Google")]
+        public IHttpActionResult GoogleLogin([FromBody]dynamic body)
+        {
+            string email = body.email;
+            User userLogin = db.Users.Where(u => u.Email == email).FirstOrDefault();
+            if (userLogin == null)
+            {
+                return BadRequest("Login Failed");
+            }
+            string session = sessionService.AddSession(userLogin.Id);
+            var result = new UserSessionLoginDto()
+            {
+                token = session,
+                roles = userLogin.UserRoles.Select(ur => ur.Role.Name).ToArray()
+            };
+            return Ok(result);
+        }
+
+
+        [HttpPost]
         [Route("api/Users/Login/Session")]
         public IHttpActionResult UserLoginSession(UserSessionRequestDto sessionRequest)
         {

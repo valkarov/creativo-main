@@ -232,12 +232,8 @@ export class IngresarComponent {
 
         // Buscar valores específicos
         const email = this.findValueByKey(decoded, "email");
-        const family_name = this.findValueByKey(decoded, "family_name");
-        const given_name = this.findValueByKey(decoded, "given_name");
 
-        const user = email.split("@")[0].replace(/\./g, "");
-
-        this.service.get("Google", user).subscribe({
+        this.service.ingresarGoogle(email).subscribe({
             next: (data) => {
                 this.error = false;
                 // this.rol = data;
